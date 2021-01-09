@@ -43,7 +43,8 @@ export default {
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
         // https://firebase.nuxtjs.org/guide/getting-started
-        '@nuxtjs/firebase',
+        '@nuxtjs/pwa',
+        '@nuxtjs/firebase'
     ],
     firebase: 
       {
@@ -65,7 +66,7 @@ export default {
               onAuthStateChangedAction: 'onAuthStateChangedAction',
               subscribeManually: false
             },
-            ssr: false, // default
+            ssr: true, // default
           },
         }
       },
@@ -73,6 +74,24 @@ export default {
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
     axios: {},
+
+    pwa: {
+      // disable the modules you don't need
+      meta: false,
+      icon: false,
+      // if you omit a module key form configuration sensible defaults will be applied
+      // manifest: false,
+  
+      workbox: {
+        importScripts: [
+          // ...
+          '/firebase-auth-sw.js'
+        ],
+        // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+        // only set this true for testing and remember to always clear your browser cache in development
+        dev: process.env.NODE_ENV === 'development',
+      }
+    },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {

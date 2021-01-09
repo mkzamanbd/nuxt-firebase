@@ -150,7 +150,7 @@
                                     <li><a class="dropdown-item" href="change_password.html">Change Password</a></li>
                                     <li><a class="dropdown-item" href="profile_gallery.html">Gallery</a></li>
                                     <hr>
-                                    <li><a class="dropdown-item" href="#" @click="Logout()">Log Out</a></li>
+                                    <li><a class="dropdown-item" href="#" @click.prevent="Logout">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -172,7 +172,7 @@
             Logout(){
                 this.$fire.auth.signOut().then(() => {
                     // Sign-out successful.
-                    this.$router.push('/')
+                    window.location.reload()
                 }).catch((error) => {
                     // An error happened.
                     console.log(error);

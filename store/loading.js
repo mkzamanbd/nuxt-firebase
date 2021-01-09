@@ -10,7 +10,7 @@ export const mutations = {
     }
 }
 
-export const action = {
+export const actions = {
     setLoadingStatus(vuexContext, data){
         vuexContext.commit('setLoading', data)
     }
