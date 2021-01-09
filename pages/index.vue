@@ -144,7 +144,6 @@ export default {
             }).catch(error =>{
                 this.isLoading = false
                 this.errorMessage = error.message
-                console.log(error)
             })
 
         }

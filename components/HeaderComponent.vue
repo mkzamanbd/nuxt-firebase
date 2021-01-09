@@ -163,6 +163,14 @@
 
 <script>
     export default {
+        computed:{
+            currentUser(){
+                return this.$store.state.authUser;
+            }
+        },
+        mounted(){
+            console.log(this.currentUser)
+        },
         methods:{
             asideExpand(){
                 document.querySelector(".page-aside").classList.toggle("hide")

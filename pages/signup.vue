@@ -28,7 +28,7 @@
                         </p>
 
                         <!-- form -->
-                        <form @submit.prevent="submitCredentials()">
+                        <form @submit.prevent="register">
                             <div class="row g-3">
                                 <!-- user ID -->
                                 <div class="col-12">
@@ -93,8 +93,8 @@ export default {
     data(){
         return{
             credentials:{
-                email: 'admin@directory.com',
-                password: '123456'
+                email: '',
+                password: ''
             },
             isLoading: false
         }
@@ -115,9 +115,18 @@ export default {
                 document.querySelector('.bi-eye-fill').classList.remove("bi-eye-slash-fill");
             }
         },
-        submitCredentials(){
+
+        register(){
             this.isLoading = true
-            console.log(this.credentials)            
+            console.log(this.credentials)
+            this.$fire.auth.createUserWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
+                //response
+                console.log(response.user)
+
+            }).catch(error =>{
+                this.isLoading = false
+                this.errorMessage = error.message
+            })
         }
     }
 }
