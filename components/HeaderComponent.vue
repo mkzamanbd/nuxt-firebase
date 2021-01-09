@@ -136,19 +136,15 @@
                                             <div class="d-flex align-items-center my-2">
                                                 <img src="@/assets/template/resources/images/user/user.jpg" class="user-icon" alt="">
                                                 <div class="ms-2">
-                                                    <h6>Musab Osman</h6>
-                                                    <div class="text-small">
-                                                        musabosman3104@gmail.com
-                                                    </div>
+                                                    <h6>PhoneBook Admin</h6>
+                                                    <p class="text-small">{{ currentUser.email }}</p>
                                                 </div>
                                             </div>
                                         </a>
                                     </li>
                                     <hr>
                                     <li><a class="dropdown-item" href="user_settings.html">Settings</a></li>
-                                    <li><a class="dropdown-item" href="attendance.html">Attendance</a></li>
                                     <li><a class="dropdown-item" href="change_password.html">Change Password</a></li>
-                                    <li><a class="dropdown-item" href="profile_gallery.html">Gallery</a></li>
                                     <hr>
                                     <li><a class="dropdown-item" href="#" @click.prevent="Logout">Log Out</a></li>
                                 </ul>

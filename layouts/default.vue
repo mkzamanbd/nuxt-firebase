@@ -1,6 +1,21 @@
 <template>
     <div>
-        <Nuxt />
+        <!-- sidebar -->
+        <AsideComponent/>
+        <!-- End sidebar -->
+
+        <!-- page-aside-layer -->
+        <PageAsideLayer/>
+
+        <div class="mainbar">
+            <!-- HeaderComponent -->
+            <HeaderComponent/>
+
+            <!-- table -->
+            <Nuxt />
+
+        </div>
+        
     </div>
 </template>
 

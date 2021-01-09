@@ -1,21 +1,8 @@
 <template>
-    <div>
-        <!-- sidebar -->
-        <AsideComponent/>
-        <!-- End sidebar -->
-
-        <!-- page-aside-layer -->
-        <PageAsideLayer/>
-
-
-        <div class="mainbar">
-            <HeaderComponent/>
-
-            <div class="container">
-                <h1>Dashboard</h1>
-            </div>
+    <div class="deshboard">
+        <div class="container">
+            <h1>Dashboard</h1>
         </div>
-
     </div>
 </template>
 
@@ -25,7 +12,6 @@ export default {
     head:{
         title: 'Dashboard'
     },
-    middleware:['auth']
 }
 </script>
 

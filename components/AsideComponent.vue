@@ -27,8 +27,8 @@
                 </a>
 
                 <ul id="purchase" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#asideAccordion">
-                    <li><nuxt-link to="/admin/users" class="nav-link">All Records</nuxt-link></li>
-                    <li><nuxt-link to="/admin/users/create" class="nav-link">New Entry</nuxt-link></li>
+                    <li><nuxt-link to="/admin/employee" class="nav-link">All Records</nuxt-link></li>
+                    <li><nuxt-link to="/admin/employee/create" class="nav-link">New Entry</nuxt-link></li>
                 </ul>
             </li>
 
