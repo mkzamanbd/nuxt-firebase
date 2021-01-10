@@ -27,6 +27,7 @@ export default {
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
         //'~/plugins/firebase.js'
+        '~/plugins/vue-awesome-notifications.js'
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -46,51 +47,50 @@ export default {
         '@nuxtjs/pwa',
         '@nuxtjs/firebase'
     ],
-    firebase: 
-      {
+    firebase:{
         config: {
-          apiKey: 'AIzaSyDbvDaiazS5fJVcFu5l0AbhUvx8GBYsnYs',
-          authDomain: 'directory-list-77c3f.firebaseapp.com',
-          databaseURL: 'https://directory-list-77c3f-default-rtdb.firebaseio.com/',
-          projectId: 'directory-list-77c3f',
-          storageBucket: 'directory-list-77c3f.appspot.com',
-          messagingSenderId: '226712188132',
-          appId: '1:226712188132:web:fa08f3bf4591fc888368f1',
-          measurementId: 'G-M1KYMXZGZ4'
+            apiKey: 'AIzaSyDbvDaiazS5fJVcFu5l0AbhUvx8GBYsnYs',
+            authDomain: 'directory-list-77c3f.firebaseapp.com',
+            databaseURL: 'https://directory-list-77c3f-default-rtdb.firebaseio.com/',
+            projectId: 'directory-list-77c3f',
+            storageBucket: 'directory-list-77c3f.appspot.com',
+            messagingSenderId: '226712188132',
+            appId: '1:226712188132:web:fa08f3bf4591fc888368f1',
+            measurementId: 'G-M1KYMXZGZ4'
         },
         services: {
-          auth: {
-            persistence: 'local', // default
-            initialize: {
-              onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
-              onAuthStateChangedAction: 'onAuthStateChangedAction',
-              subscribeManually: false
+            auth: {
+                persistence: 'local', // default
+                initialize: {
+                    onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+                    onAuthStateChangedAction: 'onAuthStateChangedAction',
+                    subscribeManually: false
+                },
+                ssr: true, // default
             },
-            ssr: true, // default
-          },
+            firestore: true
         }
-      },
-    
+    },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
     axios: {},
 
     pwa: {
-      // disable the modules you don't need
-      meta: false,
-      icon: false,
-      // if you omit a module key form configuration sensible defaults will be applied
-      // manifest: false,
-  
-      workbox: {
-        importScripts: [
-          // ...
-          '/firebase-auth-sw.js'
-        ],
-        // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
-        // only set this true for testing and remember to always clear your browser cache in development
-        dev: process.env.NODE_ENV === 'development',
-      }
+        // disable the modules you don't need
+        meta: false,
+        icon: false,
+        // if you omit a module key form configuration sensible defaults will be applied
+        // manifest: false,
+
+        workbox: {
+            importScripts: [
+                // ...
+                '/firebase-auth-sw.js'
+            ],
+            // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+            // only set this true for testing and remember to always clear your browser cache in development
+            dev: process.env.NODE_ENV === 'development',
+        }
     },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)

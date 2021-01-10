@@ -15,7 +15,7 @@
             <Nuxt />
 
         </div>
-        
+
     </div>
 </template>
 

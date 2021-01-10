@@ -75,7 +75,7 @@
                                     <div class="text-center mt-1">
                                         <a href="#">See all</a>
                                     </div>
-                                    
+
                                 </ul>
                             </li>
                             <!-- Settings -->
@@ -134,7 +134,7 @@
                                     <li>
                                         <a class="dropdown-item" href="user_profile.html">
                                             <div class="d-flex align-items-center my-2">
-                                                <img src="@/assets/template/resources/images/user/user.jpg" class="user-icon" alt="">
+                                                <img src="~/assets/template/resources/images/user/user.jpg" class="user-icon" alt="">
                                                 <div class="ms-2">
                                                     <h6>PhoneBook Admin</h6>
                                                     <p class="text-small">{{ currentUser.email }}</p>
@@ -165,7 +165,7 @@
             }
         },
         mounted(){
-            console.log(this.currentUser)
+            //console.log(this.currentUser)
         },
         methods:{
             asideExpand(){
