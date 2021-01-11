@@ -136,7 +136,6 @@
 </template>
 
 <script>
-import { app, db } from '~/plugins/firebase.js'
 
 export default {
     name: 'NewEmployeeComponent',
@@ -182,10 +181,11 @@ export default {
                 email: '',
                 image: ''
             }
+            this.progressBar = 0
         },
         saveEmployee(){
             this.$store.dispatch('loading/setLoadingStatus', true)
-            db.collection('employees').add(this.form).then((snapshot) =>{
+            this.$fire.firestore.collection('employees').add(this.form).then((snapshot) =>{
                 this.$store.dispatch('loading/setLoadingStatus', false)
                 this.reset_form()
             })
@@ -197,7 +197,7 @@ export default {
             if(file){
 
                 //upload image
-                let storageRef = app.storage().ref('employees/'+ Math.random() + '_'  + file.name);
+                let storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
             
                 let uploadTask  = storageRef.put(file);
             
@@ -221,7 +221,7 @@ export default {
             }
 
             if(this.form.image){
-                app.storage().refFromURL(this.form.image).delete().then(function(){
+                this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
                     console.log('delete old image')
                 }).catch( (error) =>{
                     console.log(error)

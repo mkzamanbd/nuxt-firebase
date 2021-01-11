@@ -195,7 +195,7 @@
 </template>
 
 <script>
-import { app, db } from '~/plugins/firebase.js'
+
 export default {
     head:{
         title: 'Employee List'
@@ -224,7 +224,7 @@ export default {
     methods:{
 
         reloadEmoloyees(){
-            db.collection("employees").onSnapshot((querySnapshot) => {
+            this.$fire.firestore.collection("employees").onSnapshot((querySnapshot) => {
                 this.employees = []
                 querySnapshot.forEach((doc) => {
                     this.employees.push(doc)
@@ -232,7 +232,7 @@ export default {
             });
         },
         loadEmployees(){
-            db.collection('employees').get().then((querySnapshot) => {
+            this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     this.employees.push(doc)
                 });
@@ -248,10 +248,8 @@ export default {
         },
 
         updateEmployee(){
-
-            console.log(this.employee_uid)
             // // update employee information
-            db.collection("employees").doc(this.employee_uid).update(this.form).then((response)=> {
+            this.$fire.firestore.collection("employees").doc(this.employee_uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
                 this.reloadEmoloyees()
             })
@@ -268,14 +266,14 @@ export default {
             if(confirm('Are You Sure?')){
                 //delete image form storage
                 if(employee.data().image){
-                    app.storage().refFromURL(employee.data().image).delete().then(function(){
+                    this.$fire.storage.refFromURL(employee.data().image).delete().then(function(){
                         console.log('delete image')
                     }).catch( (error) =>{
                         console.log(error)
                     });
                 }
                 
-                db.collection("employees").doc(employee.id).delete().then((response) => {
+                this.$fire.firestore.collection("employees").doc(employee.id).delete().then((response) => {
 
                     console.log("Document successfully deleted!");
                     
@@ -294,7 +292,7 @@ export default {
             if(file){
 
                 //upload image
-                let storageRef = app.storage().ref('employees/'+ Math.random() + '_'  + file.name);
+                let storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
             
                 let uploadTask  = storageRef.put(file);
             
@@ -318,7 +316,7 @@ export default {
             }
 
             if(this.form.image){
-                app.storage().refFromURL(this.form.image).delete().then(function(){
+                this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
                     console.log('delete old image')
                 }).catch( (error) =>{
                     console.log(error)

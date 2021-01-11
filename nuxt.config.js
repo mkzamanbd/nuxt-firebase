@@ -68,7 +68,8 @@ export default {
                 },
                 ssr: true, // default
             },
-            firestore: true
+            firestore: true,
+            storage: true,
         }
     },
 
