@@ -1,7 +1,7 @@
 <template>
     <div class="dashboard">
         <div class="container">
-            <h1>Dashboard</h1>
+            <h1 @click="makeToast">Dashboard</h1>
         </div>
     </div>
 </template>
@@ -12,6 +12,15 @@ export default {
     head:{
         title: 'Dashboard'
     },
+    mounted(){
+        
+    },
+
+    methods:{
+        makeToast(){
+            this.$bvToast.toast('User Successfully Loggedin')
+        }
+    }
 }
 </script>
 

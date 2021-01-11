@@ -90,6 +90,15 @@
                                         </div>
                                     </div>
 
+                                    <div class="row mb-2">
+                                        <div class="col-3">
+                                            <label for="image" class="form-label required mt-1">Official Email Address</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="file" class="form-control" id="image" @change="UserImage(this)">
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-9 offset-3">
                                             <button type="submit" class="btn custom-btn btn-success me-2">Submit</button>
@@ -146,18 +155,14 @@ export default {
     methods:{
         saveEmployee(){
             this.$store.dispatch('loading/setLoadingStatus', true)
-            db.collection('employees').add({
-                name: this.form.name,
-                corporate_number: this.form.corporate_number,
-                bcs_batch: this.form.bcs_batch,
-                blood_group: this.form.blood_group,
-                facebook: this.form.facebook,
-                email: this.form.email,
-            }).then(snapshot =>{
-                console.log(snapshot)
+            db.collection('employees').add(this.form).then((snapshot) =>{
                 this.$store.dispatch('loading/setLoadingStatus', false)
             })
         },
+
+        UserImage(image){
+            console.log(image)
+        }
     }
 
 }

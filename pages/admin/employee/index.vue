@@ -51,20 +51,108 @@
 
                                     <tr v-for="(employee, index) in employees" :key="index">
                                         <th scope="row">{{ index + 1}}</th>
-                                        <td>{{ employee.name }}</td>
-                                        <td>{{ employee.corporate_number }}</td>
+                                        <td>{{ employee.data().name }}</td>
+                                        <td>{{ employee.data().corporate_number }}</td>
                                         <td class="print-none text-end">
-                                            <a href="" class="btn table-small-button" title="View">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="" class="btn table-small-button" title="Return">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
+                                            <button type="button" @click="editEmoloyee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#editEmoloyee"><i class="bi bi-pencil-square"></i></button>
+
+                                            <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee.id)" title="Return">
+                                                <i class="bi bi-x-square"></i>
+                                            </button>
                                         </td>
                                     </tr>
 
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="modal fade" ref="my-modal" id="editEmoloyee" style="display: none" tabindex="-1" aria-labelledby="editEmoloyeeLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <form @submit.prevent="updateEmployee">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editEmoloyeeLabel">Edit Emoloyee</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-body">                                        
+                                            <div class="row g-3 justify-content-center">
+                                                <!-- type text -->
+                                                <div class="col-8">
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="inline-text" class="form-label required mt-1">Name</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.name" id="inline-text" placeholder="Name" autofocus>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="corporate-number" class="form-label required mt-1">Corporate Number</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="017 XX XXX XXX">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="bcs-batch" class="form-label required mt-1">BCS Batch</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.bcs_batch" id="bcs-batch" placeholder="BCS Batch">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="facebook" class="form-label required mt-1">Facebook</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.facebook" id="facebook" placeholder="Facebook Link">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="blood-group" class="form-label required mt-1">Blood Group</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.blood_group" id="blood-group" placeholder="Blood Group">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="official-email" class="form-label required mt-1">Official Email Address</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.email" id="official-email" placeholder="Official Email Address">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="image" class="form-label required mt-1">Official Email Address</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="file" class="form-control" id="image" @change="UserImage(this)">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn custom-btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn custom-btn btn-success">Update</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -96,7 +184,16 @@ export default {
     },
     data(){
         return{
-            employees: []
+            employees: [],
+            form:{
+                name: '',
+                corporate_number:'+880',
+                bcs_batch: '',
+                blood_group: '',
+                facebook: '',
+                email: '',
+            },
+            employee_uid: null
         }
     },
 
@@ -104,23 +201,57 @@ export default {
         this.loadEmployees()
     },
     methods:{
-        loadEmployees(){
-            db.collection('employees').get().then(querySnapshot => {
-                // do something with documents
-                this.employees = querySnapshot.docs.map(doc => doc.data())
 
-                console.log(this.employees)
-            }).catch(error =>{
+        reloadEmoloyees(){
+            db.collection("employees").onSnapshot((querySnapshot) => {
+                this.employees = []
+                querySnapshot.forEach((doc) => {
+                    this.employees.push(doc)
+                });
+            });
+        },
+        loadEmployees(){
+            db.collection('employees').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.employees.push(doc)
+                });
+
+            }).catch((error) =>{
                 console.log(error)
             })
         },
 
-        deleteEmployee(uid){
-            db.collection("employees").doc(uid).delete().then(function() {
-                console.log("Document successfully deleted!");
-            }).catch(function(error) {
-                console.error("Error removing document: ", error);
+        editEmoloyee(employee){
+            this.form = employee.data()
+            this.employee_uid = employee.id
+        },
+
+        updateEmployee(){
+
+            console.log(this.employee_uid)
+            // // update employee information
+            db.collection("employees").doc(this.employee_uid).update(this.form).then((response)=> {
+                console.log("Document successfully updated!");
+                this.reloadEmoloyees()
+            })
+            .catch((error) => {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
             });
+        },
+
+        deleteEmployee(uid){
+            console.log(uid)
+            if(confirm('Are You Sure?')){
+                db.collection("employees").doc(uid).delete().then((response) => {
+                    console.log("Document successfully deleted!");
+                    
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+                this.reloadEmoloyees()
+            }
+            
         }
     }
 }
