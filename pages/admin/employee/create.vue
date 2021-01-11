@@ -101,7 +101,44 @@
 
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label for="image" class="form-label required mt-1">Official Email Address</label>
+                                            <label for="division" class="form-label required mt-1">Location</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <select class="form-select" id="division" v-model="form.division_id" @change="getDistricts">
+                                                        <option value="" selected>Choose Division</option>
+                                                        <option :value="division.id" v-for="(division, index) in divisions" :key="index">{{ division.name }}</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <select class="form-select" id="district" v-model="form.district_id" @change="getUpazilas">
+                                                        <option value="" selected>Choose District</option>
+                                                        <option :value="district.id" v-for="(district, index) in districts" :key="index">{{ district.name }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-2">
+                                                <div class="col-6">
+                                                    <select class="form-select" id="upazilas" v-model="form.upazila_id">
+                                                        <option value="" selected>Choose Upazila</option>
+                                                        <option :value="upazila.id" v-for="(upazila, index) in upazilas" :key="index">{{ upazila.name }}</option>
+                                                    </select>
+                                                </div>    
+
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control" v-model="form.address" id="address" placeholder="Address">
+                                                </div>    
+                                            </div>                                            
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-2">
+                                        <div class="col-3">
+                                            <label for="image" class="form-label required mt-1">Photo</label>
                                         </div>
                                         <div class="col-9">
                                             <input type="file" class="form-control" id="image" @change="userImage">
@@ -152,24 +189,54 @@ export default {
                 blood_group: '',
                 facebook: '',
                 email: '',
+                division_id: '',
+                district_id: '',
+                upazila_id: '',
+                address: '',
                 image: ''
             },
-            progressBar: 0
+        
+            progressBar: 0,
+            divisions: [],
+            districts: [],
+            upazilas: [],
         }
     },
     mounted() {
-
-        /*fireDb.collection('employees').get().then(querySnapshot => {
-            const documents = querySnapshot.docs.map(doc => doc.data())
-            // do something with documents
-            console.log(documents)
-        })*/
-        //this.writeToFirestore()
+        this.getDivisions()
     },
-    computed: {
 
-    },
     methods:{
+        getDivisions(){
+            this.$fire.firestore.collection('divisions').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.divisions.push(doc.data())
+                });
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
+
+        getDistricts(){
+            this.$fire.firestore.collection('districts').where('division_id', '==', this.form.division_id).get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.districts.push(doc.data())
+                });
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
+
+        getUpazilas(){
+            this.$fire.firestore.collection('upazilas').where('district_id', '==', this.form.district_id).get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.upazilas.push(doc.data())
+                });
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
+
         reset_form(){
             this.form = {
                 name: '',
@@ -179,6 +246,10 @@ export default {
                 blood_group: '',
                 facebook: '',
                 email: '',
+                division_id: '',
+                district_id: '',
+                upazila_id: '',
+                address: '',
                 image: ''
             }
             this.progressBar = 0

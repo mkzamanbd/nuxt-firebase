@@ -57,7 +57,7 @@
                                         <td class="text-center"><img :src="employee.data().image" alt="image" width="100px" class="img-thumbnail"></td>
                                         <td class="print-none text-center">
                                             
-                                            <nuxt-link to="/employee/id" class="btn table-small-button btn-success text-light p-1"><i class="bi bi-eye"></i></nuxt-link>
+                                            <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button btn-success text-light p-1"><i class="bi bi-eye"></i></nuxt-link>
                                             <button type="button" @click="editEmoloyee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#editEmoloyee"><i class="bi bi-pencil-square"></i></button>
 
                                             <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee)" title="Return">
@@ -261,8 +261,7 @@ export default {
 
         deleteEmployee(employee){
             //delete employee
-            //console.log(employee.id)
-
+            
             if(confirm('Are You Sure?')){
                 //delete image form storage
                 if(employee.data().image){
