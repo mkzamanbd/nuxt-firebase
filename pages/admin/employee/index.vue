@@ -45,7 +45,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col" class="text-center">Image</th>
-                                        <th scope="col" class="print-none text-end">Action</th>
+                                        <th scope="col" class="print-none text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +55,9 @@
                                         <td>{{ employee.data().name }}</td>
                                         <td>{{ employee.data().corporate_number }}</td>
                                         <td class="text-center"><img :src="employee.data().image" alt="image" width="100px" class="img-thumbnail"></td>
-                                        <td class="print-none text-end">
+                                        <td class="print-none text-center">
+                                            
+                                            <nuxt-link to="/employee/id" class="btn table-small-button btn-success text-light p-1"><i class="bi bi-eye"></i></nuxt-link>
                                             <button type="button" @click="editEmoloyee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#editEmoloyee"><i class="bi bi-pencil-square"></i></button>
 
                                             <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee)" title="Return">

@@ -171,10 +171,23 @@ export default {
 
     },
     methods:{
+        reset_form(){
+            this.form = {
+                name: '',
+                corporate_number:'+880',
+                personal_number:'+880',
+                bcs_batch: '',
+                blood_group: '',
+                facebook: '',
+                email: '',
+                image: ''
+            }
+        },
         saveEmployee(){
             this.$store.dispatch('loading/setLoadingStatus', true)
             db.collection('employees').add(this.form).then((snapshot) =>{
                 this.$store.dispatch('loading/setLoadingStatus', false)
+                this.reset_form()
             })
         },
 
