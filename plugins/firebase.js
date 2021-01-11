@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
-import 'firebase/firestore'
+import 'firebase/firestore';
+import 'firebase/storage';
 
 //firebase config
 const firebaseConfig = {
@@ -20,5 +21,6 @@ if (!firebase.apps.length){
 }
 
 const db = firebase.firestore()
+//const fbs = firebase.storage()
 
-export { db }
+export { app, db }

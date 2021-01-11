@@ -99,6 +99,12 @@ export default {
     server:{
         host: '',
         port: '5000'
-    }
+    },
+    
+    loading: {
+        continuous: true,
+        color: '#ffcc07',
+        height: '3px'
+    },
 
 }

@@ -50,7 +50,16 @@
                                             <label for="corporate-number" class="form-label required mt-1">Corporate Number</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="017 XX XXX XXX">
+                                            <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="01X XX XXX XXX">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <div class="col-3">
+                                            <label for="personal-number" class="form-label required mt-1">Personal Number</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" class="form-control" v-model="form.personal_number" id="corporate-number" placeholder="01X XX XXX XXX">
                                         </div>
                                     </div>
 
@@ -95,14 +104,20 @@
                                             <label for="image" class="form-label required mt-1">Official Email Address</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="file" class="form-control" id="image" @change="UserImage(this)">
+                                            <input type="file" class="form-control" id="image" @change="userImage">
+                                            <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-9 offset-3">
+                                            <div class="mb-2" v-if="progressBar > 0">
+                                                <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
+                                            </div>
+
                                             <button type="submit" class="btn custom-btn btn-success me-2">Submit</button>
                                             <button type="reset" class="btn custom-btn btn-secondary me-2">Reset</button>
+                                        
                                         </div>
                                     </div>
 
@@ -121,7 +136,7 @@
 </template>
 
 <script>
-import { db } from '~/plugins/firebase.js'
+import { app, db } from '~/plugins/firebase.js'
 
 export default {
     name: 'NewEmployeeComponent',
@@ -133,11 +148,14 @@ export default {
             form:{
                 name: '',
                 corporate_number:'+880',
+                personal_number:'+880',
                 bcs_batch: '',
                 blood_group: '',
                 facebook: '',
-                email: ''
-            }
+                email: '',
+                image: ''
+            },
+            progressBar: 0
         }
     },
     mounted() {
@@ -160,8 +178,42 @@ export default {
             })
         },
 
-        UserImage(image){
-            console.log(image)
+        userImage(e){
+            let file = e.target.files[0];
+
+            if(file){
+
+                //upload image
+                let storageRef = app.storage().ref('employees/'+ Math.random() + '_'  + file.name);
+            
+                let uploadTask  = storageRef.put(file);
+            
+                uploadTask.on('state_changed', (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    this.progressBar = progress
+                
+                },(error) => {
+                    // Handle unsuccessful uploads
+                },(response) => {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        this.form.image = downloadURL;
+                        console.log("image Uri: " + this.form.image)
+                    });
+                });
+            }
+
+            if(this.form.image){
+                app.storage().refFromURL(this.form.image).delete().then(function(){
+                    console.log('delete old image')
+                }).catch( (error) =>{
+                    console.log(error)
+                })
+            }
         }
     }
 

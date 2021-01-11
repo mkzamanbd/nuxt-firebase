@@ -44,6 +44,7 @@
                                         <th scope="col">SL</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Phone</th>
+                                        <th scope="col" class="text-center">Image</th>
                                         <th scope="col" class="print-none text-end">Action</th>
                                     </tr>
                                 </thead>
@@ -53,10 +54,11 @@
                                         <th scope="row">{{ index + 1}}</th>
                                         <td>{{ employee.data().name }}</td>
                                         <td>{{ employee.data().corporate_number }}</td>
+                                        <td class="text-center"><img :src="employee.data().image" alt="image" width="100px" class="img-thumbnail"></td>
                                         <td class="print-none text-end">
                                             <button type="button" @click="editEmoloyee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#editEmoloyee"><i class="bi bi-pencil-square"></i></button>
 
-                                            <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee.id)" title="Return">
+                                            <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee)" title="Return">
                                                 <i class="bi bi-x-square"></i>
                                             </button>
                                         </td>
@@ -94,6 +96,15 @@
                                                         </div>
                                                         <div class="col-8">
                                                             <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="017 XX XXX XXX">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-4">
+                                                            <label for="personal-number" class="form-label required mt-1">Personal Number</label>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="text" class="form-control" v-model="form.personal_number" id="corporate-number" placeholder="01X XX XXX XXX">
                                                         </div>
                                                     </div>
 
@@ -138,7 +149,11 @@
                                                             <label for="image" class="form-label required mt-1">Official Email Address</label>
                                                         </div>
                                                         <div class="col-8">
-                                                            <input type="file" class="form-control" id="image" @change="UserImage(this)">
+                                                            <input type="file" class="form-control" id="image" @change="userImage">
+                                                            <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail">
+                                                            <div class="mb-2 mt-2" v-if="progressBar > 0">
+                                                                <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -146,6 +161,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
+                                            
                                             <button type="button" class="btn custom-btn btn-danger" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn custom-btn btn-success">Update</button>
                                         </div>
@@ -177,7 +193,7 @@
 </template>
 
 <script>
-import { db } from '~/plugins/firebase.js'
+import { app, db } from '~/plugins/firebase.js'
 export default {
     head:{
         title: 'Employee List'
@@ -188,11 +204,14 @@ export default {
             form:{
                 name: '',
                 corporate_number:'+880',
+                personal_number:'+880',
                 bcs_batch: '',
                 blood_group: '',
                 facebook: '',
                 email: '',
+                image: ''
             },
+            progressBar: 0,
             employee_uid: null
         }
     },
@@ -240,18 +259,69 @@ export default {
             });
         },
 
-        deleteEmployee(uid){
-            console.log(uid)
+        deleteEmployee(employee){
+            //delete employee
+            //console.log(employee.id)
+
             if(confirm('Are You Sure?')){
-                db.collection("employees").doc(uid).delete().then((response) => {
+                //delete image form storage
+                if(employee.data().image){
+                    app.storage().refFromURL(employee.data().image).delete().then(function(){
+                        console.log('delete image')
+                    }).catch( (error) =>{
+                        console.log(error)
+                    });
+                }
+                
+                db.collection("employees").doc(employee.id).delete().then((response) => {
+
                     console.log("Document successfully deleted!");
                     
                 }).catch((error) => {
+
                     console.error("Error removing document: ", error);
                 });
                 this.reloadEmoloyees()
             }
             
+        },
+
+        userImage(e){
+            let file = e.target.files[0];
+
+            if(file){
+
+                //upload image
+                let storageRef = app.storage().ref('employees/'+ Math.random() + '_'  + file.name);
+            
+                let uploadTask  = storageRef.put(file);
+            
+                uploadTask.on('state_changed', (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    this.progressBar = progress
+                
+                },(error) => {
+                    // Handle unsuccessful uploads
+                },(response) => {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        this.form.image = downloadURL;
+                        console.log("image Uri: " + this.form.image)
+                    });
+                });
+            }
+
+            if(this.form.image){
+                app.storage().refFromURL(this.form.image).delete().then(function(){
+                    console.log('delete old image')
+                }).catch( (error) =>{
+                    console.log(error)
+                })
+            }
         }
     }
 }
