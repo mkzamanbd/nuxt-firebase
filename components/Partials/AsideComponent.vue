@@ -32,19 +32,6 @@
                     </ul>
                 </li>
 
-                <li class="accordion-item">
-                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#sale" aria-expanded="false" aria-controls="sale">
-                        <i class="bi bi-cart3"></i>
-                        <span>Sales</span>
-                    </a>
-
-                    <ul id="sale" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#asideAccordion">
-                        <li><a href="" class="nav-link">All Records</a></li>
-                        <li><a href="" class="nav-link">New Entry</a></li>
-                    </ul>
-                </li>
-
-
             </ul>
         </aside>
     </div>

@@ -289,14 +289,14 @@ export default {
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                         this.form.image = downloadURL;
                         this.progressBar = 0;
-                        console.log("File available at: " + this.form.image)
+                        this.$toast.success('Image successfully uploaded.')
                     });
                 });
             }
 
             if(this.form.image){
                 this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
-                    console.log('delete old image')
+                    this.$toast.success('Old image successfully Deleted, & Updated new Image.')
                 }).catch( (error) =>{
                     console.log(error)
                 })

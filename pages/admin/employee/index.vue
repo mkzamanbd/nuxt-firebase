@@ -218,10 +218,6 @@
 
                     </div>
 
-                    <!-- pagination -->
-                    <div class="card-footer print-none text-center">
-                        <button type="button" class="btn btn-outline-success">Load More</button>
-                    </div>
                 </div>
 
             </div>
@@ -238,7 +234,6 @@ export default {
     },
     data(){
         return{
-            employees: [],
             form:{
                 name: '',
                 corporate_number:'+880',
@@ -253,6 +248,7 @@ export default {
                 address: '',
                 image: ''
             },
+
             progressBar: 0,
             divisions: [],
             districts: [],
@@ -260,10 +256,18 @@ export default {
             employee_uid: null
         }
     },
+    async asyncData(ctx) {
+        let employees = [];
+        let querySnapshot = await ctx.$fire.firestore.collection('employees').orderBy('name').get();
+        querySnapshot.forEach((doc) => {
+            employees.push(doc)
+        });
 
-    mounted() {
-        this.loadEmployees()
+        return {
+            employees
+        }
     },
+
     methods:{
         getDivisions(){
             this.$fire.firestore.collection('divisions').get().then((querySnapshot) => {
@@ -303,16 +307,16 @@ export default {
                 });
             });
         },
-        loadEmployees(){
-            this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.employees.push(doc)
-                });
-
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
+        // loadEmployees(){
+        //     this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
+        //         querySnapshot.forEach((doc) => {
+        //             this.employees.push(doc)
+        //         });
+        //
+        //     }).catch((error) =>{
+        //         console.log(error)
+        //     })
+        // },
 
         editEmployee(employee){
             this.getDivisions()
@@ -387,14 +391,15 @@ export default {
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                         this.form.image = downloadURL;
                         this.progressBar = 0;
-                        console.log("File available at: " + this.form.image)
+                        //console.log("File available at: " + this.form.image)
+                        this.$toast.success('Image successfully uploaded.')
                     });
                 });
             }
 
             if(this.form.image){
                 this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
-                    console.log('delete old image')
+                    this.$toast.success('Old image successfully Deleted, & Updated new Image.')
                 }).catch( (error) =>{
                     console.log(error)
                 })
