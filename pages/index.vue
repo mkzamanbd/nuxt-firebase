@@ -129,18 +129,10 @@ export default {
             this.isLoading = true
 
             this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
-                
-                //console.log(response.user)
 
-
-                // response.user.getIdToken(true).then(userToken =>{
-                //     console.log(userToken);
-                // })
-                //console.log(token);
                 window.location.reload()
-                
-                /* this.$router.push('/admin')
-                this.isLoading = false */
+                this.$router.push('/admin')
+                this.isLoading = false
             }).catch(error =>{
                 this.isLoading = false
                 this.errorMessage = error.message

@@ -46,7 +46,8 @@ export default {
         // https://firebase.nuxtjs.org/guide/getting-started
         '@nuxtjs/pwa',
         '@nuxtjs/firebase',
-	'@nuxtjs/toast',
+
+	    '@nuxtjs/toast',
     ],
     firebase:{
         config: {
@@ -108,11 +109,11 @@ export default {
         host: '',
         port: '5000'
     },
-    
+
     loading: {
         continuous: true,
-        color: '#ffcc07',
-        height: '3px'
+        color: '#1390ff',
+        height: '4px'
     },
 
 }
