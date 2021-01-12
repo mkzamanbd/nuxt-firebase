@@ -54,7 +54,10 @@
                                         <th scope="row">{{ index + 1}}</th>
                                         <td>{{ employee.data().name }}</td>
                                         <td>{{ employee.data().corporate_number }}</td>
-                                        <td class="text-center"><img :src="employee.data().image" alt="image" width="100px" class="img-thumbnail"></td>
+                                        <td class="text-center">
+                                            <img :src="employee.data().image" v-if="employee.data().image" alt="image" width="80px" class="img-thumbnail">
+                                            <img :src="`https://ui-avatars.com/api/?background=random&name=${employee.data().name}`" v-else alt="image" width="80px" class="img-thumbnail">
+                                        </td>
                                         <td class="print-none text-center">
 
                                             <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button btn-success text-light p-1"><i class="bi bi-eye"></i></nuxt-link>
@@ -189,6 +192,7 @@
                                                         <div class="col-md-8">
                                                             <input type="file" class="form-control" id="image" @change="userImage">
                                                             <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail mt-2">
+                                                            <img :src="`https://ui-avatars.com/api/?background=random&name=${form.name}`" v-else alt="image" width="100px" class="img-thumbnail mt-2">
                                                         </div>
                                                     </div>
 

@@ -10,9 +10,9 @@
             <div class="card border-0">
                 <div class="card-header mb-4 border rounded-0 d-flex align-items-center">
                     <div class="profile-image">
-                        <img v-if="employee" :src="employee.image" class="border" alt="profile">
-                        <img v-else src="https://cutt.ly/mhFRsxO" class="border" alt="profile">
-                        <a href="profile_gallery.html" class="btn" title="Change profile picture"><i class="bi bi-camera"></i></a>
+                        <img v-if="employee.image" :src="employee.image" class="border" alt="profile">
+                        <img v-else :src="`https://ui-avatars.com/api/?background=random&name=${employee.name}`" class="border" alt="profile">
+                        <a href="#" class="btn" title="Change profile picture"><i class="bi bi-camera"></i></a>
                     </div>
                     <div class="ms-3">
                         <h2>{{ employee ? employee.name : 'Null' }}</h2>
@@ -86,7 +86,7 @@
                                     <li class="list-group-item"><strong>Mother's name:</strong> <span>Abcd</span></li>
                                     <li class="list-group-item"><strong>NID number:</strong> <span>123456789</span></li>
                                 </ul>
-                                
+
                             </div>
                         </div>
                         <div class="col-12 col-md-8">
@@ -131,7 +131,7 @@ export default {
             this.$fire.firestore.collection("employees").doc(this.$route.params.uid).get().then((snapshot) =>{
                 this.employee = snapshot.data()
             }).catch((error) =>{
-                
+
                 console.log(error)
             });
         }
