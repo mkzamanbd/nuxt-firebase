@@ -215,8 +215,8 @@
                     </div>
 
                     <!-- pagination -->
-                    <div class="card-footer print-none">
-                        <button>Load More</button>
+                    <div class="card-footer print-none text-center">
+                        <button type="button" class="btn btn-outline-success">Load More</button>
                     </div>
                 </div>
 
@@ -300,7 +300,7 @@ export default {
             });
         },
         loadEmployees(){
-            this.$fire.firestore.collection('employees').limit(2).get().then((querySnapshot) => {
+            this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     this.employees.push(doc)
                 });
