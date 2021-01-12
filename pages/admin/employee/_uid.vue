@@ -10,8 +10,8 @@
             <div class="card border-0">
                 <div class="card-header mb-4 border rounded-0 d-flex align-items-center">
                     <div class="profile-image">
-                        <img v-if="employee.image" :src="employee.image" class="border" alt="profile">
-                        <img v-else :src="`https://ui-avatars.com/api/?background=random&name=${employee.name}`" class="border" alt="profile">
+                        <img v-if="employee && employee.image" :src="employee.image" class="border" alt="profile">
+                        <img v-else :src="`https://ui-avatars.com/api/?background=random&name=${employee ? employee.name:'Null'}`" class="border" alt="profile">
                         <a href="#" class="btn" title="Change profile picture"><i class="bi bi-camera"></i></a>
                     </div>
                     <div class="ms-3">
