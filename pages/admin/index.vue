@@ -14,7 +14,7 @@
                         <!-- success button -->
                         <button class="btn custom-btn btn-success me-2" @click="importUpazilas">Import Upazilas</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

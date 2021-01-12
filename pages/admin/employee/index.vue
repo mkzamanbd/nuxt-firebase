@@ -56,9 +56,9 @@
                                         <td>{{ employee.data().corporate_number }}</td>
                                         <td class="text-center"><img :src="employee.data().image" alt="image" width="100px" class="img-thumbnail"></td>
                                         <td class="print-none text-center">
-                                            
+
                                             <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button btn-success text-light p-1"><i class="bi bi-eye"></i></nuxt-link>
-                                            <button type="button" @click="editEmoloyee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#editEmoloyee"><i class="bi bi-pencil-square"></i></button>
+                                            <button type="button" @click="editEmployee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen"><i class="bi bi-pencil-square"></i></button>
 
                                             <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee)" title="Return">
                                                 <i class="bi bi-x-square"></i>
@@ -69,109 +69,149 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="modal fade" ref="my-modal" id="editEmoloyee" style="display: none" tabindex="-1" aria-labelledby="editEmoloyeeLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
+
+                        <div class="modal fade" id="exampleModalFullscreen" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-modal="true" role="dialog">
+                            <div class="modal-dialog modal-fullscreen">
                                 <div class="modal-content">
-                                    <form @submit.prevent="updateEmployee">
-
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editEmoloyeeLabel">Edit Emoloyee</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-body">                                        
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editEmployeeLabel">Edit Employee</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form @submit.prevent="updateEmployee">
                                             <div class="row g-3 justify-content-center">
                                                 <!-- type text -->
-                                                <div class="col-8">
+                                                <div class="col-md-8">
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="inline-text" class="form-label required mt-1">Name</label>
                                                         </div>
-                                                        <div class="col-8">
-                                                            <input type="text" class="form-control" v-model="form.name" id="inline-text" placeholder="Name" autofocus>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" v-model="form.name" id="inline-text" placeholder="Name" required autofocus>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="corporate-number" class="form-label required mt-1">Corporate Number</label>
                                                         </div>
-                                                        <div class="col-8">
-                                                            <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="017 XX XXX XXX">
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="01X XX XXX XXX">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="personal-number" class="form-label required mt-1">Personal Number</label>
                                                         </div>
-                                                        <div class="col-8">
-                                                            <input type="text" class="form-control" v-model="form.personal_number" id="corporate-number" placeholder="01X XX XXX XXX">
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" v-model="form.personal_number" id="personal-number" placeholder="01X XX XXX XXX">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="bcs-batch" class="form-label required mt-1">BCS Batch</label>
                                                         </div>
-                                                        <div class="col-8">
+                                                        <div class="col-md-8">
                                                             <input type="text" class="form-control" v-model="form.bcs_batch" id="bcs-batch" placeholder="BCS Batch">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="facebook" class="form-label required mt-1">Facebook</label>
                                                         </div>
-                                                        <div class="col-8">
+                                                        <div class="col-md-8">
                                                             <input type="text" class="form-control" v-model="form.facebook" id="facebook" placeholder="Facebook Link">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="blood-group" class="form-label required mt-1">Blood Group</label>
                                                         </div>
-                                                        <div class="col-8">
+                                                        <div class="col-md-8">
                                                             <input type="text" class="form-control" v-model="form.blood_group" id="blood-group" placeholder="Blood Group">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
+                                                        <div class="col-md-4">
                                                             <label for="official-email" class="form-label required mt-1">Official Email Address</label>
                                                         </div>
-                                                        <div class="col-8">
+                                                        <div class="col-md-8">
                                                             <input type="text" class="form-control" v-model="form.email" id="official-email" placeholder="Official Email Address">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
-                                                        <div class="col-4">
-                                                            <label for="image" class="form-label required mt-1">Official Email Address</label>
+                                                        <div class="col-md-4">
+                                                            <label for="division" class="form-label required mt-1">Location</label>
                                                         </div>
-                                                        <div class="col-8">
+                                                        <div class="col-md-8">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <select class="form-select" id="division" v-model="form.division_id" @change="getDistricts">
+                                                                        <option value="" selected>Choose Division</option>
+                                                                        <option :value="division.id" :selected="form.division_id === division.id" v-for="(division, index) in divisions" :key="index">{{ division.name }}</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <select class="form-select" id="district" v-model="form.district_id" @change="getUpazilas">
+                                                                        <option value="" selected>Choose District</option>
+                                                                        <option :value="district.id" :selected="form.district_id === district.id" v-for="(district, index) in districts" :key="index">{{ district.name }}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mt-2">
+                                                                <div class="col-md-6">
+                                                                    <select class="form-select" id="upazilas" v-model="form.upazila_id">
+                                                                        <option value="" selected>Choose Upazila</option>
+                                                                        <option :value="upazila.id" :selected="form.upazila_id === upazila.id" v-for="(upazila, index) in upazilas" :key="index">{{ upazila.name }}</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" v-model="form.address" id="address" placeholder="Address">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-4">
+                                                            <label for="image" class="form-label required mt-1">Photo</label>
+                                                        </div>
+                                                        <div class="col-md-8">
                                                             <input type="file" class="form-control" id="image" @change="userImage">
-                                                            <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail">
-                                                            <div class="mb-2 mt-2" v-if="progressBar > 0">
+                                                            <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail mt-2">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-8 offset-4">
+                                                            <div class="mb-2" v-if="progressBar > 0">
                                                                 <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
+                                                            </div>
+                                                            <div class="text-end">
+                                                                <button type="reset" class="btn custom-btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn custom-btn btn-success me-2">Update</button>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            
-                                            <button type="button" class="btn custom-btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn custom-btn btn-success">Update</button>
-                                        </div>
-
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- pagination -->
@@ -211,9 +251,16 @@ export default {
                 blood_group: '',
                 facebook: '',
                 email: '',
+                division_id: '',
+                district_id: '',
+                upazila_id: '',
+                address: '',
                 image: ''
             },
             progressBar: 0,
+            divisions: [],
+            districts: [],
+            upazilas: [],
             employee_uid: null
         }
     },
@@ -222,8 +269,37 @@ export default {
         this.loadEmployees()
     },
     methods:{
+        getDivisions(){
+            this.$fire.firestore.collection('divisions').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.divisions.push(doc.data())
+                });
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
 
-        reloadEmoloyees(){
+        getDistricts(){
+            this.$fire.firestore.collection('districts').where('division_id', '==', this.form.division_id).get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.districts.push(doc.data())
+                });
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
+
+        getUpazilas(){
+            this.$fire.firestore.collection('upazilas').where('district_id', '==', this.form.district_id).get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.upazilas.push(doc.data())
+                });
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
+
+        reloadEmployees(){
             this.$fire.firestore.collection("employees").onSnapshot((querySnapshot) => {
                 this.employees = []
                 querySnapshot.forEach((doc) => {
@@ -242,7 +318,10 @@ export default {
             })
         },
 
-        editEmoloyee(employee){
+        editEmployee(employee){
+            this.getDivisions()
+            this.getDistricts()
+            this.getUpazilas()
             this.form = employee.data()
             this.employee_uid = employee.id
         },
@@ -251,7 +330,7 @@ export default {
             // // update employee information
             this.$fire.firestore.collection("employees").doc(this.employee_uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
-                this.reloadEmoloyees()
+                this.reloadEmployees()
             })
             .catch((error) => {
                 // The document probably doesn't exist.
@@ -261,7 +340,7 @@ export default {
 
         deleteEmployee(employee){
             //delete employee
-            
+
             if(confirm('Are You Sure?')){
                 //delete image form storage
                 if(employee.data().image){
@@ -271,45 +350,47 @@ export default {
                         console.log(error)
                     });
                 }
-                
+
                 this.$fire.firestore.collection("employees").doc(employee.id).delete().then((response) => {
 
                     console.log("Document successfully deleted!");
-                    
+
                 }).catch((error) => {
 
                     console.error("Error removing document: ", error);
                 });
-                this.reloadEmoloyees()
+                this.reloadEmployees()
             }
-            
+
         },
 
-        userImage(e){
-            let file = e.target.files[0];
+        userImage(event){
+            let file = event.target.files[0];
 
             if(file){
 
                 //upload image
                 let storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
-            
+
                 let uploadTask  = storageRef.put(file);
-            
+
                 uploadTask.on('state_changed', (snapshot) => {
                     // Observe state change events such as progress, pause, and resume
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
                     this.progressBar = progress
-                
+
                 },(error) => {
                     // Handle unsuccessful uploads
-                },(response) => {
+                    console.log(error)
+                },() => {
                     // Handle successful uploads on complete
-                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                         this.form.image = downloadURL;
-                        console.log("image Uri: " + this.form.image)
+                        this.progressBar = 0;
+                        console.log("File available at: " + this.form.image)
                     });
                 });
             }
