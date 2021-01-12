@@ -257,6 +257,7 @@ export default {
         saveEmployee(){
             this.$store.dispatch('loading/setLoadingStatus', true)
             this.$fire.firestore.collection('employees').add(this.form).then((snapshot) =>{
+                this.$toast.success('Employee Successfully Saved.')
                 this.$store.dispatch('loading/setLoadingStatus', false)
                 this.reset_form()
             })

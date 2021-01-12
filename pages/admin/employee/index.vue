@@ -38,7 +38,7 @@
                     <!-- content body -->
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table custom-table table-hover">
+                            <table class="table custom-table table-hover table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">SL</th>
@@ -153,14 +153,14 @@
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <select class="form-select" id="division" v-model="form.division_id" @change="getDistricts">
-                                                                        <option value="" selected>Choose Division</option>
+                                                                        <option value="">Choose Division</option>
                                                                         <option :value="division.id" :selected="form.division_id === division.id" v-for="(division, index) in divisions" :key="index">{{ division.name }}</option>
                                                                     </select>
                                                                 </div>
 
                                                                 <div class="col-md-6">
                                                                     <select class="form-select" id="district" v-model="form.district_id" @change="getUpazilas">
-                                                                        <option value="" selected>Choose District</option>
+                                                                        <option value="">Choose District</option>
                                                                         <option :value="district.id" :selected="form.district_id === district.id" v-for="(district, index) in districts" :key="index">{{ district.name }}</option>
                                                                     </select>
                                                                 </div>
@@ -169,7 +169,7 @@
                                                             <div class="row mt-2">
                                                                 <div class="col-md-6">
                                                                     <select class="form-select" id="upazilas" v-model="form.upazila_id">
-                                                                        <option value="" selected>Choose Upazila</option>
+                                                                        <option value="">Choose Upazila</option>
                                                                         <option :value="upazila.id" :selected="form.upazila_id === upazila.id" v-for="(upazila, index) in upazilas" :key="index">{{ upazila.name }}</option>
                                                                     </select>
                                                                 </div>
@@ -216,15 +216,7 @@
 
                     <!-- pagination -->
                     <div class="card-footer print-none">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-sm m-0  justify-content-end">
-                                <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
-                                <li class="page-item"><a class="page-link page-link-active" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
-                            </ul>
-                        </nav>
+                        <button>Load More</button>
                     </div>
                 </div>
 
@@ -308,7 +300,7 @@ export default {
             });
         },
         loadEmployees(){
-            this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
+            this.$fire.firestore.collection('employees').limit(2).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     this.employees.push(doc)
                 });
@@ -330,6 +322,7 @@ export default {
             // // update employee information
             this.$fire.firestore.collection("employees").doc(this.employee_uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
+                this.$toast.success('Document successfully updated.')
                 this.reloadEmployees()
             })
             .catch((error) => {
@@ -352,7 +345,7 @@ export default {
                 }
 
                 this.$fire.firestore.collection("employees").doc(employee.id).delete().then((response) => {
-
+                    this.$toast.success('Document successfully deleted.')
                     console.log("Document successfully deleted!");
 
                 }).catch((error) => {

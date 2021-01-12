@@ -45,7 +45,8 @@ export default {
         '@nuxtjs/axios',
         // https://firebase.nuxtjs.org/guide/getting-started
         '@nuxtjs/pwa',
-        '@nuxtjs/firebase'
+        '@nuxtjs/firebase',
+	'@nuxtjs/toast',
     ],
     firebase:{
         config: {
@@ -71,6 +72,12 @@ export default {
             firestore: true,
             storage: true,
         }
+    },
+
+    //toast message
+    toast: {
+        position: 'top-right',
+        duration: 2000,
     },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
