@@ -60,10 +60,10 @@
                                         </td>
                                         <td class="print-none text-center">
 
-                                            <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button btn-success text-light p-1"><i class="bi bi-eye"></i></nuxt-link>
-                                            <button type="button" @click="editEmployee(employee)" class="btn table-small-button btn-warning text-light p-1" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen"><i class="bi bi-pencil-square"></i></button>
+                                            <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-person-bounding-box"></i></nuxt-link>
+                                            <button type="button" @click="editEmployee(employee)" class="btn table-small-button p-1" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen"><i class="bi bi-pencil-square"></i></button>
 
-                                            <button type="button" class="btn table-small-button btn-danger text-light p-1" @click.prevent="deleteEmployee(employee)" title="Return">
+                                            <button type="button" class="btn table-small-button p-1" @click.prevent="deleteEmployee(employee)">
                                                 <i class="bi bi-x-square"></i>
                                             </button>
                                         </td>
