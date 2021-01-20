@@ -234,6 +234,7 @@ export default {
     },
     data(){
         return{
+            employees: [],
             form:{
                 name: '',
                 corporate_number:'+880',
@@ -256,16 +257,20 @@ export default {
             employee_uid: null
         }
     },
-    async asyncData(ctx) {
-        let employees = [];
-        let querySnapshot = await ctx.$fire.firestore.collection('employees').orderBy('name').get();
-        querySnapshot.forEach((doc) => {
-            employees.push(doc)
-        });
+    // async asyncData(ctx) {
+    //     let employees = [];
+    //     let querySnapshot = await ctx.$fire.firestore.collection('employees').orderBy('name').get();
+    //     querySnapshot.forEach((doc) => {
+    //         employees.push(doc)
+    //     });
 
-        return {
-            employees
-        }
+    //     return {
+    //         employees
+    //     }
+    // },
+
+    mounted(){
+        this.loadEmployees()
     },
 
     methods:{
@@ -307,16 +312,16 @@ export default {
                 });
             });
         },
-        // loadEmployees(){
-        //     this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
-        //         querySnapshot.forEach((doc) => {
-        //             this.employees.push(doc)
-        //         });
-        //
-        //     }).catch((error) =>{
-        //         console.log(error)
-        //     })
-        // },
+        loadEmployees(){
+            this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.employees.push(doc)
+                });
+        
+            }).catch((error) =>{
+                console.log(error)
+            })
+        },
 
         editEmployee(employee){
             this.getDivisions()
