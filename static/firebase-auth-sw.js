@@ -6,7 +6,7 @@ importScripts(
 importScripts(
   'https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js'
 )
-firebase.initializeApp({"apiKey":"AIzaSyDbvDaiazS5fJVcFu5l0AbhUvx8GBYsnYs","authDomain":"directory-list-77c3f.firebaseapp.com","databaseURL":"https:\u002F\u002Fdirectory-list-77c3f-default-rtdb.firebaseio.com\u002F","projectId":"directory-list-77c3f","storageBucket":"directory-list-77c3f.appspot.com","messagingSenderId":"226712188132","appId":"1:226712188132:web:fa08f3bf4591fc888368f1","measurementId":"G-M1KYMXZGZ4"})
+firebase.initializeApp({"apiKey":"AIzaSyCxK9WK_S0M4tE0YQ9Kvs0yBzBSCw6mAb0","authDomain":"fir-d846d.firebaseapp.com","databaseURL":"https:\u002F\u002Ffir-d846d-default-rtdb.firebaseio.com","projectId":"fir-d846d","storageBucket":"fir-d846d.appspot.com","messagingSenderId":"452750114138","appId":"1:452750114138:web:55425ad8e5ab59c0044763","measurementId":"G-LNR0J66XBN"})
 
 // Initialize authService
 const authService = firebase.auth()
