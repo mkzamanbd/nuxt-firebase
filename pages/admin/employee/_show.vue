@@ -1,14 +1,8 @@
 <template>
-    <div>
+    <section>
         <div class="container mt-3 user-profile">
-            <div class="text-end mb-3 print-none">
-                <!-- Print -->
-                <a href="#" class="btn top-icon-button print-none ms-auto" title="Print" onclick="window.print()">
-                    <i class="bi bi-printer"></i>
-                </a>
-            </div>
             <div class="card border-0">
-                <div class="card-header mb-4 border rounded-0 d-flex align-items-center">
+                <div class="card-header mb-4 d-flex align-items-center">
                     <div class="profile-image">
                         <img v-if="employee && employee.image" :src="employee.image" class="border" alt="profile">
                         <img v-else :src="`https://ui-avatars.com/api/?background=random&name=${employee ? employee.name:'Null'}`" class="border" alt="profile">
@@ -106,7 +100,7 @@
             </div>
         </div>
 
-    </div>
+    </section>
 </template>
 
 <script>
@@ -128,7 +122,7 @@ export default {
 
     methods:{
         getEmployee() {
-            this.$fire.firestore.collection("employees").doc(this.$route.params.uid).get().then((snapshot) =>{
+            this.$fire.firestore.collection("employees").doc(this.$route.params.show).get().then((snapshot) =>{
                 this.employee = snapshot.data()
             }).catch((error) =>{
 

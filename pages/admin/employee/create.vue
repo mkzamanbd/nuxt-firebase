@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section>
         <!-- preloader -->
         <PreloaderComponent/>
 
@@ -15,9 +15,9 @@
                 </ul>
             </div>
 
-            <div class="container">
-                <div class="card mb-5 border-0">
-                    <div class="card-header p-0 border-0 d-flex">
+            <div class="container mt-3">
+                <div class="card">
+                    <div class="card-header d-flex">
                         <!-- page title -->
                         <div class="mt-3">
                             <h5 class="main-title">New Employee</h5>
@@ -29,7 +29,8 @@
                         </nuxt-link>
 
                     </div>
-                    <div class="card-body p-0 pt-3">
+
+                    <div class="card-body">
                         <!-- start form -->
                         <form @submit.prevent="saveEmployee">
 
@@ -169,7 +170,7 @@
 
         </div>
 
-    </div>
+    </section>
 </template>
 
 <script>
