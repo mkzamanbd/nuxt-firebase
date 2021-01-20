@@ -330,6 +330,8 @@ export default {
             // // update employee information
             this.$fire.firestore.collection("employees").doc(this.employee_uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
+                let myModal = bootstrap.Modal.getInstance(document.getElementById('exampleModalFullscreen'))
+                myModal.hide()
                 this.$toast.success('Document successfully updated.')
                 this.reloadEmployees()
             })
