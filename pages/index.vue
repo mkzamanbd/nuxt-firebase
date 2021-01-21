@@ -132,7 +132,6 @@ export default {
 
                 window.location.reload()
                 this.$router.push('/admin')
-                this.isLoading = false
             }).catch(error =>{
                 this.isLoading = false
                 this.errorMessage = error.message

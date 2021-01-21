@@ -42,8 +42,7 @@
                                     <tr>
                                         <th scope="col">SL</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col" class="text-center">Image</th>
+                                        <th scope="col">Corporate Phone</th>
                                         <th scope="col" class="print-none text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -53,10 +52,7 @@
                                         <th scope="row">{{ index + 1}}</th>
                                         <td>{{ employee.data().name }}</td>
                                         <td>{{ employee.data().corporate_number }}</td>
-                                        <td class="text-center">
-                                            <img :src="employee.data().image" v-if="employee.data().image" alt="image" width="80px" class="img-thumbnail">
-                                            <img :src="`https://ui-avatars.com/api/?background=random&name=${employee.data().name}`" v-else alt="image" width="80px" class="img-thumbnail">
-                                        </td>
+
                                         <td class="print-none text-center">
 
                                             <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-person-bounding-box"></i></nuxt-link>
@@ -90,26 +86,6 @@ export default {
     data(){
         return{
             employees: [],
-            form:{
-                name: '',
-                corporate_number:'+880',
-                personal_number:'+880',
-                bcs_batch: '',
-                blood_group: '',
-                facebook: '',
-                email: '',
-                division_id: '',
-                district_id: '',
-                upazila_id: '',
-                address: '',
-                image: ''
-            },
-
-            progressBar: 0,
-            divisions: [],
-            districts: [],
-            upazilas: [],
-            employee_uid: null
         }
     },
     // async asyncData(ctx) {
@@ -142,7 +118,7 @@ export default {
                 querySnapshot.forEach((doc) => {
                     this.employees.push(doc)
                 });
-        
+
             }).catch((error) =>{
                 console.log(error)
             })
