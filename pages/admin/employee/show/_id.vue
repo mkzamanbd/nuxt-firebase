@@ -117,15 +117,13 @@ export default {
     },
     mounted() {
         this.getEmployee()
-        //console.log(this.employee)
     },
 
     methods:{
         getEmployee() {
-            this.$fire.firestore.collection("employees").doc(this.$route.params.show).get().then((snapshot) =>{
+            this.$fire.firestore.collection("employees").doc(this.$route.params.id).get().then((snapshot) =>{
                 this.employee = snapshot.data()
             }).catch((error) =>{
-
                 console.log(error)
             });
         }

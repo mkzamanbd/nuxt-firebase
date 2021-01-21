@@ -55,7 +55,7 @@
 
                                         <td class="print-none text-center">
 
-                                            <nuxt-link :to="`/admin/employee/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-person-bounding-box"></i></nuxt-link>
+                                            <nuxt-link :to="`/admin/employee/show/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-person-bounding-box"></i></nuxt-link>
                                             <nuxt-link :to="`/admin/employee/edit/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-pencil-square"></i></nuxt-link>
 
                                             <button type="button" class="btn table-small-button p-1" @click.prevent="deleteEmployee(employee)">
