@@ -125,7 +125,6 @@
                                             <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
                                         </div>
                                         <div class="text-end">
-                                            <button type="reset" class="btn custom-btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn custom-btn btn-success me-2">Update</button>
                                         </div>
                                     </div>
@@ -210,7 +209,7 @@ export default {
         },
 
         getEmployee() {
-            this.$fire.firestore.collection("employees").doc(this.$route.params.id).get().then((snapshot) =>{
+            this.$fire.firestore.collection("employees").doc(this.$route.params.uid).get().then((snapshot) =>{
                 this.form = snapshot.data()
             }).catch((error) =>{
                 console.log(error)
@@ -219,7 +218,7 @@ export default {
 
         updateEmployee(){
             // // update employee information
-            this.$fire.firestore.collection("employees").doc(this.$route.params.id).update(this.form).then((response)=> {
+            this.$fire.firestore.collection("employees").doc(this.$route.params.uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
                 this.$toast.success('Document successfully updated.')
             })

@@ -121,7 +121,7 @@ export default {
 
     methods:{
         getEmployee() {
-            this.$fire.firestore.collection("employees").doc(this.$route.params.id).get().then((snapshot) =>{
+            this.$fire.firestore.collection("employees").doc(this.$route.params.uid).get().then((snapshot) =>{
                 this.employee = snapshot.data()
             }).catch((error) =>{
                 console.log(error)
