@@ -22,7 +22,7 @@
                                         <label for="corporate-number" class="form-label required mt-1">Corporate Number</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="01X XX XXX XXX">
+                                        <input type="number" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="01X XX XXX XXX">
                                     </div>
                                 </div>
 
@@ -31,7 +31,7 @@
                                         <label for="personal-number" class="form-label required mt-1">Personal Number</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.personal_number" id="personal-number" placeholder="01X XX XXX XXX">
+                                        <input type="number" class="form-control" v-model="form.personal_number" id="personal-number" placeholder="01X XX XXX XXX">
                                     </div>
                                 </div>
 
@@ -67,7 +67,7 @@
                                         <label for="official-email" class="form-label required mt-1">Official Email Address</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.email" id="official-email" placeholder="Official Email Address">
+                                        <input type="email" class="form-control" v-model="form.email" id="official-email" placeholder="Official Email Address">
                                     </div>
                                 </div>
 
