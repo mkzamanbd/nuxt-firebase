@@ -79,6 +79,8 @@ export default {
     toast: {
         position: 'top-right',
         duration: 2000,
+        fullWidth: true,
+        fitToScreen: true
     },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -105,10 +107,10 @@ export default {
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {
     },
-    server:{
-        host: '',
-        port: '5000'
-    },
+    // server:{
+    //     host: '',
+    //     port: '5000'
+    // },
 
     loading: {
         continuous: true,
