@@ -51,7 +51,7 @@ export default {
     ],
     firebase:{
         config: {
-            apiKey: "AIzaSyCxK9WK_S0M4tE0YQ9Kvs0yBzBSCw6mAb0",
+            apiKey: "AIzaSyDM8weLbL8kr6TwLz54bQuyd85L0G3rdN8",
             authDomain: "fir-d846d.firebaseapp.com",
             databaseURL: "https://fir-d846d-default-rtdb.firebaseio.com",
             projectId: "fir-d846d",
