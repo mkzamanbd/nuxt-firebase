@@ -75,9 +75,7 @@ export default {
     //toast message
     toast: {
         position: 'top-right',
-        duration: 2000,
-        fullWidth: true,
-        fitToScreen: true
+        duration: 2000
     },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)

@@ -19,55 +19,19 @@
 
                                 <div class="row mb-2">
                                     <div class="col-md-4">
-                                        <label for="corporate-number" class="form-label required mt-1">Corporate Number</label>
+                                        <label for="corporate-number" class="form-label required mt-1">Phone</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control" v-model="form.corporate_number" id="corporate-number" placeholder="01X XX XXX XXX">
+                                        <input type="number" class="form-control" v-model="form.phone" id="corporate-number" placeholder="+88 01X XX XXX XXX">
                                     </div>
                                 </div>
 
                                 <div class="row mb-2">
                                     <div class="col-md-4">
-                                        <label for="personal-number" class="form-label required mt-1">Personal Number</label>
+                                        <label for="official-email" class="form-label required mt-1">Email Address</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control" v-model="form.personal_number" id="personal-number" placeholder="01X XX XXX XXX">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="bcs-batch" class="form-label required mt-1">BCS Batch</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.bcs_batch" id="bcs-batch" placeholder="BCS Batch">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="facebook" class="form-label required mt-1">Facebook</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.facebook" id="facebook" placeholder="Facebook Link">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="blood-group" class="form-label required mt-1">Blood Group</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.blood_group" id="blood-group" placeholder="Blood Group">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="official-email" class="form-label required mt-1">Official Email Address</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="email" class="form-control" v-model="form.email" id="official-email" placeholder="Official Email Address">
+                                        <input type="email" class="form-control" v-model="form.email" id="official-email" placeholder="Email Address">
                                     </div>
                                 </div>
 
@@ -114,11 +78,7 @@ export default {
         return {
             form:{
                 name: '',
-                corporate_number:'+880',
-                personal_number:'+880',
-                bcs_batch: '',
-                blood_group: '',
-                facebook: '',
+                phone:'',
                 email: '',
                 address: '',
                 image: ''

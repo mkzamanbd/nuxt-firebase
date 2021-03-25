@@ -42,7 +42,7 @@
                                     <tr>
                                         <th scope="col">SL</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Corporate Phone</th>
+                                        <th scope="col">Phone</th>
                                         <th scope="col" class="print-none text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -51,14 +51,11 @@
                                     <tr v-for="(employee, index) in employees" :key="index">
                                         <th scope="row">{{ index + 1}}</th>
                                         <td>{{ employee.data().name }}</td>
-                                        <td>{{ employee.data().corporate_number }}</td>
+                                        <td>{{ employee.data().phone }}</td>
 
                                         <td class="print-none text-center">
-
-                                            <nuxt-link :to="`/employee/show/${employee.id}`" class="btn table-small-button p-1">View</nuxt-link>
-                                            <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn table-small-button p-1">Edit</nuxt-link>
-
-                                            <button type="button" class="btn table-small-button p-1" @click.prevent="deleteEmployee(employee)">Delete</button>
+                                            <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn btn-sm btn-warning">Edit</nuxt-link>
+                                            <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">Delete</button>
                                         </td>
                                     </tr>
 
