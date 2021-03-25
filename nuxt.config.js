@@ -9,7 +9,6 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap' }
         ],
         script:[
             { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js' }
@@ -18,8 +17,6 @@ export default {
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
     css: [
-        //bootstrap icon
-        '@/node_modules/bootstrap-icons/font/bootstrap-icons.css',
         //master scss
         '@/assets/template/sass/master.scss'
     ],
@@ -51,14 +48,14 @@ export default {
     ],
     firebase:{
         config: {
-            apiKey: "AIzaSyDM8weLbL8kr6TwLz54bQuyd85L0G3rdN8",
-            authDomain: "fir-d846d.firebaseapp.com",
-            databaseURL: "https://fir-d846d-default-rtdb.firebaseio.com",
-            projectId: "fir-d846d",
-            storageBucket: "fir-d846d.appspot.com",
-            messagingSenderId: "452750114138",
-            appId: "1:452750114138:web:55425ad8e5ab59c0044763",
-            measurementId: "G-LNR0J66XBN"
+            apiKey: "AIzaSyDyejH-LPa8vs5yKFT0jGp-3Q5tAmuOCgI",
+            authDomain: "phonebook-zaman.firebaseapp.com",
+            databaseURL: "https://phonebook-zaman-default-rtdb.firebaseio.com",
+            projectId: "phonebook-zaman",
+            storageBucket: "phonebook-zaman.appspot.com",
+            messagingSenderId: "311858761938",
+            appId: "1:311858761938:web:aa0c1e60f99e17da4f1d0b",
+            measurementId: "G-TRHP53VLDE"
         },
         services: {
             auth: {

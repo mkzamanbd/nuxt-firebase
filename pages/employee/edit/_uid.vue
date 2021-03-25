@@ -73,43 +73,6 @@
 
                                 <div class="row mb-2">
                                     <div class="col-md-4">
-                                        <label for="division" class="form-label required mt-1">Location</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <select class="form-select" id="division" v-model="form.division_id" @change="getDistricts">
-                                                    <option value="">Choose Division</option>
-                                                    <option :value="division.id" :selected="form.division_id === division.id" v-for="(division, index) in divisions" :key="index">{{ division.name }}</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <select class="form-select" id="district" v-model="form.district_id" @change="getUpazilas">
-                                                    <option value="">Choose District</option>
-                                                    <option :value="district.id" :selected="form.district_id === district.id" v-for="(district, index) in districts" :key="index">{{ district.name }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-2">
-                                            <div class="col-md-6">
-                                                <select class="form-select" id="upazilas" v-model="form.upazila_id">
-                                                    <option value="">Choose Upazila</option>
-                                                    <option :value="upazila.id" :selected="form.upazila_id === upazila.id" v-for="(upazila, index) in upazilas" :key="index">{{ upazila.name }}</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" v-model="form.address" id="address" placeholder="Address">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
                                         <label for="image" class="form-label required mt-1">Photo</label>
                                     </div>
                                     <div class="col-md-8">
@@ -157,57 +120,18 @@ export default {
                 blood_group: '',
                 facebook: '',
                 email: '',
-                division_id: '',
-                district_id: '',
-                upazila_id: '',
                 address: '',
                 image: ''
             },
-            progressBar: 0,
-            divisions: [],
-            districts: [],
-            upazilas: [],
+            progressBar: 0
         }
     },
     mounted() {
-        this.getDivisions()
-        this.getDistricts()
-        this.getUpazilas()
         this.getEmployee()
         //console.log(this.employee)
     },
 
     methods:{
-        getDivisions(){
-            this.$fire.firestore.collection('divisions').get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.divisions.push(doc.data())
-                });
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
-
-        getDistricts(){
-            this.$fire.firestore.collection('districts').where('division_id', '==', this.form.division_id).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.districts.push(doc.data())
-                });
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
-
-        getUpazilas(){
-            this.$fire.firestore.collection('upazilas').where('district_id', '==', this.form.district_id).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.upazilas.push(doc.data())
-                });
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
-
         getEmployee() {
             this.$fire.firestore.collection("employees").doc(this.$route.params.uid).get().then((snapshot) =>{
                 this.form = snapshot.data()

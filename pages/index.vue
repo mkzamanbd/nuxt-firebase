@@ -1,95 +1,55 @@
 <template>
-    <div class="login-container">
-        <!-- authentication -->
-        <section class="authentication">
-
-            <!-- main wrapper -->
-            <div class="wrapper">
-                <!-- alert -->
-                <div class="alert alert-danger p-2 mb-0 border-0 rounded-0" role="alert" v-if="errorMessage">
-                    {{ errorMessage }}
-                </div>
-
-                <div class="wrap-content">
-                    <div class="p-4 pt-2">
-                        <!-- Brand logo -->
-                        <div class="text-center">
-                            <img src="@/assets/template/resources/images/logos/logo_with_name.svg" class="logo" alt="Brand logo">
-                        </div>
-                        <hr>
-
-                        <!-- page title -->
-                        <div class="text-center mt-2 mb-3">
-                            <h3 class="main-title">Sign In</h3>
-                        </div>
-
-                        <!-- Sum text -->
-                        <p class="px-4 text-center mb-3">
-                            <small>
-                                One account for everything Intuit, including QuickBooks.
-                                <a href="#" target="_blank">Learn more</a>
-                            </small>
-                        </p>
-
-                        <!-- form -->
-                        <form @submit.prevent="login">
-                            <div class="row g-3">
-                                <!-- user ID -->
-                                <div class="col-12">
-                                    <label for="user" class="form-label required">Email Address</label>
-                                    <input type="text" name="user" class="form-control" v-model="credentials.email" id="user" placeholder="access@example.com" required>
-                                </div>
-
-                                <!-- password input -->
-                                <div class="col-12">
-                                    <label for="password" class="form-label required">Password</label>
-                                    <div class="input-group">
-                                        <input type="password" name="password" v-model="credentials.password" class="form-control" id="password"
-                                               placeholder="**********" required>
-                                        <a href="#" class="pass-eye" @click="showPassword()"><i class="bi bi-eye-fill"></i></a>
-                                    </div>
-                                </div>
-
-                                <!-- checkbox input -->
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input type="checkbox" name="remember" class="form-check-input" id="remember" value="">
-                                        <label class="form-check-label" for="remember">Remember me</label>
-                                    </div>
-                                </div>
-
-
-                                <!-- button -->
-                                <div class="col-12">
-                                    <button v-if="isLoading" type="button" class="btn w-100 btn-success custom-btn mr-2" disabled>
-                                        <i class="bi bi-info-circle"></i>
-                                        <span>Loading...</span>
-                                    </button>
-                                    <button type="submit" class="btn w-100 btn-success custom-btn mr-2" v-else>
-                                        <i class="bi bi-lock"></i>
-                                        <span>Sign in</span>
-                                    </button>
-                                </div>
-
-                            </div>
-                        </form>
-
-                        <!-- Sign in terms of use -->
-                        <div class="text-center text-small my-2">
-                            <small>
-                                By clicking sign in, you agree to our <br>
-                                <a href="#" class="text-small">Terms</a>
-                                and have read and acknowledge our
-                                <a href="#" class="text-small">Global Privacy Statement.</a>
-                            </small>
-                        </div>
-
-                    </div>
-                </div>
+    <section class="full-wrapper">
+        <div class="wrapper">
+            <div class="alert alert-danger" role="alert" v-if="errorMessage">
+                {{ errorMessage }}
             </div>
-        </section>
+            <!-- End: alert message -->
 
-    </div>
+            <!--logo -->
+            <img class="logo" src="@/assets/template/resources/images/logos/logo_with_name.svg" alt="logo">
+            <!-- End: logo -->
+
+            <!-- Title -->
+            <h2>Login</h2>
+            <!-- End: title -->
+
+            <!-- Sign in form -->
+            <form method="POST" @submit.prevent="login">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                    <input type="text" name="email" class="form-control" v-model="credentials.email" placeholder="Email" required autofocus>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    <input type="password" name="password" class="form-control" v-model="credentials.password" placeholder="Password" required>
+                    <a href="#" class="pass-eye" @click.prevent="showPassword()"><i class="fa fa-eye"></i></a>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="remember" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">Remember Me</label>
+                </div>
+
+                <div class="form-group d-block">
+                    <button type="submit" class="btn mt-3 btn-success signin-btn">Login</button>
+                </div>
+            </form>
+            <!-- End: Sign in form -->
+
+            <!-- sign in text -->
+            <a href="">Forgot password</a>
+            <!-- End: sign In text -->
+
+            <!-- sign in footer -->
+            <div class="footer">
+                <p>&copy; 2020 <a href="#">MaxSOP</a>. All rights reserved.</p>
+                <p>Develop by <a href="http://maxsop.com/" target="_blank">MaxSOP</a></p>
+            </div>
+            <!-- End: sign in footer -->
+        </div>
+    </section>
 </template>
 
 <script>
@@ -98,12 +58,15 @@
 export default {
     layout: "auth",
     head:{
-        title: 'Login'
+        title: 'Login',
+        link:[
+            { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' },
+        ]
     },
     data(){
         return{
             credentials:{
-                email: 'admin@directory.com',
+                email: 'user@phonebook.com',
                 password: '123456'
             },
             isLoading: false,
@@ -114,14 +77,14 @@ export default {
     methods: {
         showPassword() {
             let input = document.getElementsByName("password")[0],
-                type = input.getAttribute("type");
+            type = input.getAttribute("type");
 
-            if (type === "password") {
+            if(type === "password") {
                 input.type = "text";
-                document.querySelector('.bi-eye-fill').classList.add("bi-eye-slash-fill");
+                document.querySelector('.fa-eye').classList.add("fa-eye-slash");
             } else {
                 input.type = "password";
-                document.querySelector('.bi-eye-fill').classList.remove("bi-eye-slash-fill");
+                document.querySelector('.fa-eye').classList.remove("fa-eye-slash");
             }
         },
 
@@ -131,7 +94,7 @@ export default {
             this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
 
                 window.location.reload()
-                this.$router.push('/admin')
+                this.$router.push('/dashboard')
             }).catch(error =>{
                 this.isLoading = false
                 this.errorMessage = error.message

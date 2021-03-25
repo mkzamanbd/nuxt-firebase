@@ -2,13 +2,14 @@
 @import './helpers/variables';
 @import './helpers/mixins';
 
-
+//bootstra icon
+@import '~/node_modules/bootstrap-icons/font/bootstrap-icons.css';
 // Modules import
 @import './modules/global';
 @import './modules/aside';
 @import './modules/main_top_navbar';
 //auth
-@import 'authentication';
+@import './authentication';
 
 @import './modules/form';
 @import './modules/table';

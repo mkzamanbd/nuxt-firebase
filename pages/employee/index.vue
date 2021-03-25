@@ -4,10 +4,10 @@
             <div class="container print-none">
                 <ul class="nav nav-tabs mt-2">
                     <li class="nav-item">
-                        <nuxt-link class="nav-link active" to="/admin/employee">All Records</nuxt-link>
+                        <nuxt-link class="nav-link active" to="/employee">All Records</nuxt-link>
                     </li>
                     <li class="nav-item">
-                        <nuxt-link class="nav-link" to="/admin/employee/create">New Entry</nuxt-link>
+                        <nuxt-link class="nav-link" to="/employee/create">New Entry</nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -30,7 +30,7 @@
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
                         <!-- add -->
-                        <nuxt-link to="/admin/employee/create" class="btn top-icon-button print-none">
+                        <nuxt-link to="/employee/create" class="btn top-icon-button print-none">
                             <i class="bi bi-plus-circle"></i>
                         </nuxt-link>
                     </div>
@@ -55,12 +55,10 @@
 
                                         <td class="print-none text-center">
 
-                                            <nuxt-link :to="`/admin/employee/show/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-person-bounding-box"></i></nuxt-link>
-                                            <nuxt-link :to="`/admin/employee/edit/${employee.id}`" class="btn table-small-button p-1"><i class="bi bi-pencil-square"></i></nuxt-link>
+                                            <nuxt-link :to="`/employee/show/${employee.id}`" class="btn table-small-button p-1">View</nuxt-link>
+                                            <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn table-small-button p-1">Edit</nuxt-link>
 
-                                            <button type="button" class="btn table-small-button p-1" @click.prevent="deleteEmployee(employee)">
-                                                <i class="bi bi-x-square"></i>
-                                            </button>
+                                            <button type="button" class="btn table-small-button p-1" @click.prevent="deleteEmployee(employee)">Delete</button>
                                         </td>
                                     </tr>
 
@@ -152,7 +150,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

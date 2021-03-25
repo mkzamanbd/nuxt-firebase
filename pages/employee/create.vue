@@ -7,10 +7,10 @@
             <div class="container print-none">
                 <ul class="nav nav-tabs mt-2">
                     <li class="nav-item">
-                        <nuxt-link class="nav-link" to="/admin/employee">All Records</nuxt-link>
+                        <nuxt-link class="nav-link" to="/employee">All Records</nuxt-link>
                     </li>
                     <li class="nav-item">
-                        <nuxt-link class="nav-link active" to="/admin/employee/create">New Entry</nuxt-link>
+                        <nuxt-link class="nav-link active" to="/employee/create">New Entry</nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -23,7 +23,7 @@
                             <h5 class="main-title">New Employee</h5>
                         </div>
                         <!-- header icon -->
-                        <nuxt-link to="/admin/employee" title="Go back"
+                        <nuxt-link to="/employee" title="Go back"
                             class="pe-0 ms-auto print-none top-icon-button mb-2 mt-3">
                             <i class="bi bi-arrow-left"></i>
                         </nuxt-link>
@@ -100,42 +100,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-2">
-                                        <div class="col-md-3">
-                                            <label for="division" class="form-label required mt-1">Location</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <select class="form-select" id="division" v-model="form.division_id" @change="getDistricts">
-                                                        <option value="" selected>Choose Division</option>
-                                                        <option :value="division.id" v-for="(division, index) in divisions" :key="index">{{ division.name }}</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <select class="form-select" id="district" v-model="form.district_id" @change="getUpazilas">
-                                                        <option value="" selected>Choose District</option>
-                                                        <option :value="district.id" v-for="(district, index) in districts" :key="index">{{ district.name }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <div class="col-md-6">
-                                                    <select class="form-select" id="upazilas" v-model="form.upazila_id">
-                                                        <option value="" selected>Choose Upazila</option>
-                                                        <option :value="upazila.id" v-for="(upazila, index) in upazilas" :key="index">{{ upazila.name }}</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control" v-model="form.address" id="address" placeholder="Address">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
 
                                     <div class="row mb-2">
                                         <div class="col-md-3">
@@ -190,54 +154,15 @@ export default {
                 blood_group: '',
                 facebook: '',
                 email: '',
-                division_id: '',
-                district_id: '',
-                upazila_id: '',
                 address: '',
                 image: ''
             },
 
             progressBar: 0,
-            divisions: [],
-            districts: [],
-            upazilas: [],
         }
-    },
-    mounted() {
-        this.getDivisions()
     },
 
     methods:{
-        getDivisions(){
-            this.$fire.firestore.collection('divisions').get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.divisions.push(doc.data())
-                });
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
-
-        getDistricts(){
-            this.$fire.firestore.collection('districts').where('division_id', '==', this.form.division_id).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.districts.push(doc.data())
-                });
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
-
-        getUpazilas(){
-            this.$fire.firestore.collection('upazilas').where('district_id', '==', this.form.district_id).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.upazilas.push(doc.data())
-                });
-            }).catch((error) =>{
-                console.log(error)
-            })
-        },
-
         reset_form(){
             this.form = {
                 name: '',
@@ -247,9 +172,6 @@ export default {
                 blood_group: '',
                 facebook: '',
                 email: '',
-                division_id: '',
-                district_id: '',
-                upazila_id: '',
                 address: '',
                 image: ''
             }

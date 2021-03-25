@@ -5,8 +5,8 @@
 
             <!-- aside brand -->
             <div class="aside-brand">
-                <nuxt-link to="/admin">
-                    <img src="~/assets/template/resources/images/logos/logo_with_name.svg" alt="">
+                <nuxt-link to="/">
+                    <img src="@/assets/template/resources/images/logos/logo_with_name.svg" alt="">
                 </nuxt-link>
             </div>
             <!-- End aside-brand -->
@@ -14,7 +14,7 @@
             <ul class="accordion" id="asideAccordion">
                 <h6 class="ps-3 py-1">Basic</h6>
                 <li class="accordion-item">
-                    <nuxt-link to="/admin" class="single-nav-link">
+                    <nuxt-link to="/" class="single-nav-link">
                         <i class="bi bi-house"></i>
                         <span>Dashboard</span>
                     </nuxt-link>
@@ -27,8 +27,8 @@
                     </a>
 
                     <ul id="purchase" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#asideAccordion">
-                        <li><nuxt-link to="/admin/employee" class="nav-link">All Records</nuxt-link></li>
-                        <li><nuxt-link to="/admin/employee/create" class="nav-link">New Entry</nuxt-link></li>
+                        <li><nuxt-link to="/employee" class="nav-link">All Records</nuxt-link></li>
+                        <li><nuxt-link to="/employee/create" class="nav-link">New Entry</nuxt-link></li>
                     </ul>
                 </li>
 
