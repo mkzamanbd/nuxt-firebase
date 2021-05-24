@@ -1,76 +1,54 @@
 <template>
-    <section>
-        <div class="user-list">
-            <div class="container print-none">
-                <ul class="nav nav-tabs mt-2">
-                    <li class="nav-item">
-                        <nuxt-link class="nav-link active" to="/employee">All Records</nuxt-link>
-                    </li>
-                    <li class="nav-item">
-                        <nuxt-link class="nav-link" to="/employee/create">New Entry</nuxt-link>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="container mt-3">
-                <!-- table -->
-                <div class="card">
-                    <div class="card-header d-md-flex align-items-center d-block">
-                        <!-- page title -->
-                        <div class="mt-3 mb-2">
-                            <h4 class="main-title">Employees List</h4><br>
-                            <small class="print-none">About 563,000,000 results (0.98 seconds)</small>
-                        </div>
-                        <!-- Print -->
-                        <a href="#" class="btn top-icon-button print-none ms-auto" title="Print" onclick="window.print()">
-                            <i class="bi bi-printer"></i>
-                        </a>
-                        <!-- refresh -->
-                        <a href="" class="btn top-icon-button print-none" title="Refresh">
-                            <i class="bi bi-arrow-clockwise"></i>
-                        </a>
-                        <!-- add -->
-                        <nuxt-link to="/employee/create" class="btn top-icon-button print-none">
-                            <i class="bi bi-plus-circle"></i>
-                        </nuxt-link>
-                    </div>
-                    <!-- content body -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered" v-if="employees.length > 0">
-                                <thead>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th class="print-none text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(employee, index) in employees" :key="index">
-                                        <th scope="row">{{ index + 1}}</th>
-                                        <td>{{ employee.data().name }}</td>
-                                        <td>{{ employee.data().phone }}</td>
-
-                                        <td class="print-none text-center">
-                                            <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn btn-sm btn-warning">Edit</nuxt-link>
-                                            <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">Delete</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div v-else>
-                                <b-skeleton-table :rows="5" :columns="4" :table-props="{ bordered: true, striped: true }"></b-skeleton-table>
-                            </div>
-                        </div>
-                    </div>
-
+    <div class="container mt-3">
+        <!-- table -->
+        <div class="card border-0">
+            <div class="card-header d-flex align-items-center justify-content-between px-0">
+                <h4 class="main-title">Employees List</h4>   
+                
+                <div>
+                    <a href="#" class="btn btn-info btn-sm" title="Print" onclick="window.print()">
+                        <i class="bi bi-printer"></i>
+                    </a>
+                    
+                    <nuxt-link to="/employee/create" class="btn btn-success btn-sm">
+                        <i class="bi bi-plus-circle"></i>
+                    </nuxt-link>
                 </div>
-
             </div>
+            <!-- content body -->
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" v-if="employees.length > 0">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th class="print-none text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(employee, index) in employees" :key="index">
+                                <th scope="row">{{ index + 1}}</th>
+                                <td>{{ employee.data().name }}</td>
+                                <td>{{ employee.data().phone }}</td>
+
+                                <td class="print-none text-center">
+                                    <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn btn-sm btn-warning">Edit</nuxt-link>
+                                    <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div v-else>
+                        <b-skeleton-table :rows="5" :columns="4" :table-props="{ bordered: true, striped: true }"></b-skeleton-table>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </section>
+    </div>
 </template>
 
 <script>

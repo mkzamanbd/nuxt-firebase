@@ -8,55 +8,34 @@
                         <div class="row g-3 justify-content-center">
                             <!-- type text -->
                             <div class="col-md-8">
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="inline-text" class="form-label required mt-1">Name</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" v-model="form.name" id="inline-text" placeholder="Name" required autofocus>
-                                    </div>
+                                <div class="form-group mb-2">
+                                    <label for="inline-text">Name</label>
+                                    <input type="text" class="form-control" v-model="form.name" id="inline-text" placeholder="Name" required autofocus>
                                 </div>
 
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="corporate-number" class="form-label required mt-1">Phone</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="number" class="form-control" v-model="form.phone" id="corporate-number" placeholder="+88 01X XX XXX XXX">
-                                    </div>
+                                <div class="form-group mb-2">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="number" class="form-control" v-model="form.phone" id="phone" placeholder="01X XX XXX XXX">
                                 </div>
 
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="official-email" class="form-label required mt-1">Email Address</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="email" class="form-control" v-model="form.email" id="official-email" placeholder="Email Address">
-                                    </div>
+                                <div class="form-group mb-2">
+                                    <label for="email" >Email</label>
+                                    <input type="email" class="form-control" v-model="form.email" id="email" placeholder="Email">
                                 </div>
 
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="image" class="form-label required mt-1">Photo</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="file" class="form-control" id="image" @change="userImage">
-                                        <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail mt-2">
-                                        <img :src="`https://ui-avatars.com/api/?background=random&name=${form.name}`" v-else alt="image" width="100px" class="img-thumbnail mt-2">
-                                    </div>
+                                <div class="form-group mb-2">
+                                    <label for="image" class="form-label required mt-1">Photo</label>
+                                    <input type="file" class="form-control" id="image" @change="userImage">
+                                    <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail mt-2">
+                                    <img :src="`https://ui-avatars.com/api/?background=random&name=${form.name}`" v-else alt="image" width="100px" class="img-thumbnail mt-2">
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-8 offset-4">
-                                        <div class="mb-2" v-if="progressBar > 0">
-                                            <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
-                                        </div>
-                                        <div class="text-end">
-                                            <button type="submit" class="btn custom-btn btn-success me-2">Update</button>
-                                        </div>
-                                    </div>
+                                <div class="mb-2" v-if="progressBar > 0">
+                                    <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
                                 </div>
-
+                                <div class="text-end">
+                                    <button type="submit" class="btn custom-btn btn-success me-2">Update</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -80,7 +59,6 @@ export default {
                 name: '',
                 phone:'',
                 email: '',
-                address: '',
                 image: ''
             },
             progressBar: 0
@@ -88,7 +66,6 @@ export default {
     },
     mounted() {
         this.getEmployee()
-        //console.log(this.employee)
     },
 
     methods:{
@@ -117,7 +94,6 @@ export default {
             let file = event.target.files[0];
 
             if(file){
-
                 //upload image
                 let storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
 
