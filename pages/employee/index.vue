@@ -37,17 +37,16 @@
                     <!-- content body -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered">
+                            <table class="table table-hover table-bordered" v-if="employees.length > 0">
                                 <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col" class="print-none text-center">Action</th>
+                                        <th>SL</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th class="print-none text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <tr v-for="(employee, index) in employees" :key="index">
                                         <th scope="row">{{ index + 1}}</th>
                                         <td>{{ employee.data().name }}</td>
@@ -58,9 +57,11 @@
                                             <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">Delete</button>
                                         </td>
                                     </tr>
-
                                 </tbody>
                             </table>
+                            <div v-else>
+                                <b-skeleton-table :rows="5" :columns="4" :table-props="{ bordered: true, striped: true }"></b-skeleton-table>
+                            </div>
                         </div>
                     </div>
 
