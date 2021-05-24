@@ -1,44 +1,43 @@
 <template>
-    <div>
-        <aside class="page-aside">
-        <!-- accordion menu -->
+    <aside class="page-aside">
+    <!-- accordion menu -->
 
-            <!-- aside brand -->
-            <div class="aside-brand">
-                <nuxt-link to="/">
-                    <img src="@/assets/images/logo_with_name.svg" alt="">
+        <!-- aside brand -->
+        <div class="aside-brand">
+            <nuxt-link to="/">
+                <img src="@/assets/images/logo_with_name.svg" alt="">
+            </nuxt-link>
+        </div>
+        <!-- End aside-brand -->
+
+        <ul class="accordion" id="asideAccordion">
+            <h6 class="ps-3 py-1">Basic</h6>
+            <li class="accordion-item">
+                <nuxt-link to="/" class="single-nav-link">
+                    <i class="bi bi-house"></i>
+                    <span>Dashboard</span>
                 </nuxt-link>
-            </div>
-            <!-- End aside-brand -->
+            </li>
 
-            <ul class="accordion" id="asideAccordion">
-                <h6 class="ps-3 py-1">Basic</h6>
-                <li class="accordion-item">
-                    <nuxt-link to="/" class="single-nav-link">
-                        <i class="bi bi-house"></i>
-                        <span>Dashboard</span>
-                    </nuxt-link>
-                </li>
+            <li class="accordion-item">
+                <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#purchase" aria-expanded="false" aria-controls="purchase">
+                    <i class="bi bi-people"></i>
+                    <span>Employee</span>
+                </a>
 
-                <li class="accordion-item">
-                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#purchase" aria-expanded="false" aria-controls="purchase">
-                        <i class="bi bi-people"></i>
-                        <span>Employee</span>
-                    </a>
+                <ul id="purchase" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#asideAccordion">
+                    <li><nuxt-link to="/employee" class="nav-link">All Records</nuxt-link></li>
+                    <li><nuxt-link to="/employee/create" class="nav-link">New Entry</nuxt-link></li>
+                </ul>
+            </li>
 
-                    <ul id="purchase" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#asideAccordion">
-                        <li><nuxt-link to="/employee" class="nav-link">All Records</nuxt-link></li>
-                        <li><nuxt-link to="/employee/create" class="nav-link">New Entry</nuxt-link></li>
-                    </ul>
-                </li>
-
-            </ul>
-        </aside>
-    </div>
+        </ul>
+    </aside>
 </template>
 
 <script>
     export default {
+        name:'AsideComponent',
         data(){
             return {
                 isActive: ''

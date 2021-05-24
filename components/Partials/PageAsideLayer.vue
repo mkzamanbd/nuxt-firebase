@@ -1,11 +1,10 @@
 <template>
-    <div>
-        <div class="page-aside-layer" @click="PageAsideLayer"></div>
-    </div>
+    <div class="page-aside-layer" @click="PageAsideLayer"></div>
 </template>
 
 <script>
     export default {
+        name:'PageAsideLayer',
         methods:{
             PageAsideLayer() {
                 document.querySelector(".page-aside-layer").classList.remove("show")
