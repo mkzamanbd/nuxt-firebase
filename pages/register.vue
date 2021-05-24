@@ -10,7 +10,7 @@
                     <div class="p-4 pt-2">
                         <!-- Brand logo -->
                         <div class="text-center">
-                            <img src="@/assets/template/resources/images/logos/logo_with_name.svg" class="logo" alt="Brand logo">
+                            <img src="@/assets/images/logo_with_name.svg" class="logo" alt="Brand logo">
                         </div>
                         <hr>
 

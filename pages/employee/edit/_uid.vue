@@ -105,6 +105,7 @@ export default {
             this.$fire.firestore.collection("employees").doc(this.$route.params.uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
                 this.$toast.success('Document successfully updated.')
+                this.$router.push('/employee')
             })
             .catch((error) => {
                 // The document probably doesn't exist.

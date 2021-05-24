@@ -7,7 +7,7 @@
             <!-- End: alert message -->
 
             <!--logo -->
-            <img class="logo" src="@/assets/template/resources/images/logos/logo_with_name.svg" alt="logo">
+            <img class="logo" src="@/assets/images/logo_with_name.svg" alt="logo">
             <!-- End: logo -->
 
             <!-- Title -->

@@ -1,5 +1,6 @@
 .accordion{
     .accordion-item{
+        border: none;
         .accordion-button{
             border: none;
             border-radius: 0;
@@ -11,14 +12,14 @@
                 text-decoration: none;
             }
             &:after{
-                background-image: url("../resources/icons/chevron-left.svg");
+                transform: rotate(90deg);
             }
             &.accordion-button:not(.collapsed){
                 font-weight: bold;
                 color: $black-color;
                 background-color: transparent;
                 &:after{
-                    transform: rotate(-90deg);
+                    transform: rotate(0deg);
                 }
             }
         }

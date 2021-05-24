@@ -6,7 +6,7 @@
             <!-- aside brand -->
             <div class="aside-brand">
                 <nuxt-link to="/">
-                    <img src="@/assets/template/resources/images/logos/logo_with_name.svg" alt="">
+                    <img src="@/assets/images/logo_with_name.svg" alt="">
                 </nuxt-link>
             </div>
             <!-- End aside-brand -->
