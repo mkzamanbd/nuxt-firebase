@@ -62,17 +62,6 @@ export default {
             employees: [],
         }
     },
-    // async asyncData(ctx) {
-    //     let employees = [];
-    //     let querySnapshot = await ctx.$fire.firestore.collection('employees').orderBy('name').get();
-    //     querySnapshot.forEach((doc) => {
-    //         employees.push(doc)
-    //     });
-
-    //     return {
-    //         employees
-    //     }
-    // },
 
     mounted(){
         this.loadEmployees()
@@ -89,10 +78,7 @@ export default {
         },
         loadEmployees(){
             this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.employees.push(doc)
-                });
-
+                this.employees = querySnapshot.docs;
             }).catch((error) =>{
                 console.log(error)
             })
@@ -114,12 +100,10 @@ export default {
                 this.$fire.firestore.collection("employees").doc(employee.id).delete().then((response) => {
                     this.$toast.success('Document successfully deleted.')
                     console.log("Document successfully deleted!");
-
+                    this.loadEmployees()
                 }).catch((error) => {
-
                     console.error("Error removing document: ", error);
                 });
-                this.reloadEmployees()
             }
 
         }

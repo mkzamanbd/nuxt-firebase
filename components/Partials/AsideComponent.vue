@@ -20,15 +20,10 @@
             </li>
 
             <li class="accordion-item">
-                <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#purchase" aria-expanded="false" aria-controls="purchase">
+                <nuxt-link to="/employee" class="single-nav-link">
                     <i class="bi bi-people"></i>
                     <span>Employee</span>
-                </a>
-
-                <ul id="purchase" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#asideAccordion">
-                    <li><nuxt-link to="/employee" class="nav-link">All Records</nuxt-link></li>
-                    <li><nuxt-link to="/employee/create" class="nav-link">New Entry</nuxt-link></li>
-                </ul>
+                </nuxt-link>
             </li>
 
         </ul>
@@ -45,7 +40,7 @@
         },
 
         mounted() {
-            //console.log(this.isActive)
+            
         }
     }
 </script>
