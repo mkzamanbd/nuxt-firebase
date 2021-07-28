@@ -42,7 +42,9 @@
                                 <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
                             </div>
 
-                            <button type="submit" class="btn custom-btn btn-success w-100">Submit</button>
+                            <div class="text-end">
+                                <button type="submit" class="btn custom-btn btn-success">Submit</button>
+                            </div>
 
                         </div>
                     </div>

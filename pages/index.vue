@@ -6,25 +6,21 @@
             </div>
             <!-- End: alert message -->
 
-            <!--logo -->
-            <img class="logo" src="@/assets/images/logo_with_name.svg" alt="logo">
-            <!-- End: logo -->
-
             <!-- Title -->
-            <h2>Login</h2>
+            <h2 class="mt-5">Login</h2>
             <!-- End: title -->
 
             <!-- Sign in form -->
             <form method="POST" @submit.prevent="login">
                 <div class="input-group">
-                    <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                    <span class="input-group-text"><i class="bi bi-people"></i></span>
                     <input type="text" name="email" class="form-control" v-model="credentials.email" placeholder="Email" required autofocus>
                 </div>
 
                 <div class="input-group">
-                    <span class="input-group-text"><i class="fa fa-key"></i></span>
-                    <input type="password" name="password" class="form-control" v-model="credentials.password" placeholder="Password" required>
-                    <a href="#" class="pass-eye" @click.prevent="showPassword()"><i class="fa fa-eye"></i></a>
+                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                    <input :type="togglePassword ? 'text' :'password'" name="password" class="form-control" v-model="credentials.password" placeholder="Password" required>
+                    <a href="#" class="pass-eye text-upprcase" @click.prevent="togglePassword = !togglePassword">{{ togglePassword ? 'hide' :'show' }}</a>
                 </div>
 
                 <div class="form-check">
@@ -33,7 +29,7 @@
                 </div>
 
                 <div class="form-group d-block">
-                    <button type="submit" class="btn mt-3 btn-success signin-btn">Login</button>
+                    <button type="submit" :disabled="isLoading" class="btn mt-3 btn-success signin-btn">Login</button>
                 </div>
             </form>
             <!-- End: Sign in form -->
@@ -53,15 +49,10 @@
 </template>
 
 <script>
-// import firebase from "firebase/app";
-// import 'firebase/auth'
 export default {
-    layout: "auth",
+    layout: "empty",
     head:{
         title: 'Login',
-        link:[
-            { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' },
-        ]
     },
     data(){
         return{
@@ -69,30 +60,18 @@ export default {
                 email: 'user@phonebook.com',
                 password: '123456'
             },
+            togglePassword: false,
             isLoading: false,
             errorMessage: ''
         }
     },
 
     methods: {
-        showPassword() {
-            let input = document.getElementsByName("password")[0],
-            type = input.getAttribute("type");
-
-            if(type === "password") {
-                input.type = "text";
-                document.querySelector('.fa-eye').classList.add("fa-eye-slash");
-            } else {
-                input.type = "password";
-                document.querySelector('.fa-eye').classList.remove("fa-eye-slash");
-            }
-        },
-
-        login(){
+        async login(){
             this.isLoading = true
 
-            this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
-
+            await this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
+                console.log(response)
                 window.location.reload()
                 this.$router.push('/dashboard')
             }).catch(error =>{
@@ -104,3 +83,113 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+// helpers =================================>
+// Mixin ==================================>
+// Flex-box
+@mixin f-box($ai: flex-start, $jc: flex-start, $fw: nowrap, $fd: row) {
+    display: flex;
+    align-items: $ai;
+    justify-content: $jc;
+    flex-wrap: $fw;
+    flex-direction: $fd;
+}
+
+// variables ==============================>
+// Color
+$pc : #007cc0;
+$sc : #2a3f4c;
+$wc : #f9f9f9;
+$gc : gray;
+
+// Transition
+$ts: all linear .2s;
+
+// box-shadow
+$bs: 0 2px 15px rgba(0, 0, 0, 0.175);
+
+
+// Start style ========================>
+.full-wrapper{
+    min-height: 100vh;
+    @include f-box($ai: center,);
+    .wrapper{
+        background-color: $wc;
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        padding-bottom: 20px;
+        border-top: 5px solid $pc;
+        border-radius: 5px;
+        box-shadow: $bs;
+        @media screen and (max-width: 600px){
+            width: 100%;
+            padding: 20px;
+            min-height: 100vh;
+            border-radius: 0;
+        }
+        .alert-danger{
+            border-radius: 0;
+            border: none;
+            color: #ff0000;
+        }
+        .logo{
+            margin-top: 40px;
+            width: 190px;
+        }
+        h2{
+            margin-top: 10px;
+            color: $sc;
+        }
+        form{
+            padding: 20px;
+            input[type="password"]{
+                position: relative;
+            }
+            .pass-eye{
+                color: $sc;
+                border: none;
+                background-color: transparent;
+                position: absolute;
+                right: 10px;
+                top: 11px;
+                font-size: 12px;
+                z-index: 9;
+                text-transform: uppercase;
+            }
+            .input-group{
+                margin-bottom: 20px;
+                .form-control, .input-group-text{
+                    border-radius: 0;
+                }
+            }
+            .form-check{
+                text-align: left;
+                input, label{
+                    cursor: pointer;
+                }
+            }
+            .signin-btn{
+                color: $wc;
+                background: $pc;
+                width: 100%;
+                display: block;
+                border-radius: 2px;
+            }
+        }
+        .footer{
+            border-top: 1px solid $sc;
+            right: 0;
+            left: 0;
+            margin-top: 20px;
+            padding-top: 10px;
+            p{
+                margin: 0;
+                font-size: 14px;
+            }
+
+        }
+    }
+}
+</style>

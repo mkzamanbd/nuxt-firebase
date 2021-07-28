@@ -1,9 +1,9 @@
 {
-	"name": "phonebook",
+	"name": "firebase",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "nuxt",
+		"dev": "nuxt --open",
 		"build": "nuxt build",
 		"start": "nuxt start",
 		"generate": "nuxt generate"
@@ -13,7 +13,7 @@
 		"@nuxtjs/firebase": "^7.3.0",
 		"@nuxtjs/pwa": "^3.3.4",
 		"@nuxtjs/toast": "^3.3.1",
-		"bootstrap": "^5.0.0",
+		"bootstrap": "^5.0.2",
 		"bootstrap-icons": "^1.4.0",
 		"bootstrap-vue": "^2.17.3",
 		"core-js": "^3.6.5",

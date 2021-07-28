@@ -11,7 +11,7 @@ export default {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         ],
         script:[
-            { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js' }
+            { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' }
         ]
     },
 
@@ -22,17 +22,13 @@ export default {
     ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-    plugins: [
-        //'~/plugins/firebase.js'
-        //{ src:'~/plugins/awesome-notifications.js', ssr:false }
-    ],
+    plugins: [],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
     components: true,
 
     // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-    buildModules: [
-    ],
+    buildModules: [],
 
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
@@ -89,7 +85,6 @@ export default {
 
         workbox: {
             importScripts: [
-                // ...
                 '/firebase-auth-sw.js'
             ],
             // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
@@ -99,8 +94,7 @@ export default {
     },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
-    build: {
-    },
+    build: {},
     // server:{
     //     host: '',
     //     port: '5000'

@@ -18,13 +18,17 @@
             <!-- content body -->
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered" v-if="employees.length > 0">
+                    <table class="table table-bordered table-striped" v-if="isLoaded">
                         <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th class="print-none text-center">Action</th>
+                                <th class="print-none text-center">
+                                    <span class="hover:show">
+                                        Action
+                                    </span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,14 +38,20 @@
                                 <td>{{ employee.data().phone }}</td>
 
                                 <td class="print-none text-center">
-                                    <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn btn-sm btn-warning">Edit</nuxt-link>
-                                    <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">Delete</button>
+                                    <div class="hover:show">
+                                        <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn btn-sm btn-warning">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </nuxt-link>
+                                        <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div v-else>
-                        <b-skeleton-table :rows="5" :columns="4" :table-props="{ bordered: true, striped: true }"></b-skeleton-table>
+                        <b-skeleton-table :rows="10" :columns="4" :table-props="{ bordered: true, striped: true }"></b-skeleton-table>
                     </div>
                 </div>
             </div>
@@ -60,6 +70,7 @@ export default {
     data(){
         return{
             employees: [],
+            isLoaded: false
         }
     },
 
@@ -76,9 +87,10 @@ export default {
                 });
             });
         },
-        loadEmployees(){
-            this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
+        async loadEmployees(){
+            await this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
                 this.employees = querySnapshot.docs;
+                this.isLoaded = true
             }).catch((error) =>{
                 console.log(error)
             })
@@ -110,3 +122,12 @@ export default {
     }
 }
 </script>
+<style scoped>
+    .hover\:show{
+        opacity: 0;
+        transition: .3s;
+    }
+    .hover\:show:hover{
+        opacity: 1;
+    }
+</style>
