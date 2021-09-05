@@ -9,6 +9,7 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
         ],
         script:[
             { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' }
@@ -17,7 +18,7 @@ export default {
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
     css: [
-        //master scss
+        // master scss
         '@/assets/template/master.scss'
     ],
 
@@ -32,6 +33,8 @@ export default {
 
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
+        // https://go.nuxtjs.dev/eslint
+        '@nuxtjs/eslint-module',
         // https://go.nuxtjs.dev/bootstrap
         'bootstrap-vue/nuxt',
         // https://go.nuxtjs.dev/axios
@@ -67,7 +70,7 @@ export default {
         }
     },
 
-    //toast message
+    // toast message
     toast: {
         position: 'top-right',
         duration: 2000
@@ -77,12 +80,16 @@ export default {
     axios: {},
 
     pwa: {
+        meta: {
+            title: 'Simple Nuxt PhoneBook App',
+            author: 'PhoneBook',
+        },
+        manifest: {
+            name: 'Simple Nuxt PhoneBook App',
+            short_name: 'PhoneBook',
+            lang: 'en',
+        },
         // disable the modules you don't need
-        meta: false,
-        icon: false,
-        // if you omit a module key form configuration sensible defaults will be applied
-        // manifest: false,
-
         workbox: {
             importScripts: [
                 '/firebase-auth-sw.js'
@@ -92,9 +99,13 @@ export default {
             dev: process.env.NODE_ENV === 'development',
         }
     },
-
-    // Build Configuration (https://go.nuxtjs.dev/config-build)
-    build: {},
+    // Build Configuration: https://go.nuxtjs.dev/config-build
+    build: {
+        // use for only bootstrap compile warning
+        babel: {
+            compact: true
+        },
+    },
     // server:{
     //     host: '',
     //     port: '5000'

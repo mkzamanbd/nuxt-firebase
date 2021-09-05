@@ -18,7 +18,7 @@
             <!-- content body -->
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" v-if="isLoaded">
+                    <table v-if="isLoaded" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>SL</th>
@@ -64,16 +64,15 @@
 <script>
 
 export default {
-    head:{
-        title: 'Employee List'
-    },
     data(){
         return{
             employees: [],
             isLoaded: false
         }
     },
-
+    head:{
+        title: 'Employee List'
+    },
     mounted(){
         this.loadEmployees()
     },
@@ -97,10 +96,10 @@ export default {
         },
 
         deleteEmployee(employee){
-            //delete employee
+            // delete employee
 
             if(confirm('Are You Sure?')){
-                //delete image form storage
+                // delete image form storage
                 if(employee.data().image){
                     this.$fire.storage.refFromURL(employee.data().image).delete().then(function(){
                         console.log('delete image')

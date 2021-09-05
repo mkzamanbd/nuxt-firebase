@@ -3,7 +3,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>Dashboard</h1>
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <!-- <h1 class="text-center">Dashboard</h1> -->
+                    </div>
                     <!-- <button type="button" @click="createUser">Create User</button> -->
                 </div>
             </div>

@@ -19,26 +19,26 @@
                         <div class="col-md-8">
                             <div class="form-group mb-2">
                                 <label for="inline-text">Name</label>
-                                <input type="text" class="form-control" v-model="form.name" id="inline-text" placeholder="Name" required autofocus>
+                                <input id="inline-text" v-model="form.name" type="text" class="form-control" placeholder="Name" required autofocus>
                             </div>
 
                             <div class="form-group mb-2">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="number" class="form-control" v-model="form.phone" id="phone" placeholder="01X XX XXX XXX">
+                                <input id="phone" v-model="form.phone" type="number" class="form-control" placeholder="01X XX XXX XXX">
                             </div>
 
                             <div class="form-group mb-2">
                                 <label for="email" >Email</label>
-                                <input type="email" class="form-control" v-model="form.email" id="email" placeholder="Email">
+                                <input id="email" v-model="form.email" type="email" class="form-control" placeholder="Email">
                             </div>
 
                             <div class="form-group mb-2">
                                 <label for="image" class="form-label required mt-1">Photo</label>
-                                <input type="file" class="form-control" id="image" @change="userImage">
-                                <img :src="form.image" alt="image" width="100px" v-if="form.image" class="img-thumbnail mt-2">
+                                <input id="image" type="file" class="form-control" @change="userImage">
+                                <img v-if="form.image" :src="form.image" alt="image" width="100px" class="img-thumbnail mt-2">
                             </div>
 
-                            <div class="mb-2" v-if="progressBar > 0">
+                            <div v-if="progressBar > 0" class="mb-2">
                                 <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
                             </div>
 
@@ -59,9 +59,6 @@
 
 export default {
     name: 'NewEmployeeComponent',
-    head:{
-        title: 'New Employee'
-    },
     data(){
         return {
             form:{
@@ -73,6 +70,9 @@ export default {
 
             progressBar: 0,
         }
+    },
+    head:{
+        title: 'New Employee'
     },
 
     methods:{
@@ -95,18 +95,18 @@ export default {
         },
 
         userImage(event){
-            let file = event.target.files[0];
+            const file = event.target.files[0];
 
             if(file){
-                //upload image
-                let storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
+                // upload image
+                const storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
 
-                let uploadTask  = storageRef.put(file);
+                const uploadTask  = storageRef.put(file);
 
                 uploadTask.on('state_changed', (snapshot) => {
                     // Observe state change events such as progress, pause, and resume
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
                     this.progressBar = progress
 

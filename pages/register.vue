@@ -33,14 +33,14 @@
                                 <!-- user ID -->
                                 <div class="col-12">
                                     <label for="user" class="form-label required">Email Address</label>
-                                    <input type="text" class="form-control" v-model="credentials.email" id="user" placeholder="access@example.com" required>
+                                    <input id="user" v-model="credentials.email" type="text" class="form-control" placeholder="access@example.com" required>
                                 </div>
 
                                 <!-- password input -->
                                 <div class="col-12">
                                     <label for="password" class="form-label required">Password</label>
                                     <div class="input-group">
-                                        <input type="password" v-model="credentials.password" class="form-control" id="password"
+                                        <input id="password" v-model="credentials.password" type="password"  class="form-control"
                                                placeholder="**********" required>
                                         <a href="#" class="pass-eye" @click="showPassword()"><i class="bi bi-eye-fill"></i></a>
                                     </div>
@@ -49,7 +49,7 @@
                                 <!-- checkbox input -->
                                 <div class="col-12">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="remember" value="">
+                                        <input id="remember" type="checkbox" class="form-check-input" value="">
                                         <label class="form-check-label" for="remember">Remember me</label>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                         <i class="bi bi-info-circle"></i>
                                         <span>Loading...</span>
                                     </button>
-                                    <button type="submit" class="btn w-100 btn-success custom-btn mr-2" v-else>
+                                    <button v-else type="submit" class="btn w-100 btn-success custom-btn mr-2">
                                         <i class="bi bi-lock"></i>
                                         <span>Sign Up</span>
                                     </button>
@@ -104,8 +104,8 @@ export default {
     },
     methods: {
         showPassword() {
-            let input = document.getElementsByName("password")[0],
-                type = input.getAttribute("type");
+            const input = document.getElementsByName("password")[0];
+                const type = input.getAttribute("type");
 
             if (type === "password") {
                 input.type = "text";
@@ -120,7 +120,7 @@ export default {
             this.isLoading = true
             console.log(this.credentials)
             this.$fire.auth.createUserWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
-                //response
+                // response
                 console.log(response.user)
 
             }).catch(error =>{

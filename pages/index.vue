@@ -1,7 +1,7 @@
 <template>
     <section class="full-wrapper">
         <div class="wrapper">
-            <div class="alert alert-danger" role="alert" v-if="errorMessage">
+            <div v-if="errorMessage" class="alert alert-danger" role="alert">
                 {{ errorMessage }}
             </div>
             <!-- End: alert message -->
@@ -12,17 +12,17 @@
             <form method="POST" @submit.prevent="login">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-people"></i></span>
-                    <input type="text" name="email" class="form-control" v-model="credentials.email" placeholder="Email" required autofocus>
+                    <input v-model="credentials.email" type="text" name="email" class="form-control" placeholder="Email" required autofocus>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-key"></i></span>
-                    <input :type="togglePassword ? 'text' :'password'" name="password" class="form-control" v-model="credentials.password" placeholder="Password" required>
+                    <input v-model="credentials.password" :type="togglePassword ? 'text' :'password'" name="password" class="form-control" placeholder="Password" required>
                     <a href="#" class="pass-eye text-upprcase" @click.prevent="togglePassword = !togglePassword">{{ togglePassword ? 'hide' :'show' }}</a>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="flexCheckChecked">
+                    <input id="flexCheckChecked" class="form-check-input" type="checkbox" name="remember" >
                     <label class="form-check-label" for="flexCheckChecked">Remember Me</label>
                 </div>
 
@@ -49,9 +49,6 @@
 <script>
 export default {
     layout: "empty",
-    head:{
-        title: 'Login',
-    },
     data(){
         return{
             credentials:{
@@ -62,6 +59,9 @@ export default {
             isLoading: false,
             errorMessage: ''
         }
+    },
+    head:{
+        title: 'Login',
     },
 
     methods: {
