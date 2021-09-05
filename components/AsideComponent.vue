@@ -1,7 +1,5 @@
 <template>
     <aside class="page-aside">
-    <!-- accordion menu -->
-
         <!-- aside brand -->
         <div class="aside-brand">
             <nuxt-link to="/">
@@ -10,7 +8,7 @@
         </div>
         <!-- End aside-brand -->
 
-        <ul class="accordion" id="asideAccordion">
+        <ul id="asideAccordion" class="accordion" >
             <h6 class="ps-3 py-1">Basic</h6>
             <li class="accordion-item">
                 <nuxt-link to="/" class="single-nav-link">

@@ -6,7 +6,7 @@
             </div>
             <!-- End: alert message -->
 
-            <img src="https://www.gstatic.com/devrel-devsite/prod/v33e7b2dc41690dd155c39da725d6a2a9b37af85c625b82149b8b1a06c071a1a2/firebase/images/lockup.png" class="img-fluid mt-3" alt="">
+            <img src="https://www.gstatic.com/devrel-devsite/prod/v33e7b2dc41690dd155c39da725d6a2a9b37af85c625b82149b8b1a06c071a1a2/firebase/images/lockup.png" class="img-fluid mt-5" alt="">
 
             <!-- Sign in form -->
             <form method="POST" @submit.prevent="login">
@@ -31,10 +31,6 @@
                 </div>
             </form>
             <!-- End: Sign in form -->
-
-            <!-- sign in text -->
-            <a href="">Forgot password</a>
-            <!-- End: sign In text -->
 
             <!-- sign in footer -->
             <div class="footer">

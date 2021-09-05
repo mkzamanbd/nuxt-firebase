@@ -21,7 +21,7 @@
                     <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <!-- End responsive button -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
                     <ul class="navbar-nav my-2 text-end ms-auto mb-lg-0 py-3 py-lg-0">
                         <!-- Help -->
                         <li class="nav-item">
@@ -33,7 +33,7 @@
                         <!-- Search -->
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a id="user-dropdown" class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="d-lg-none me-3">Profile</span>
                                 <i class="bi bi-person"></i>
                             </a>
@@ -72,7 +72,7 @@
             }
         },
         mounted(){
-            //console.log(this.currentUser)
+            // console.log(this.currentUser)
         },
         methods:{
             asideExpand(){
