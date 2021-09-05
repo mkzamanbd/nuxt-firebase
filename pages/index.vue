@@ -6,9 +6,7 @@
             </div>
             <!-- End: alert message -->
 
-            <!-- Title -->
-            <h2 class="mt-5">Login</h2>
-            <!-- End: title -->
+            <img src="https://www.gstatic.com/devrel-devsite/prod/v33e7b2dc41690dd155c39da725d6a2a9b37af85c625b82149b8b1a06c071a1a2/firebase/images/lockup.png" class="img-fluid mt-3" alt="">
 
             <!-- Sign in form -->
             <form method="POST" @submit.prevent="login">
@@ -40,8 +38,8 @@
 
             <!-- sign in footer -->
             <div class="footer">
-                <p>&copy; 2020 <a href="#">MaxSOP</a>. All rights reserved.</p>
-                <p>Develop by <a href="http://maxsop.com/" target="_blank">MaxSOP</a></p>
+                <p>&copy; 2020 <a href="#">Firebase</a>. All rights reserved.</p>
+                <p>Develop by <a href="http://firebase.com" target="_blank">Firebase</a></p>
             </div>
             <!-- End: sign in footer -->
         </div>
