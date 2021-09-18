@@ -2,9 +2,9 @@
     <div class="container mt-3">
         <div class="card border-0">
             <div class="card-header d-flex justify-content-between px-0">
-                <h5 class="main-title">New Employee</h5>
+                <h5 class="main-title">New Contact</h5>
                 
-                <nuxt-link to="/employee" title="Go back">
+                <nuxt-link to="/contacts" title="Go back">
                     <i class="bi bi-arrow-left"></i>
                 </nuxt-link>
 
@@ -12,7 +12,7 @@
 
             <div class="card-body p-0">
                 <!-- start form -->
-                <form @submit.prevent="saveEmployee">
+                <form @submit.prevent="saveContact">
 
                     <div class="row mt-3 justify-content-center">
                         <!-- type text -->
@@ -58,7 +58,7 @@
 <script>
 
 export default {
-    name: 'NewEmployeeComponent',
+    name: 'NewContactComponent',
     data(){
         return {
             form:{
@@ -72,7 +72,7 @@ export default {
         }
     },
     head:{
-        title: 'New Employee'
+        title: 'New Contact'
     },
 
     methods:{
@@ -85,9 +85,9 @@ export default {
             }
             this.progressBar = 0
         },
-        saveEmployee(){
-            this.$fire.firestore.collection('employees').add(this.form).then((snapshot) =>{
-                this.$toast.success('Employee Successfully Saved.')
+        saveContact(){
+            this.$fire.firestore.collection('contacts').add(this.form).then((snapshot) =>{
+                this.$toast.success('Contact Successfully Saved.')
                 this.reset_form()
             }).catch(error =>{
                 console.log(error)
@@ -99,7 +99,7 @@ export default {
 
             if(file){
                 // upload image
-                const storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
+                const storageRef = this.$fire.storage.ref('contacts/'+ Math.random() + '_'  + file.name);
 
                 const uploadTask  = storageRef.put(file);
 

@@ -18,9 +18,9 @@
             </li>
 
             <li class="accordion-item">
-                <nuxt-link to="/employee" class="single-nav-link">
+                <nuxt-link to="/contacts" class="single-nav-link">
                     <i class="bi bi-people"></i>
-                    <span>Employee</span>
+                    <span>Contacts</span>
                 </nuxt-link>
             </li>
 

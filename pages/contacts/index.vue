@@ -3,14 +3,14 @@
         <!-- table -->
         <div class="card border-0">
             <div class="card-header d-flex align-items-center justify-content-between px-0">
-                <h4 class="main-title">Employees List</h4>   
+                <h4 class="main-title">Contacts List</h4>   
                 
                 <div>
                     <a href="#" class="btn btn-info btn-sm" title="Print" onclick="window.print()">
                         <i class="bi bi-printer"></i>
                     </a>
                     
-                    <nuxt-link to="/employee/create" class="btn btn-success btn-sm">
+                    <nuxt-link to="/contacts/create" class="btn btn-success btn-sm">
                         <i class="bi bi-plus-circle"></i>
                     </nuxt-link>
                 </div>
@@ -32,17 +32,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(employee, index) in employees" :key="index">
+                            <tr v-for="(contact, index) in contacts" :key="index">
                                 <th scope="row">{{ index + 1}}</th>
-                                <td>{{ employee.data().name }}</td>
-                                <td>{{ employee.data().phone }}</td>
+                                <td>{{ contact.data().name }}</td>
+                                <td>{{ contact.data().phone }}</td>
 
                                 <td class="print-none text-center">
                                     <div class="hover:show">
-                                        <nuxt-link :to="`/employee/edit/${employee.id}`" class="btn btn-sm btn-warning">
+                                        <nuxt-link :to="`/contacts/edit/${contact.id}`" class="btn btn-sm btn-warning">
                                             <i class="bi bi-pencil-square"></i>
                                         </nuxt-link>
-                                        <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEmployee(employee)">
+                                        <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteContact(contact)">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -66,52 +66,52 @@
 export default {
     data(){
         return{
-            employees: [],
+            contacts: [],
             isLoaded: false
         }
     },
     head:{
-        title: 'Employee List'
+        title: 'Contacts List'
     },
     mounted(){
-        this.loadEmployees()
+        this.loadContacts()
     },
 
     methods:{
-        reloadEmployees(){
-            this.$fire.firestore.collection("employees").onSnapshot((querySnapshot) => {
-                this.employees = []
+        reloadContacts(){
+            this.$fire.firestore.collection("contacts").onSnapshot((querySnapshot) => {
+                this.contacts = []
                 querySnapshot.forEach((doc) => {
-                    this.employees.push(doc)
+                    this.contacts.push(doc)
                 });
             });
         },
-        async loadEmployees(){
-            await this.$fire.firestore.collection('employees').get().then((querySnapshot) => {
-                this.employees = querySnapshot.docs;
+        async loadContacts(){
+            await this.$fire.firestore.collection('contacts').get().then((querySnapshot) => {
+                this.contacts = querySnapshot.docs;
                 this.isLoaded = true
             }).catch((error) =>{
                 console.log(error)
             })
         },
 
-        deleteEmployee(employee){
-            // delete employee
+        deleteContact(contact){
+            // delete contact
 
             if(confirm('Are You Sure?')){
                 // delete image form storage
-                if(employee.data().image){
-                    this.$fire.storage.refFromURL(employee.data().image).delete().then(function(){
+                if(contact.data().image){
+                    this.$fire.storage.refFromURL(contact.data().image).delete().then(function(){
                         console.log('delete image')
                     }).catch( (error) =>{
                         console.log(error)
                     });
                 }
 
-                this.$fire.firestore.collection("employees").doc(employee.id).delete().then((response) => {
+                this.$fire.firestore.collection("contacts").doc(contact.id).delete().then((response) => {
                     this.$toast.success('Document successfully deleted.')
                     console.log("Document successfully deleted!");
-                    this.loadEmployees()
+                    this.loadContacts()
                 }).catch((error) => {
                     console.error("Error removing document: ", error);
                 });

@@ -2,9 +2,9 @@
     <section>
         <div class="container mt-3 user-profile">
             <div class="card">
-                <div class="card-header">Employees Edit</div>
+                <div class="card-header">Contactss Edit</div>
                 <div class="card-body">
-                   <form @submit.prevent="updateEmployee">
+                   <form @submit.prevent="updateContacts">
                         <div class="row g-3 justify-content-center">
                             <!-- type text -->
                             <div class="col-md-8">
@@ -65,24 +65,24 @@ export default {
         title: 'Edit Profile'
     },
     mounted() {
-        this.getEmployee()
+        this.getContacts()
     },
 
     methods:{
-        getEmployee() {
-            this.$fire.firestore.collection("employees").doc(this.$route.params.uid).get().then((snapshot) =>{
+        getContacts() {
+            this.$fire.firestore.collection("contacts").doc(this.$route.params.uid).get().then((snapshot) =>{
                 this.form = snapshot.data()
             }).catch((error) =>{
                 console.log(error)
             });
         },
 
-        updateEmployee(){
-            // update employee information
-            this.$fire.firestore.collection("employees").doc(this.$route.params.uid).update(this.form).then((response)=> {
+        updateContacts(){
+            // update contacts information
+            this.$fire.firestore.collection("contacts").doc(this.$route.params.uid).update(this.form).then((response)=> {
                 console.log("Document successfully updated!");
                 this.$toast.success('Document successfully updated.')
-                this.$router.push('/employee')
+                this.$router.push('/contacts')
             })
             .catch((error) => {
                 // The document probably doesn't exist.
@@ -95,7 +95,7 @@ export default {
 
             if(file){
                 // upload image
-                const storageRef = this.$fire.storage.ref('employees/'+ Math.random() + '_'  + file.name);
+                const storageRef = this.$fire.storage.ref('contacts/'+ Math.random() + '_'  + file.name);
 
                 const uploadTask  = storageRef.put(file);
 

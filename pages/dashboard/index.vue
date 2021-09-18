@@ -28,10 +28,10 @@ export default {
         createUser(){
             this.users.forEach(user =>{
                 // console.log({...user, image:''})
-                // console.log(user.name + ' Employee Creating...')
-                this.$fire.firestore.collection('employees').add({...user, image:''}).then((snapshot) =>{
+                // console.log(user.name + ' Contacts Creating...')
+                this.$fire.firestore.collection('contacts').add({...user, image:''}).then((snapshot) =>{
                     console.log(snapshot)
-                    console.log(user.name + ' Employee Successfully Created.')
+                    console.log(user.name + ' Contact Successfully Created.')
                 }).catch(error =>{
                     console.log(error)
                 })
