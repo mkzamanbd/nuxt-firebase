@@ -1,63 +1,42 @@
 <template>
-    <div class="container mt-3">
-        <!-- table -->
-        <div class="card border-0">
-            <div class="card-header d-flex align-items-center justify-content-between px-0">
-                <h4 class="main-title">Contacts List</h4>   
-                
-                <div>
-                    <a href="#" class="btn btn-info btn-sm" title="Print" onclick="window.print()">
-                        <i class="bi bi-printer"></i>
-                    </a>
-                    
-                    <nuxt-link to="/contacts/create" class="btn btn-success btn-sm">
-                        <i class="bi bi-plus-circle"></i>
-                    </nuxt-link>
+    <div class="container px-6 mx-auto grid">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            Contacts List
+        </h2>
+        <!-- content body -->
+        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs border border-gray-200 dark:border-gray-700">
+            <div class="w-full overflow-x-auto">
+                <table v-if="isLoaded" class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3">ID</th>
+                            <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        <tr v-for="(contact, index) in contacts" :key="index" class="text-gray-700 dark:text-gray-400">
+                            <th class="px-4 py-3">{{ index }}</th>
+                            <td class="px-4 py-3">{{ contact.data().name }}</td>
+
+                            <td class="px-4 py-3">
+                                <div>
+                                    <nuxt-link :to="`/contacts/edit/${contact.id}`" class="btn btn-sm btn-warning">
+                                        Edit
+                                    </nuxt-link>
+                                    <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteContact(contact)">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div v-else class="flex items-center justify-center">
+                    Loading...
                 </div>
             </div>
-            <!-- content body -->
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table v-if="isLoaded" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>SL</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th class="print-none text-center">
-                                    <span class="hover:show">
-                                        Action
-                                    </span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(contact, index) in contacts" :key="index">
-                                <th scope="row">{{ index + 1}}</th>
-                                <td>{{ contact.data().name }}</td>
-                                <td>{{ contact.data().phone }}</td>
-
-                                <td class="print-none text-center">
-                                    <div class="hover:show">
-                                        <nuxt-link :to="`/contacts/edit/${contact.id}`" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </nuxt-link>
-                                        <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteContact(contact)">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div v-else>
-                        <b-skeleton-table :rows="10" :columns="4" :table-props="{ bordered: true, striped: true }"></b-skeleton-table>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
     </div>
 </template>
 
