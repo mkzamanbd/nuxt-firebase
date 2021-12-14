@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="(user, index) in users" :key="index">
-                                <th scope="row">{{ index + 1}}</th>
+                                <th scope="row">{{ index }}</th>
                                 <td>{{ user }}</td>
 
                                 <td class="print-none text-center">

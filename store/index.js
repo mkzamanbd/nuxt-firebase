@@ -1,10 +1,14 @@
 // store/index.js
 
 export const state = () => ({
-    authUser: null
+    authUser: null,
+    isSideMenuOpen: false,
 });
 
 export const mutations = {
+    TOGGLE_SIDEBAR(state, value) {
+        state.isSideMenuOpen = value !== undefined ? value : !state.isSideMenuOpen;
+    },
     ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser, claims }) {
         if (!authUser) {
             // claims = null

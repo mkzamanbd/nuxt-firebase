@@ -5,8 +5,8 @@
 </template>
 
 <script>
-export default {
-    name: "auth",
-    middleware: "guest"
-}
+    export default {
+        name: "Auth",
+        middleware: "guest"
+    }
 </script>
