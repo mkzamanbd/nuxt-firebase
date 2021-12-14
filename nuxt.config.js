@@ -38,10 +38,14 @@ export default {
 
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
+        
+        // https://go.nuxtjs.dev/pwa
+        '@nuxtjs/pwa',
 
         // https://firebase.nuxtjs.org/guide/getting-started
-        '@nuxtjs/pwa',
         '@nuxtjs/firebase',
+
+        // toast config
 	    '@nuxtjs/toast',
     ],
     firebase:{

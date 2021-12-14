@@ -103,7 +103,7 @@
                 <!-- Profile menu -->
                 <li class="relative">
                     <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none" aria-label="Account" aria-haspopup="true" @click="toggleProfileMenu" @keydown.escape="closeProfileMenu">
-                        <img class="object-cover w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name=WD&color=7F9CF5&background=EBF4FF" alt="" aria-hidden="true" />
+                        <img class="object-cover w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name=ZM&color=7F9CF5&background=EBF4FF" alt="" aria-hidden="true" />
                     </button>
                     <template v-if="isProfileMenuOpen">
                         <ul
