@@ -11,16 +11,16 @@
         <ul id="asideAccordion" class="accordion" >
             <h6 class="ps-3 py-1">Basic</h6>
             <li class="accordion-item">
-                <nuxt-link to="/" class="single-nav-link">
+                <nuxt-link to="/dashboard" class="single-nav-link">
                     <i class="bi bi-house"></i>
                     <span>Dashboard</span>
                 </nuxt-link>
             </li>
 
             <li class="accordion-item">
-                <nuxt-link to="/contacts" class="single-nav-link">
+                <nuxt-link to="/dashboard/user" class="single-nav-link">
                     <i class="bi bi-people"></i>
-                    <span>Contacts</span>
+                    <span>User</span>
                 </nuxt-link>
             </li>
 

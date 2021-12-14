@@ -57,84 +57,84 @@
 
 <script>
 
-export default {
-    name: 'NewContactComponent',
-    data(){
-        return {
-            form:{
-                name: '',
-                phone:'+880',
-                email: '',
-                image: ''
+    export default {
+        name: 'NewContactComponent',
+        data(){
+            return {
+                form:{
+                    name: '',
+                    phone:'+880',
+                    email: '',
+                    image: ''
+                },
+
+                progressBar: 0,
+            }
+        },
+        head:{
+            title: 'New Contact'
+        },
+
+        methods:{
+            reset_form(){
+                this.form = {
+                    name: '',
+                    phone:'',
+                    email: '',
+                    image: ''
+                }
+                this.progressBar = 0
             },
-
-            progressBar: 0,
-        }
-    },
-    head:{
-        title: 'New Contact'
-    },
-
-    methods:{
-        reset_form(){
-            this.form = {
-                name: '',
-                phone:'',
-                email: '',
-                image: ''
-            }
-            this.progressBar = 0
-        },
-        saveContact(){
-            this.$fire.firestore.collection('contacts').add(this.form).then((snapshot) =>{
-                this.$toast.success('Contact Successfully Saved.')
-                this.reset_form()
-            }).catch(error =>{
-                console.log(error)
-            })
-        },
-
-        userImage(event){
-            const file = event.target.files[0];
-
-            if(file){
-                // upload image
-                const storageRef = this.$fire.storage.ref('contacts/'+ Math.random() + '_'  + file.name);
-
-                const uploadTask  = storageRef.put(file);
-
-                uploadTask.on('state_changed', (snapshot) => {
-                    // Observe state change events such as progress, pause, and resume
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                    this.progressBar = progress
-
-                },(error) => {
-                    // Handle unsuccessful uploads
-                    console.log(error)
-                },() => {
-                    // Handle successful uploads on complete
-
-                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                        this.form.image = downloadURL;
-                        this.progressBar = 0;
-                        this.$toast.success('Image successfully uploaded.')
-                    });
-                });
-            }
-
-            if(this.form.image){
-                this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
-                    this.$toast.success('Old image successfully Deleted, & Updated new Image.')
-                }).catch( (error) =>{
+            saveContact(){
+                this.$fire.firestore.collection('contacts').add(this.form).then((snapshot) =>{
+                    this.$toast.success('Contact Successfully Saved.')
+                    this.reset_form()
+                }).catch((error) =>{
                     console.log(error)
                 })
+            },
+
+            userImage(event){
+                const file = event.target.files[0];
+
+                if(file){
+                    // upload image
+                    const storageRef = this.$fire.storage.ref('contacts/'+ Math.random() + '_'  + file.name);
+
+                    const uploadTask  = storageRef.put(file);
+
+                    uploadTask.on('state_changed', (snapshot) => {
+                        // Observe state change events such as progress, pause, and resume
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                        this.progressBar = progress
+
+                    },(error) => {
+                        // Handle unsuccessful uploads
+                        console.log(error)
+                    },() => {
+                        // Handle successful uploads on complete
+
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            this.form.image = downloadURL;
+                            this.progressBar = 0;
+                            this.$toast.success('Image successfully uploaded.')
+                        });
+                    });
+                }
+
+                if(this.form.image){
+                    this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
+                        this.$toast.success('Old image successfully Deleted, & Updated new Image.')
+                    }).catch( (error) =>{
+                        console.log(error)
+                    })
+                }
             }
         }
-    }
 
-}
+    }
 </script>
 
 <style lang="scss" scoped>

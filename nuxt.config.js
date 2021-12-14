@@ -1,14 +1,14 @@
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        title: 'Directory List',
+        title: 'JERP',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { hid: 'description', name: 'description', content: '' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
             { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
         ],
         script:[
@@ -29,16 +29,22 @@ export default {
     components: true,
 
     // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-    buildModules: [],
+    buildModules: [
+        // https://go.nuxtjs.dev/tailwindcss
+        '@nuxtjs/tailwindcss',
+    ],
 
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
         // https://go.nuxtjs.dev/eslint
         '@nuxtjs/eslint-module',
+
         // https://go.nuxtjs.dev/bootstrap
         'bootstrap-vue/nuxt',
+
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
+
         // https://firebase.nuxtjs.org/guide/getting-started
         '@nuxtjs/pwa',
         '@nuxtjs/firebase',
@@ -65,6 +71,7 @@ export default {
                 },
                 ssr: true, // default
             },
+            database: true,
             firestore: true,
             storage: true,
         }
@@ -81,24 +88,27 @@ export default {
 
     pwa: {
         meta: {
-            title: 'Simple Nuxt PhoneBook App',
+            title: 'JERP',
             author: 'PhoneBook',
         },
         manifest: {
-            name: 'Simple Nuxt PhoneBook App',
-            short_name: 'PhoneBook',
+            name: 'JERP',
+            short_name: 'JERP',
             lang: 'en',
         },
+
         // disable the modules you don't need
         workbox: {
             importScripts: [
                 '/firebase-auth-sw.js'
             ],
+
             // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
             // only set this true for testing and remember to always clear your browser cache in development
             dev: process.env.NODE_ENV === 'development',
         }
     },
+
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
         // use for only bootstrap compile warning
@@ -106,6 +116,7 @@ export default {
             compact: true
         },
     },
+
     // server:{
     //     host: '',
     //     port: '5000'

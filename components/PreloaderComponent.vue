@@ -1,18 +1,18 @@
 <template>
-    <div class="preloader" v-if="isLoading">
+    <div v-if="isLoading" class="preloader">
         <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"></div>
     </div>
 </template>
 
 <script>
-export default {
-    name: "PreloaderComponent",
-    computed:{
-        isLoading(){
-            return this.$store.getters['loading/getLoadingStatus'];
+    export default {
+        name: "PreloaderComponent",
+        computed:{
+            isLoading(){
+                return this.$store.getters['loading/getLoadingStatus'];
+            }
         }
     }
-}
 </script>
 
 <style lang="scss">

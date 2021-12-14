@@ -16,8 +16,8 @@
 
                 <!-- Responsive button -->
                 <button class="navbar-toggler p-1 ms-auto" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <!-- End responsive button -->

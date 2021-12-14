@@ -44,6 +44,7 @@ export const actions = {
             const { allClaims: claims,idToken: token, ...authUser } = res.locals.user;
 
             await dispatch("onAuthStateChangedAction", { authUser, claims, token });
+
             // or
             commit("ON_AUTH_STATE_CHANGED_MUTATION", { authUser, claims, token });
         }
@@ -52,6 +53,7 @@ export const actions = {
     async onAuthStateChangedAction({ commit, dispatch }, { authUser, claims }) {
         if (!authUser) {
             await dispatch("cleanupAction");
+            
             return;
         }
 
@@ -68,7 +70,7 @@ export const actions = {
             isAdmin: claims.custom_claim || null
         });
     },
-    async cleanupAction({commit}) {
+    cleanupAction({commit}) {
         commit("ON_AUTH_STATE_CHANGED_MUTATION", {});
     }
 };

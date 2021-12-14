@@ -14,30 +14,31 @@
 </template>
 
 <script>
-import userData from '@/assets/location/UserData.json'
-export default {
-    head:{
-        title: 'Dashboard'
-    },
-    computed:{
-        users(){
-            return userData
-        }
-    },
-    methods:{
-        createUser(){
-            this.users.forEach(user =>{
-                // console.log({...user, image:''})
-                // console.log(user.name + ' Contacts Creating...')
-                this.$fire.firestore.collection('contacts').add({...user, image:''}).then((snapshot) =>{
-                    console.log(snapshot)
-                    console.log(user.name + ' Contact Successfully Created.')
-                }).catch(error =>{
-                    console.log(error)
-                })
+    import userData from '@/assets/location/UserData.json'
+
+    export default {
+        head:{
+            title: 'Dashboard'
+        },
+        computed:{
+            users(){
+                return userData
+            }
+        },
+        methods:{
+            createUser(){
+                this.users.forEach((user) =>{
+                    // console.log({...user, image:''})
+                    // console.log(user.name + ' Contacts Creating...')
+                    this.$fire.firestore.collection('contacts').add({...user, image:''}).then((snapshot) =>{
+                        console.log(snapshot)
+                        console.log(user.name + ' Contact Successfully Created.')
+                    }).catch((error) =>{
+                        console.log(error)
+                    })
                 
-            })
+                })
+            }
         }
     }
-}
 </script>                                                         

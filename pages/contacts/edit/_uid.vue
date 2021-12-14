@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header">Contactss Edit</div>
                 <div class="card-body">
-                   <form @submit.prevent="updateContacts">
+                    <form @submit.prevent="updateContacts">
                         <div class="row g-3 justify-content-center">
                             <!-- type text -->
                             <div class="col-md-8">
@@ -48,90 +48,91 @@
 
 <script>
 
-export default {
-    name: 'EditProfileComponent',
-    data(){
-        return {
-            form:{
-                name: '',
-                phone:'',
-                email: '',
-                image: ''
-            },
-            progressBar: 0
-        }
-    },
-    head:{
-        title: 'Edit Profile'
-    },
-    mounted() {
-        this.getContacts()
-    },
-
-    methods:{
-        getContacts() {
-            this.$fire.firestore.collection("contacts").doc(this.$route.params.uid).get().then((snapshot) =>{
-                this.form = snapshot.data()
-            }).catch((error) =>{
-                console.log(error)
-            });
+    export default {
+        name: 'EditProfileComponent',
+        data(){
+            return {
+                form:{
+                    name: '',
+                    phone:'',
+                    email: '',
+                    image: ''
+                },
+                progressBar: 0
+            }
+        },
+        head:{
+            title: 'Edit Profile'
+        },
+        mounted() {
+            this.getContacts()
         },
 
-        updateContacts(){
-            // update contacts information
-            this.$fire.firestore.collection("contacts").doc(this.$route.params.uid).update(this.form).then((response)=> {
-                console.log("Document successfully updated!");
-                this.$toast.success('Document successfully updated.')
-                this.$router.push('/contacts')
-            })
-            .catch((error) => {
-                // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
-            });
-        },
-
-        userImage(event){
-            const file = event.target.files[0];
-
-            if(file){
-                // upload image
-                const storageRef = this.$fire.storage.ref('contacts/'+ Math.random() + '_'  + file.name);
-
-                const uploadTask  = storageRef.put(file);
-
-                uploadTask.on('state_changed', (snapshot) => {
-                    // Observe state change events such as progress, pause, and resume
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                    this.progressBar = progress
-
-                },(error) => {
-                    // Handle unsuccessful uploads
+        methods:{
+            getContacts() {
+                this.$fire.firestore.collection("contacts").doc(this.$route.params.uid).get().then((snapshot) =>{
+                    this.form = snapshot.data()
+                }).catch((error) =>{
                     console.log(error)
-                },() => {
-                    // Handle successful uploads on complete
-
-                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                        this.form.image = downloadURL;
-                        this.progressBar = 0;
-                        // console.log("File available at: " + this.form.image)
-                        this.$toast.success('Image successfully uploaded.')
-                    });
                 });
-            }
+            },
 
-            if(this.form.image){
-                this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
-                    this.$toast.success('Old image successfully Deleted, & Updated new Image.')
-                }).catch( (error) =>{
-                    console.log(error)
+            updateContacts(){
+                // update contacts information
+                this.$fire.firestore.collection("contacts").doc(this.$route.params.uid).update(this.form).then((response)=> {
+                    console.log("Document successfully updated!");
+                    this.$toast.success('Document successfully updated.')
+                    this.$router.push('/contacts')
                 })
+                    .catch((error) => {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                    });
+            },
+
+            userImage(event){
+                const file = event.target.files[0];
+
+                if(file){
+                    // upload image
+                    const storageRef = this.$fire.storage.ref('contacts/'+ Math.random() + '_'  + file.name);
+
+                    const uploadTask  = storageRef.put(file);
+
+                    uploadTask.on('state_changed', (snapshot) => {
+                        // Observe state change events such as progress, pause, and resume
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                        this.progressBar = progress
+
+                    },(error) => {
+                        // Handle unsuccessful uploads
+                        console.log(error)
+                    },() => {
+                        // Handle successful uploads on complete
+
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            this.form.image = downloadURL;
+                            this.progressBar = 0;
+
+                            // console.log("File available at: " + this.form.image)
+                            this.$toast.success('Image successfully uploaded.')
+                        });
+                    });
+                }
+
+                if(this.form.image){
+                    this.$fire.storage.refFromURL(this.form.image).delete().then(function(){
+                        this.$toast.success('Old image successfully Deleted, & Updated new Image.')
+                    }).catch( (error) =>{
+                        console.log(error)
+                    })
+                }
             }
         }
-    }
 
-}
+    }
 </script>
 
 <style lang="scss" scoped>

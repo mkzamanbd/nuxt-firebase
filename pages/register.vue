@@ -89,45 +89,45 @@
 </template>
 
 <script>
-export default {
-    data(){
-        return{
-            credentials:{
-                email: '',
-                password: ''
-            },
-            isLoading: false
-        }
-    },
-    mounted() {
-
-    },
-    methods: {
-        showPassword() {
-            const input = document.getElementsByName("password")[0];
-                const type = input.getAttribute("type");
-
-            if (type === "password") {
-                input.type = "text";
-                document.querySelector('.bi-eye-fill').classList.add("bi-eye-slash-fill");
-            } else {
-                input.type = "password";
-                document.querySelector('.bi-eye-fill').classList.remove("bi-eye-slash-fill");
+    export default {
+        data(){
+            return{
+                credentials:{
+                    email: '',
+                    password: ''
+                },
+                isLoading: false
             }
         },
+        mounted() {
 
-        register(){
-            this.isLoading = true
-            console.log(this.credentials)
-            this.$fire.auth.createUserWithEmailAndPassword(this.credentials.email, this.credentials.password).then(response =>{
-                // response
-                console.log(response.user)
+        },
+        methods: {
+            showPassword() {
+                const input = document.getElementsByName("password")[0];
+                const type = input.getAttribute("type");
 
-            }).catch(error =>{
-                this.isLoading = false
-                this.errorMessage = error.message
-            })
+                if (type === "password") {
+                    input.type = "text";
+                    document.querySelector('.bi-eye-fill').classList.add("bi-eye-slash-fill");
+                } else {
+                    input.type = "password";
+                    document.querySelector('.bi-eye-fill').classList.remove("bi-eye-slash-fill");
+                }
+            },
+
+            register(){
+                this.isLoading = true
+                console.log(this.credentials)
+                this.$fire.auth.createUserWithEmailAndPassword(this.credentials.email, this.credentials.password).then((response) =>{
+                    // response
+                    console.log(response.user)
+
+                }).catch((error) =>{
+                    this.isLoading = false
+                    this.errorMessage = error.message
+                })
+            }
         }
     }
-}
 </script>
