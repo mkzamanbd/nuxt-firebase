@@ -179,20 +179,13 @@
             toggleSideMenu(){
                 this.$store.commit('TOGGLE_SIDEBAR');
             },
-            closeSideMenu(){
-                this.isSideMenuOpen = false
-            },
-            togglePagesMenu(){
-                this.isPagesMenuOpen = !this.isPagesMenuOpen
-            },
-            closePagesMenu(){
-                this.isPagesMenuOpen = false
-            },
-            toggleDark(){
-                this.dark = !this.dark
-            },
             toggleTheme(){
                 this.dark = !this.dark
+                if(this.dark){
+                    document.documentElement.className = 'dark';
+                }else{
+                    document.documentElement.className = '';
+                }
             },
             toggleProfileMenu(){
                 this.isProfileMenuOpen = !this.isProfileMenuOpen
