@@ -179,7 +179,7 @@
             logout(){
                 this.$fire.auth.signOut().then(() => {
                     // Sign-out successful.
-                    window.location.reload()
+                    window.location.href = '/';
                 }).catch((error) => {
                     // An error happened.
                     console.log(error);

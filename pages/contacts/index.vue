@@ -11,21 +11,23 @@
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-3">ID</th>
                             <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">Phone</th>
                             <th class="px-4 py-3">Action</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <tr v-for="(contact, index) in contacts" :key="index" class="text-gray-700 dark:text-gray-400">
-                            <th class="px-4 py-3">{{ index }}</th>
+                            <th class="px-4 py-3">{{ index + 1 }}</th>
                             <td class="px-4 py-3">{{ contact.data().name }}</td>
+                            <td class="px-4 py-3">{{ contact.data().phone }}</td>
 
                             <td class="px-4 py-3">
                                 <div>
-                                    <nuxt-link :to="`/contacts/edit/${contact.id}`" class="btn btn-sm btn-warning">
-                                        Edit
+                                    <nuxt-link :to="`/contacts/edit/${contact.id}`" class="rounded font-medium leading-5 ripple inline-block text-sm px-3 py-1 bg-blue-500 text-white h-10 w-10 mr-3">
+                                        <span class="material-icons">edit</span>
                                     </nuxt-link>
-                                    <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteContact(contact)">
-                                        Delete
+                                    <button type="button" class="rounded font-medium leading-5 ripple inline-block text-sm px-3 py-1 bg-red-600 text-white h-10 w-10" @click.prevent="deleteContact(contact)">
+                                        <span class="material-icons">delete</span>
                                     </button>
                                 </div>
                             </td>

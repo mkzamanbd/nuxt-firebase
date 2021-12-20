@@ -1,56 +1,43 @@
 <template>
-    <div class="container mt-3">
-        <div class="card border-0">
-            <div class="card-header d-flex justify-content-between px-0">
-                <h5 class="main-title">New Contact</h5>
-                
-                <nuxt-link to="/contacts" title="Go back">
-                    <i class="bi bi-arrow-left"></i>
-                </nuxt-link>
-
-            </div>
-
-            <div class="card-body p-0">
-                <!-- start form -->
-                <form @submit.prevent="saveContact">
-
-                    <div class="row mt-3 justify-content-center">
-                        <!-- type text -->
-                        <div class="col-md-8">
-                            <div class="form-group mb-2">
-                                <label for="inline-text">Name</label>
-                                <input id="inline-text" v-model="form.name" type="text" class="form-control" placeholder="Name" required autofocus>
-                            </div>
-
-                            <div class="form-group mb-2">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input id="phone" v-model="form.phone" type="number" class="form-control" placeholder="01X XX XXX XXX">
-                            </div>
-
-                            <div class="form-group mb-2">
-                                <label for="email" >Email</label>
-                                <input id="email" v-model="form.email" type="email" class="form-control" placeholder="Email">
-                            </div>
-
-                            <div class="form-group mb-2">
-                                <label for="image" class="form-label required mt-1">Photo</label>
-                                <input id="image" type="file" class="form-control" @change="userImage">
-                                <img v-if="form.image" :src="form.image" alt="image" width="100px" class="img-thumbnail mt-2">
-                            </div>
-
-                            <div v-if="progressBar > 0" class="mb-2">
-                                <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
-                            </div>
-
-                            <div class="text-end">
-                                <button type="submit" class="btn custom-btn btn-success">Submit</button>
-                            </div>
-
-                        </div>
+    <div class="container px-6 mx-auto grid">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            New Contact
+        </h2>
+        <!-- CTA -->
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <form class="w-full" @submit.prevent="saveContact">
+                <div class="w-1/2 mx-auto">
+                    <div class="form-group mb-2">
+                        <label for="inline-text">Name</label>
+                        <input id="inline-text" v-model="form.name" type="text" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Name" required autofocus>
                     </div>
-                </form>
-                <!-- end form -->
-            </div>
+
+                    <div class="form-group mb-2">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input id="phone" v-model="form.phone" type="text" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="01X XX XXX XXX">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="email" >Email</label>
+                        <input id="email" v-model="form.email" type="email" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Email">
+                    </div>
+
+                    <div class="cursor-pointer h-20 w-20 bg-gray-100 rounded mb-2 flex items-center justify-center">
+                        <label for="image" class="cursor-pointer mt-1">
+                            Photo
+                            <input id="image" type="file" class="hidden" @change="userImage">
+                            <img v-if="form.image" :src="form.image" alt="image" width="100px" class="img-thumbnail mt-2">
+                        </label>
+                    </div>
+
+                    <div v-if="progressBar > 0" class="mb-2">
+                        <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn custom-btn btn-success me-2">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </template>

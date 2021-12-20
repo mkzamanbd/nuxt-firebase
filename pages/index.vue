@@ -101,9 +101,8 @@
                 this.isLoading = true;
                 await this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password).then((response) =>{
                     console.log(response)
-                    window.location.reload();
+                    window.location.href = '/dashboard';
                     this.$toast.success("You are successfully Logged in")
-                    this.$router.push('/dashboard')
                 }).catch((error) =>{
                     this.isLoading = false
                     this.$toast.error(error.message)

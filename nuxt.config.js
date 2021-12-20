@@ -1,7 +1,8 @@
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        title: 'JERP',
+        titleTemplate: "%s - PhoneBook App",
+        title: 'PhoneBook App',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -11,9 +12,6 @@ export default {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
             { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
         ],
-        script:[
-            { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' }
-        ]
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -86,12 +84,12 @@ export default {
 
     pwa: {
         meta: {
-            title: 'JERP',
+            title: 'PhoneBook',
             author: 'PhoneBook',
         },
         manifest: {
-            name: 'JERP',
-            short_name: 'JERP',
+            name: 'PhoneBook',
+            short_name: 'PhoneBook',
             lang: 'en',
         },
 
