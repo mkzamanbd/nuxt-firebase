@@ -1,12 +1,24 @@
 <template>
     <div class="container px-6 mx-auto grid">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Dashboard
-        </h2>
+        <!-- breadcrumb -->
+        <div class="flex items-center py-4">
+            <ol class="flex text-sm leading-6 whitespace-nowrap min-w-0">
+                <li class="flex items-center">
+                    <span class="text-gray-900 dark:text-gray-200">Dashboard</span>
+                    <svg width="3" height="6" aria-hidden="true" class="mx-3 overflow-visible text-gray-400">
+                        <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                    </svg>
+                </li>
+                <li class="font-semibold text-gray-900 truncate dark:text-gray-200">Dashboard V1</li>
+            </ol>
+        </div>
+        <!-- breadcrumb end -->
+
         <!-- CTA -->
         <a
-            class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+            class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-primary rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
             href="https://github.com/zamanz/tailwind-dashboard"
+            target="_blank"
         >
             <div class="flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -21,7 +33,7 @@
         <!-- Cards -->
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -39,7 +51,7 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -59,7 +71,7 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -77,7 +89,7 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
@@ -90,51 +102,6 @@
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                         35
                     </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Charts -->
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Charts
-        </h2>
-        <div class="grid gap-6 mb-8 md:grid-cols-2">
-            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                    Revenue
-                </h4>
-                <canvas id="pie"></canvas>
-                <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
-                    <!-- Chart legend -->
-                    <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"></span>
-                        <span>Shirts</span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"></span>
-                        <span>Shoes</span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
-                        <span>Bags</span>
-                    </div>
-                </div>
-            </div>
-            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                    Traffic
-                </h4>
-                <canvas id="line"></canvas>
-                <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
-                    <!-- Chart legend -->
-                    <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"></span>
-                        <span>Organic</span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
-                        <span>Paid</span>
-                    </div>
                 </div>
             </div>
         </div>

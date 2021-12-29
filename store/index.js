@@ -2,12 +2,20 @@
 
 export const state = () => ({
     authUser: null,
+    isDarkMode: false,
     isSideMenuOpen: false,
+    isSearchBoxOpen: false,
 });
 
 export const mutations = {
+    TOGGLE_DARK_THEME(state, value) {
+        state.isDarkMode = value !== undefined ? value : !state.isDarkMode;
+    },
     TOGGLE_SIDEBAR(state, value) {
         state.isSideMenuOpen = value !== undefined ? value : !state.isSideMenuOpen;
+    },
+    TOGGLE_SEARCH_BOX(state, value) {
+        state.isSearchBoxOpen = value !== undefined ? value : !state.isSearchBoxOpen;
     },
     ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser, claims }) {
         if (!authUser) {
