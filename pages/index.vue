@@ -99,15 +99,15 @@
         methods: {
             async login(){
                 this.isLoading = true;
-                await this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password).then((response) =>{
-                    console.log(response)
+                try {
+                    await this.$fire.auth.signInWithEmailAndPassword(this.credentials.email, this.credentials.password);
                     window.location.href = '/dashboard';
                     this.$toast.success("You are successfully Logged in")
-                }).catch((error) =>{
+                } catch (error) {
                     this.isLoading = false
                     this.$toast.error(error.message)
                     this.errorMessage = error.message
-                })
+                }
 
             }
         }

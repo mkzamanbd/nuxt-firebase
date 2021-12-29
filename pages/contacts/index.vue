@@ -22,11 +22,11 @@
                             <td class="px-4 py-3">{{ contact.data().phone }}</td>
 
                             <td class="px-4 py-3">
-                                <div>
-                                    <nuxt-link :to="`/contacts/edit/${contact.id}`" class="rounded font-medium leading-5 ripple inline-block text-sm px-3 py-1 bg-blue-500 text-white h-10 w-10 mr-3">
+                                <div class="flex space-x-2">
+                                    <nuxt-link :to="`/contacts/edit/${contact.id}`" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-blue-500 text-white">
                                         <span class="material-icons">edit</span>
                                     </nuxt-link>
-                                    <button type="button" class="rounded font-medium leading-5 ripple inline-block text-sm px-3 py-1 bg-red-600 text-white h-10 w-10" @click.prevent="deleteContact(contact)">
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-600 text-white" @click.prevent="deleteContact(contact)">
                                         <span class="material-icons">delete</span>
                                     </button>
                                 </div>

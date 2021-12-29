@@ -1,3 +1,6 @@
+const isDev = process.env.NODE_ENV === 'development'
+const useEmulators = false // manually change if emulators needed
+
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
@@ -61,13 +64,12 @@ export default {
         },
         services: {
             auth: {
-                persistence: 'local', // default
                 initialize: {
-                    onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
                     onAuthStateChangedAction: 'onAuthStateChangedAction',
-                    subscribeManually: false
                 },
-                ssr: true, // default
+                ssr: true,
+                emulatorPort: isDev && useEmulators ? 9099 : undefined,
+                disableEmulatorWarnings: false,
             },
             database: true,
             firestore: true,
