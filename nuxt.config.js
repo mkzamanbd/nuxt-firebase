@@ -4,8 +4,8 @@ const useEmulators = false // manually change if emulators needed
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        titleTemplate: "%s - PhoneBook App",
-        title: 'PhoneBook App',
+        titleTemplate: "%s - Firebase App",
+        title: 'Firebase App',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -88,12 +88,12 @@ export default {
 
     pwa: {
         meta: {
-            title: 'PhoneBook',
-            author: 'PhoneBook',
+            title: 'Firebase',
+            author: 'Firebase',
         },
         manifest: {
-            name: 'PhoneBook',
-            short_name: 'PhoneBook',
+            name: 'Firebase',
+            short_name: 'Firebase',
             lang: 'en',
         },
 
@@ -121,7 +121,7 @@ export default {
 
     // server:{
     //     host: '',
-    //     port: '5000'
+    //     port: '3000'
     // },
 
     loading: {
