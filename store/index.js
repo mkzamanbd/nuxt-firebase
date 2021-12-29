@@ -8,83 +8,63 @@ export const state = () => ({
 });
 
 export const mutations = {
-    TOGGLE_DARK_THEME(state, value) {
+    TOGGLE_DARK_THEME: (state, value) => {
         state.isDarkMode = value !== undefined ? value : !state.isDarkMode;
     },
-    TOGGLE_SIDEBAR(state, value) {
+    TOGGLE_SIDEBAR: (state, value) => {
         state.isSideMenuOpen = value !== undefined ? value : !state.isSideMenuOpen;
     },
-    TOGGLE_SEARCH_BOX(state, value) {
+    TOGGLE_SEARCH_BOX: (state, value) => {
         state.isSearchBoxOpen = value !== undefined ? value : !state.isSearchBoxOpen;
     },
-    ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser, claims }) {
-        if (!authUser) {
-            // claims = null
-            // perform logout operations
-            state = {
-                authUser: null
-            }
-        }
-        else{
-            // Do something with the authUser and the claims object...
-            // you can request additional fields if they are optional (e.g. photoURL)
-            const {
-                uid,
-                email,
-                emailVerified,
-                displayName,
-                photoURL
-            } = authUser;
 
-            state.authUser = {
-                uid,
-                displayName,
-                email,
-                emailVerified,
-                photoURL: photoURL || null, // results in photoURL being null for server auth
-                // use custom claims to control access (see https://firebase.google.com/docs/auth/admin/custom-claims)
-                isAdmin: claims.custom_claim || null
-            };
+    // firebase auth
+    RESET_STORE: (state) =>{
+        Object.assign(state, state.authUser);
+    },
+    
+    SET_AUTH_USER: (state, { authUser }) => {
+        state.authUser = {
+            uid: authUser.uid,
+            email: authUser.email
         }
     }
 };
 
 export const actions = {
-    async nuxtServerInit({ dispatch, commit }, { res }) {
+    async nuxtServerInit({ dispatch}, { res }) {
         if (res && res.locals && res.locals.user) {
 
-            const { allClaims: claims,idToken: token, ...authUser } = res.locals.user;
-
-            await dispatch("onAuthStateChangedAction", { authUser, claims, token });
-
-            // or
-            commit("ON_AUTH_STATE_CHANGED_MUTATION", { authUser, claims, token });
+            const { allClaims: claims, ...authUser } = res.locals.user
+            await dispatch("onAuthStateChanged", { authUser, claims });
+            console.info('Auth User verified on server-side. User: ', authUser, 'Claims:', claims)
         }
     },
 
-    async onAuthStateChangedAction({ commit, dispatch }, { authUser, claims }) {
+    async onAuthStateChanged({ commit }, { authUser }) {
         if (!authUser) {
-            await dispatch("cleanupAction");
-            
-            return;
+            commit('RESET_STORE')
+
+            return
         }
-
-        // you can request additional fields if they are optional (e.g. photoURL)
-        const { uid, email, emailVerified, displayName, photoURL } = authUser;
-
-        commit("ON_AUTH_STATE_CHANGED_MUTATION", {
-            uid,
-            email,
-            emailVerified,
-            displayName,
-            photoURL, // results in photoURL being undefined for server auth
-            // use custom claims to control access (see https://firebase.google.com/docs/auth/admin/custom-claims)
-            isAdmin: claims.custom_claim || null
-        });
+        if (authUser && authUser.getIdToken) {
+            try {
+              const idToken = await authUser.getIdToken(true)
+              console.info('idToken', idToken)
+            } catch (e) {
+              console.error(e)
+            }
+        }
+        commit('SET_AUTH_USER', { authUser })
     },
-    cleanupAction({commit}) {
-        commit("ON_AUTH_STATE_CHANGED_MUTATION", {});
-    }
 };
 
-export const getters = {};
+export const getters = {
+    isLoggedIn: (state) => {
+        try {
+            return state.authUser.uid !== null
+        } catch {
+            return false
+        }
+    }
+};

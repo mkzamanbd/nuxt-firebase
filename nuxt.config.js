@@ -65,7 +65,7 @@ export default {
         services: {
             auth: {
                 initialize: {
-                    onAuthStateChangedAction: 'onAuthStateChangedAction',
+                    onAuthStateChangedAction: 'onAuthStateChanged',
                 },
                 ssr: true,
                 emulatorPort: isDev && useEmulators ? 9099 : undefined,
