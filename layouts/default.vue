@@ -20,7 +20,9 @@
             <!-- Backdrop end -->
             
             <div class="flex flex-col flex-1 h-full overflow-hidden overflow-y-auto relative">
+                <!-- header start -->
                 <header-default/>
+                <!-- header end -->
             
                 <main class="flex-1 max-h-full relative">
                     <Nuxt/>

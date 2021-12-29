@@ -9,6 +9,9 @@
                 <table v-if="isLoaded" class="w-full whitespace-no-wrap">
                     <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th scope="col" class="px-4 py-3">
+                                <input type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer">
+                            </th>
                             <th class="px-4 py-3">ID</th>
                             <th class="px-4 py-3">Detail</th>
                             <th class="px-4 py-3">Action</th>
@@ -16,20 +19,26 @@
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <tr v-for="(user, index) in users" :key="index" class="text-gray-700 dark:text-gray-400">
+                            <td class="px-4 py-4">
+                                <input type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer">
+                            </td>
                             <th class="px-4 py-3">{{ index }}</th>
                             <td class="px-4 py-3">{{ user }}</td>
 
                             <td class="px-4 py-3">
-                                <div class="hover:show">
-                                    <a href="/user/edit/100" class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
+                                <div class="space-x-2 flex">
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-blue-500 text-white">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white">
+                                        <span class="material-icons">delete</span>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <div v-else>
+                <div v-else class="dark:text-white">
                     Loading...
                 </div>
             </div>
