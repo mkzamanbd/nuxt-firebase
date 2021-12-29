@@ -18,8 +18,8 @@
                         <button
                             type="button"
                             class="py-1.5 w-72 flex items-center text-sm leading-6 text-gray-400 focus-visible:outline-0 ring-0 focus:ring-0 pl-2 pr-3"
-                            @click="$store.commit('TOGGLE_SEARCH_BOX', true)"
-                            @keydown.escape="$store.commit('TOGGLE_SEARCH_BOX', false)"
+                            @click="isSearchBoxOpen = true"
+                            @keydown.escape="isSearchBoxOpen = false"
                         >
                             <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
                                 <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -206,6 +206,14 @@
         computed:{
             currentUser(){
                 return this.$store.state.authUser;
+            },
+            isSearchBoxOpen: {
+                get(){
+                    return this.$store.state.isSearchBoxOpen
+                },
+                set(value){
+                    this.$store.commit('TOGGLE_SEARCH_BOX', value)
+                }
             }
         },
         methods:{
@@ -223,6 +231,7 @@
             toggleTheme(){
                 this.isDarkMode = !this.isDarkMode;
                 this.$store.commit('TOGGLE_DARK_THEME');
+                document.documentElement.classList.toggle('dark');
             },
             toggleProfileMenu(){
                 this.isProfileMenuOpen = !this.isProfileMenuOpen

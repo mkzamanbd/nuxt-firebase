@@ -12,11 +12,19 @@
                 <li class="font-semibold text-gray-900 truncate dark:text-gray-200">Dashboard V1</li>
             </ol>
         </div>
-        <!-- breadcrumb end -->
+        <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-primary rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" href="https://github.com/zamanz/tailwind-dashboard" target="_blank">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>Star this project on GitHub</span>
+            </div>
+            <span>View more →</span>
+        </a>
         <!-- Cards -->
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
                         App Update
@@ -34,7 +42,7 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
                         Demo Mode
@@ -52,7 +60,7 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
                         App Name
@@ -65,7 +73,7 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
                         App Version
@@ -78,6 +86,49 @@
                 </div>
             </div>
         </div>
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            User
+        </h2>
+        <!-- content body -->
+        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs border border-gray-200 dark:border-gray-700">
+            <div class="w-full overflow-x-auto">
+                <table v-if="isLoaded" class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th scope="col" class="px-4 py-3">
+                                <input type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer">
+                            </th>
+                            <th class="px-4 py-3">ID</th>
+                            <th class="px-4 py-3">Detail</th>
+                            <th class="px-4 py-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 h-96 overflow-y-auto">
+                        <tr v-for="(user, index) in users" :key="index" class="text-gray-700 dark:text-gray-400">
+                            <td class="px-4 py-4">
+                                <input type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer">
+                            </td>
+                            <th class="px-4 py-3">{{ index }}</th>
+                            <td class="px-4 py-3">{{ user }}</td>
+
+                            <td class="px-4 py-3">
+                                <div class="space-x-2 flex">
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-blue-500 text-white">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div v-else class="dark:text-white">
+                    Loading...
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -86,7 +137,9 @@
         data(){
             return {
                 app_version: {},
-                is_demo_mode_on: null
+                is_demo_mode_on: null,
+                users: [],
+                isLoaded: false
             }
         },
         head:{
@@ -97,11 +150,16 @@
             this.$fire.database.ref('app_version').on('value', (snapshot) => {
                 this.app_version = snapshot.val();
                 console.log(snapshot.val())
-            })
+            });
             this.$fire.database.ref('is_demo_mode_on').on('value', (snapshot) => {
                 this.is_demo_mode_on = snapshot.val();
                 console.log(snapshot.val())
-            })
+            });
+            this.$fire.database.ref('users').on('value', (snapshot) => {
+                this.users = snapshot.val();
+                this.isLoaded = true;
+                console.log(snapshot.val())
+            });
         },
     }
 </script>                                                         
