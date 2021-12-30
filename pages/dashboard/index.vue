@@ -63,11 +63,11 @@
             <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
-                        App Name
+                        App Version
                     </span>
                     <div class="mt-4">
                         <label class="block text-sm">
-                            <input v-model="jerpApp.name" readonly disabled class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                            <input v-model="jerpApp.version" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" @keydown.enter="handleAppVersion">
                         </label>
                     </div>
                 </div>
@@ -76,11 +76,11 @@
             <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
-                        App Version
+                        Product
                     </span>
                     <div class="mt-4">
                         <label class="block text-sm">
-                            <input v-model="jerpApp.version" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" @keydown.enter="handleAppVersion">
+                            <input v-model="product" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                         </label>
                     </div>
                 </div>
@@ -96,7 +96,8 @@
                 jerpApp: {},
                 is_demo_mode_on: null,
                 users: [],
-                isLoaded: false
+                isLoaded: false,
+                product: null,
             }
         },
         head:{
@@ -111,6 +112,10 @@
             this.$fire.database.ref('is_demo_mode_on').on('value', (snapshot) => {
                 this.is_demo_mode_on = snapshot.val();
                 console.log('demo mode', snapshot.val())
+            });
+            this.$fire.database.ref('product').on('value', (snapshot) => {
+                this.product = new Date(snapshot.val()).toLocaleString();
+                console.log('product', snapshot.val())
             });
         },
         methods:{
