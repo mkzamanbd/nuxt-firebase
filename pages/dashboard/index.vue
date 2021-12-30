@@ -80,7 +80,7 @@
                     </span>
                     <div class="mt-4">
                         <label class="block text-sm">
-                            <input v-model="product" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                            <input v-model="product" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" @keydown.enter="handleProductTime">
                         </label>
                     </div>
                 </div>
@@ -144,7 +144,17 @@
             handleDemoMode(){
                 this.$fire.database.ref('is_demo_mode_on').set(this.is_demo_mode_on);
                 this.$toast.success(`Demo mode: ${this.is_demo_mode_on === '1' ? 'ON' : 'OFF'}`);
-            }
+            },
+            handleProductTime(){
+                try{
+                    this.$fire.database.ref('product').set(new Date(this.product).getTime());
+                    this.$toast.success(`Product time successfully updated`);
+                }
+                catch(error){
+                    console.log(error)
+                    this.$toast.error(`Product time failed to update`);
+                }
+            },
         }
     }
 </script>                                                         
