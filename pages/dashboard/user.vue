@@ -1,10 +1,13 @@
 <template>
     <div class="container px-6 mx-auto grid">
-        <div class="my-6 flex justify-between">
+        <div class="my-6 flex justify-between items-center">
             <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 User({{ filteredUsers.length }})
             </h2>
-            <input v-model="searchItem" class="block w-72 mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Search">
+            <div class="flex">
+                <button type="button" class="mr-4" @click="deleteSelectedUser">Delete Selected User</button>
+                <input v-model="searchItem" class="block w-72 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Search">
+            </div>
         </div>
         <!-- content body -->
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs border border-gray-200 dark:border-gray-700">
@@ -35,7 +38,7 @@
                                     <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-blue-500 text-white">
                                         <span class="material-icons">edit</span>
                                     </button>
-                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white">
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white" @click="deleteUser(user)">
                                         <span class="material-icons">delete</span>
                                     </button>
                                 </div>
@@ -72,6 +75,7 @@
         mounted(){
             // get data on firebase database
             this.$fire.database.ref('users').on('value', (snapshot) => {
+                this.users = []
                 snapshot.forEach((childSnapshot) => {
                     const childKey = childSnapshot.key;
                     const childData = childSnapshot.val();
@@ -99,6 +103,23 @@
             selectUser() {
                 this.filteredUsers.length === this.userIds.length ? this.allSelectedUser = true : this.allSelectedUser = false
             },
+            deleteUser(user){
+                if(confirm('Are you sure?\nYou want to delete selected user')){
+                    this.$fire.database.ref('users/' + user.id).remove();
+                }
+            },
+            deleteSelectedUser(){
+                if(this.userIds.length > 0){
+                    if(confirm('Are you sure?\nYou want to delete selected user')){
+                        this.userIds.forEach((userId) => {
+                            this.$fire.database.ref('users/' + userId).remove();
+                        })
+                    }
+                }
+                else{
+                    alert('Please select user first');
+                }
+            }
         }
     }
 </script>
