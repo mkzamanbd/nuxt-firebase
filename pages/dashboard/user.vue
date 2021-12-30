@@ -5,7 +5,7 @@
                 User({{ filteredUsers.length }})
             </h2>
             <div class="flex">
-                <button type="button" class="mr-4 border rounded p-2 dark:border-gray-600 dark:bg-gray-700 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete</button>
+                <button v-if="userIds.length > 0" type="button" class="mr-4 border rounded p-2 dark:border-gray-600 dark:bg-gray-700 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete</button>
                 <input v-model="searchItem" class="block w-72 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Search">
             </div>
         </div>
@@ -105,14 +105,14 @@
                             <div class="flex w-full space-x-4">
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.customer.lastModifiedTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime</span>
                                         <input v-model="editableUserData.data.customer.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
 
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.customer.lastReadTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime</span>
                                         <input v-model="editableUserData.data.customer.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
@@ -124,14 +124,14 @@
                             <div class="flex w-full space-x-4">
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.employee.lastModifiedTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime</span>
                                         <input v-model="editableUserData.data.employee.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
 
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.employee.lastReadTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime</span>
                                         <input v-model="editableUserData.data.employee.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
@@ -144,14 +144,14 @@
                             <div class="flex w-full space-x-4">
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.menu.lastModifiedTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime</span>
                                         <input v-model="editableUserData.data.menu.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
 
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.menu.lastReadTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime</span>
                                         <input v-model="editableUserData.data.menu.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
@@ -163,14 +163,14 @@
                             <div class="flex w-full space-x-4">
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.notification.lastModifiedTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime</span>
                                         <input v-model="editableUserData.data.notification.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
 
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.notification.lastReadTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime</span>
                                         <input v-model="editableUserData.data.notification.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
@@ -183,14 +183,14 @@
                             <div class="flex w-full space-x-4">
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.orderHistory.lastModifiedTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime</span>
                                         <input v-model="editableUserData.data.orderHistory.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
 
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.orderHistory.lastReadTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime</span>
                                         <input v-model="editableUserData.data.orderHistory.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
@@ -202,14 +202,14 @@
                             <div class="flex w-full space-x-4">
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.territory.lastModifiedTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime</span>
                                         <input v-model="editableUserData.data.territory.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
 
                                 <div class="md:w-1/2">
                                     <label class="block text-sm">
-                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.territory.lastReadTime) }})</span>
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime</span>
                                         <input v-model="editableUserData.data.territory.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                                     </label>
                                 </div>
@@ -219,7 +219,7 @@
                     </main>
                     <footer class="flex justify-end border-t border-gray-300 dark:border-gray-700">
                         <div class="px-4 py-2">
-                            <button type="button">Update</button>
+                            <button type="button" class="border rounded p-2 dark:border-gray-600 dark:bg-gray-700 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="updateUserData">Update</button>
                         </div>
                     </footer>
                 </div>
@@ -238,7 +238,7 @@
                 allSelectedUser: false,
                 userIds: [],
                 isEditModalOpen: false,
-                editableUserData: {},
+                editableUserData: null,
             }
         },
         computed: {
@@ -265,18 +265,17 @@
             })
         },
         methods:{
-            formattedTime(time){
-                if(time === null || time === '' || time === undefined || time === 0){
-                    return '-';
-                }
-                else {
-                    return new Date(time).toLocaleString();
-                }
-                    
-            },
             editUser(user){
                 this.isEditModalOpen = true;
                 this.editableUserData = user;
+            },
+            updateUserData(){
+                if(confirm('Are you sure?\nYou want to update this user data')){
+                    this.$fire.database.ref('users/' + this.editableUserData.id).set(this.editableUserData.data)
+                    this.$toast.success(`User successfully Updated, User ID: ${this.editableUserData.id}`);
+
+                    // this.isEditModalOpen = false;
+                }
             },
             selectAllUser() {
                 this.userIds = [];
