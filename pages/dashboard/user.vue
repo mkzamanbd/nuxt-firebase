@@ -35,7 +35,7 @@
 
                             <td class="px-4 py-3">
                                 <div class="space-x-2 flex">
-                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-blue-500 text-white">
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-purple-500 text-white" @click="editUser(user)">
                                         <span class="material-icons">edit</span>
                                     </button>
                                     <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white" @click="deleteUser(user)">
@@ -51,6 +51,180 @@
                 </div>
             </div>
         </div>
+        <!-- edit modal -->
+        <div v-if="isEditModalOpen" class="fixed inset-0 w-full h-full z-40 backdrop-blur bg-black/10 dark:bg-black/20 duration-300 overflow-y-auto">
+            <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/2 mx-2 sm:mx-auto my-20 opacity-100 shadow-sm">
+                <div class="relative bg-white shadow-lg rounded-lg text-gray-900 dark:text-gray-100 dark:bg-gray-800 z-20">
+                    <header class="border-b border-gray-300 dark:border-gray-700">
+                        <div class="px-4 py-2 flex justify-between items-center">
+                            <p>User ID: {{editableUserData.id}}</p>
+                            <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+                            <button type="button" class="border border-gray-300 dark:border-gray-700 rounded p-0.5 text-xs" @click="isEditModalOpen = false">Close</button>
+                        </div>
+                    </header>
+                    <main class="px-4 py-2 max-h-96 overflow-hidden overflow-y-auto">
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <div class="mb-2">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400 font-bold">All Territory</span>
+                                    <input v-model="editableUserData.data.allTerritory" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                </label>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400 font-bold">isPasswordUpdate</span>
+                                    <input v-model="editableUserData.data.isPasswordUpdate" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                </label>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400 font-bold">Notice</span>
+                                    <input v-model="editableUserData.data.notice" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                </label>
+                            </div>
+                            <div class="mb-2">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400 font-bold">Offer</span>
+                                    <input v-model="editableUserData.data.offer" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                </label>
+                            </div>
+                            <div class="mb-2">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400 font-bold">Product</span>
+                                    <input v-model="editableUserData.data.product" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                </label>
+                            </div>
+                        </div>
+
+                        <hr class="border-1 mb-2">
+
+                        <div class="mb-2">
+                            <p class="font-bold text-gray-700 dark:text-gray-400">Customer</p>
+                            <div class="flex w-full space-x-4">
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.customer.lastModifiedTime) }})</span>
+                                        <input v-model="editableUserData.data.customer.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.customer.lastReadTime) }})</span>
+                                        <input v-model="editableUserData.data.customer.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <p class="font-bold text-gray-700 dark:text-gray-400">Employee</p>
+                            <div class="flex w-full space-x-4">
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.employee.lastModifiedTime) }})</span>
+                                        <input v-model="editableUserData.data.employee.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.employee.lastReadTime) }})</span>
+                                        <input v-model="editableUserData.data.employee.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-2">
+                            <p class="font-bold text-gray-700 dark:text-gray-400">Menu</p>
+                            <div class="flex w-full space-x-4">
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.menu.lastModifiedTime) }})</span>
+                                        <input v-model="editableUserData.data.menu.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.menu.lastReadTime) }})</span>
+                                        <input v-model="editableUserData.data.menu.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <p class="font-bold text-gray-700 dark:text-gray-400">Notification</p>
+                            <div class="flex w-full space-x-4">
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.notification.lastModifiedTime) }})</span>
+                                        <input v-model="editableUserData.data.notification.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.notification.lastReadTime) }})</span>
+                                        <input v-model="editableUserData.data.notification.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-2">
+                            <p class="font-bold text-gray-700 dark:text-gray-400">Order History</p>
+                            <div class="flex w-full space-x-4">
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.orderHistory.lastModifiedTime) }})</span>
+                                        <input v-model="editableUserData.data.orderHistory.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.orderHistory.lastReadTime) }})</span>
+                                        <input v-model="editableUserData.data.orderHistory.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <p class="font-bold text-gray-700 dark:text-gray-400">Territory</p>
+                            <div class="flex w-full space-x-4">
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastModifiedTime ({{ formattedTime(editableUserData.data.territory.lastModifiedTime) }})</span>
+                                        <input v-model="editableUserData.data.territory.lastModifiedTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <label class="block text-sm">
+                                        <span class="text-gray-700 dark:text-gray-400">lastReadTime ({{ formattedTime(editableUserData.data.territory.lastReadTime) }})</span>
+                                        <input v-model="editableUserData.data.territory.lastReadTime" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </main>
+                    <footer class="flex justify-end border-t border-gray-300 dark:border-gray-700">
+                        <div class="px-4 py-2">
+                            <button type="button">Update</button>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -63,6 +237,8 @@
                 searchItem: '',
                 allSelectedUser: false,
                 userIds: [],
+                isEditModalOpen: false,
+                editableUserData: {},
             }
         },
         computed: {
@@ -89,6 +265,19 @@
             })
         },
         methods:{
+            formattedTime(time){
+                if(time === null || time === '' || time === undefined || time === 0){
+                    return '-';
+                }
+                else {
+                    return new Date(time).toLocaleString();
+                }
+                    
+            },
+            editUser(user){
+                this.isEditModalOpen = true;
+                this.editableUserData = user;
+            },
             selectAllUser() {
                 this.userIds = [];
                 if (this.allSelectedUser) {

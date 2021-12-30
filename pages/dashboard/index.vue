@@ -122,7 +122,7 @@
         },
         methods:{
             handleAppUpdate(){
-                const ref = this.$fire.database.ref('app_version/');
+                const ref = this.$fire.database.ref('app_version');
                 try{
                     ref.child('is_optional').set(this.jerpApp.is_optional);
                     this.$toast.success(`Successfully updated`);
@@ -133,7 +133,7 @@
                 }
             },
             handleAppVersion(){
-                const ref = this.$fire.database.ref('app_version/');
+                const ref = this.$fire.database.ref('app_version');
                 try{
                     ref.child('version').set(this.jerpApp.version);
                     this.$toast.success(`App version successfully updated: ${this.jerpApp.version}`);

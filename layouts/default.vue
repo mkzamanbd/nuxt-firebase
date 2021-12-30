@@ -87,36 +87,6 @@
                 </div>
             </div>
         </div>
-        <!-- Setting panel button -->
-        <button class="fixed right-0 px-4 py-2 text-sm font-medium text-white uppercase transform rotate-90 translate-x-8 bg-gray-600 top-1/2 rounded-b-md" @click="isSettingsPanelOpen = true">
-            Settings
-        </button>
-
-        <!-- Settings panel -->
-        <div
-            v-show="isSettingsPanelOpen"
-            x-transition:enter="transition transform duration-300"
-            x-transition:enter-start="translate-x-full opacity-30  ease-in"
-            x-transition:enter-end="translate-x-0 opacity-100 ease-out"
-            x-transition:leave="transition transform duration-300"
-            x-transition:leave-start="translate-x-0 opacity-100 ease-out"
-            x-transition:leave-end="translate-x-full opacity-0 ease-in"
-            class="z-40 fixed inset-y-0 right-0 flex flex-col backdrop-blur bg-white/30 dark:bg-white/10 bg-white shadow-lg bg-opacity-20 w-80"
-            @click="isSettingsPanelOpen = false"
-        >
-            <div class="flex items-center justify-between flex-shrink-0 p-2 border-b border-b-gray-300 dark:border-b-gray-800">
-                <h6 class="p-2 text-lg dark:text-white">Settings</h6>
-                <button class="p-2 rounded-md focus:outline-none focus:ring" @click="isSettingsPanelOpen = false">
-                    <svg class="w-6 h-6 text-gray-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="flex-1 max-h-full p-4 overflow-hidden hover:overflow-y-auto">
-                <span class="dark:text-white">Settings Content</span>
-            <!-- Settings Panel Content ... -->
-            </div>
-        </div>
     </div>
 </template>
 
