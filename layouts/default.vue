@@ -62,7 +62,7 @@
                                 placeholder="Quick search..."
                             />
                             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
-                            <button type="button" class="border border-gray-300 dark:border-gray-700 rounded p-0.5 text-xs" @click="$store.commit('TOGGLE_SEARCH_BOX', false)">ESC</button>
+                            <button type="button" class="border border-gray-300 dark:border-gray-700 rounded p-0.5 text-xs" @click="isSearchBoxOpen = false">ESC</button>
                         </div>
                     </header>
                     <main class="px-4 py-2 max-h-96 overflow-hidden overflow-y-auto">
@@ -102,8 +102,13 @@
             isSideMenuOpen(){
                 return this.$store.state.isSideMenuOpen;
             },
-            isSearchBoxOpen(){
-                return this.$store.state.isSearchBoxOpen;
+            isSearchBoxOpen:{
+                get(){
+                    return this.$store.state.isSearchBoxOpen;
+                },
+                set(value){
+                    this.$store.commit('TOGGLE_SEARCH_BOX', value);
+                }
             },
             isDarkMode(){
                 return this.$store.state.isDarkMode;
