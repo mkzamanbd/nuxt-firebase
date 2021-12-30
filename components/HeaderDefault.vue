@@ -1,5 +1,5 @@
 <template>
-    <header class="sticky top-0 z-10 py-4 backdrop-filter backdrop-blur bg-white/60 dark:bg-gray-800/60 w-full border-b border-b-gray-300 dark:border-b-gray-700 flex-shrink-0 bg-white h-16">
+    <header class="sticky top-0 z-10 py-4 backdrop-filter backdrop-blur bg-white/60 dark:bg-gray-800/60 w-full border-b border-b-gray-300 dark:border-b-gray-700 flex-shrink-0 h-16">
         <div class="flex container px-6 mx-auto items-center text-primary dark:text-purple-300">
             <!-- header menu button -->
             <div class="flex justify-between items-center md:hidden">
