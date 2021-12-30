@@ -9,7 +9,7 @@
                         <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
                     </svg>
                 </li>
-                <li class="font-semibold text-gray-900 truncate dark:text-gray-200">Dashboard V1</li>
+                <li class="font-semibold text-gray-900 truncate dark:text-gray-200">Home</li>
             </ol>
         </div>
         <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-primary rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" href="https://github.com/zamanz/phonebook" target="_blank">
@@ -31,11 +31,11 @@
                     </span>
                     <div class="mt-4">
                         <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
-                            <input v-model="app_version.is_optional" value="N" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <input v-model="jerpApp.is_optional" value="N" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" @change="handleAppUpdate">
                             <span class="ml-2">Optional</span>
                         </label>
                         <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                            <input v-model="app_version.is_optional" value="Y" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <input v-model="jerpApp.is_optional" value="Y" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" @change="handleAppUpdate">
                             <span class="ml-2">Required</span>
                         </label>
                     </div>
@@ -49,11 +49,11 @@
                     </span>
                     <div class="mt-4">
                         <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
-                            <input v-model="is_demo_mode_on" value="1" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <input v-model="is_demo_mode_on" value="1" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" @change="handleDemoMode">
                             <span class="ml-2">On</span>
                         </label>
                         <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                            <input v-model="is_demo_mode_on" value="0" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <input v-model="is_demo_mode_on" value="0" type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" @change="handleDemoMode">
                             <span class="ml-2">OFF</span>
                         </label>
                     </div>
@@ -67,7 +67,7 @@
                     </span>
                     <div class="mt-4">
                         <label class="block text-sm">
-                            <input v-model="app_version.name" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                            <input v-model="jerpApp.name" readonly disabled class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
                         </label>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     </span>
                     <div class="mt-4">
                         <label class="block text-sm">
-                            <input v-model="app_version.version" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                            <input v-model="jerpApp.version" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" @keydown.enter="handleAppVersion">
                         </label>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
     export default {
         data(){
             return {
-                app_version: {},
+                jerpApp: {},
                 is_demo_mode_on: null,
                 users: [],
                 isLoaded: false
@@ -105,13 +105,41 @@
         mounted(){
             // get data on firebase database
             this.$fire.database.ref('app_version').on('value', (snapshot) => {
-                this.app_version = snapshot.val();
-                console.log(snapshot.val())
+                this.jerpApp = snapshot.val();
+                console.log('app-version', snapshot.val())
             });
             this.$fire.database.ref('is_demo_mode_on').on('value', (snapshot) => {
                 this.is_demo_mode_on = snapshot.val();
-                console.log(snapshot.val())
+                console.log('demo mode', snapshot.val())
             });
         },
+        methods:{
+            handleAppUpdate(){
+                const ref = this.$fire.database.ref('app_version/');
+                try{
+                    ref.child('is_optional').set(this.jerpApp.is_optional);
+                    this.$toast.success(`Successfully updated`);
+                }
+                catch(error){
+                    console.log(error)
+                    this.$toast.error(`Failed to update`);
+                }
+            },
+            handleAppVersion(){
+                const ref = this.$fire.database.ref('app_version/');
+                try{
+                    ref.child('version').set(this.jerpApp.version);
+                    this.$toast.success(`App version successfully updated: ${this.jerpApp.version}`);
+                }
+                catch(error){
+                    console.log(error)
+                    this.$toast.error(`App version failed to update: ${this.jerpApp.version}`);
+                }
+            },
+            handleDemoMode(){
+                this.$fire.database.ref('is_demo_mode_on').set(this.is_demo_mode_on);
+                this.$toast.success(`Demo mode: ${this.is_demo_mode_on === '1' ? 'ON' : 'OFF'}`);
+            }
+        }
     }
 </script>                                                         

@@ -5,7 +5,7 @@
                 User({{ filteredUsers.length }})
             </h2>
             <div class="flex">
-                <button type="button" class="mr-4" @click="deleteSelectedUser">Delete Selected User</button>
+                <button type="button" class="mr-4 border rounded p-2 dark:border-gray-600 dark:bg-gray-700 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete</button>
                 <input v-model="searchItem" class="block w-72 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Search">
             </div>
         </div>
@@ -103,23 +103,27 @@
             selectUser() {
                 this.filteredUsers.length === this.userIds.length ? this.allSelectedUser = true : this.allSelectedUser = false
             },
-            deleteUser(user){
+            async deleteUser(user){
                 if(confirm('Are you sure?\nYou want to delete selected user')){
-                    this.$fire.database.ref('users/' + user.id).remove();
+                    await this.$fire.database.ref('users/' + user.id).remove();
+                    this.$toast.success(`User are successfully Deleted, User ID: ${user.id}`);
                 }
             },
             deleteSelectedUser(){
                 if(this.userIds.length > 0){
                     if(confirm('Are you sure?\nYou want to delete selected user')){
                         this.userIds.forEach((userId) => {
+                            console.log(`%cDeleting... User ID:  ${userId}`, 'background: red; color: white;');
                             this.$fire.database.ref('users/' + userId).remove();
+                            console.log('%cDeleted', 'background: green; color: white;');
+                            this.$toast.success(`User are successfully Deleted, User ID: ${userId}`);
                         })
                     }
                 }
                 else{
                     alert('Please select user first');
                 }
-            }
+            },
         }
     }
 </script>
