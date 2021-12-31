@@ -4,26 +4,26 @@
             Contacts Edit
         </h2>
         <!-- CTA -->
-        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+        <div class="flex items-center p-4 card">
             <form class="w-full" @submit.prevent="updateContacts">
                 <div class="w-1/2 mx-auto">
                     <div class="form-group mb-2">
-                        <label for="inline-text">Name</label>
+                        <label for="inline-text" class="dark:text-gray-300">Name</label>
                         <input id="inline-text" v-model="form.name" type="text" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Name" required autofocus>
                     </div>
 
                     <div class="form-group mb-2">
-                        <label for="phone" class="form-label">Phone</label>
+                        <label for="phone" class="dark:text-gray-300">Phone</label>
                         <input id="phone" v-model="form.phone" type="text" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="01X XX XXX XXX">
                     </div>
 
                     <div class="form-group mb-2">
-                        <label for="email" >Email</label>
+                        <label for="email" class="dark:text-gray-300">Email</label>
                         <input id="email" v-model="form.email" type="email" class="block w-full mt-1 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Email">
                     </div>
 
                     <div class="mb-2">
-                        <label for="image" class="cursor-pointer mt-1">
+                        <label for="image" class="cursor-pointer mt-1 dark:text-gray-300">
                             Photo
                             <input id="image" type="file" class="hidden" @change="userImage">
                             <img v-if="form.image" :src="form.image" alt="image" width="100px" class="img-thumbnail mt-2">
@@ -35,7 +35,7 @@
                         <b-progress :value="progressBar" max="100" show-progress animated></b-progress>
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn custom-btn btn-success me-2">Update</button>
+                        <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Update</button>
                     </div>
                 </div>
             </form>

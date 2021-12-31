@@ -34,7 +34,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-else class="flex items-center justify-center">
+                <div v-else class="dark:text-white p-12 text-center">
                     Loading...
                 </div>
             </div>
