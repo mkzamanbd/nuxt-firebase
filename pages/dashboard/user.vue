@@ -2,9 +2,9 @@
     <div class="container px-6 mx-auto grid">
         <div class="py-6 flex justify-between items-center">
             <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                User({{ filterItems.length }})
+                User <span v-if="isLoaded">(Total {{ filteredUsers.length }} of {{ filterItems.length }})</span>
             </h2>
-            <div class="flex space-x-2">
+            <div v-if="isLoaded" class="flex space-x-2">
                 <button v-if="userIds.length > 0" type="button" class="border rounded p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete {{ userIds.length > 0 ? `(${userIds.length})` : '' }}</button>
                 <div class="flex items-center space-x-1">
                     <button type="button" class="flex items-center text-sm p-2 text-gray-500 dark:bg-gray-700 dark:text-gray-100 bg-gray-300 rounded-md hover:bg-purple-400 hover:text-white" @click="prevPage">
@@ -20,7 +20,7 @@
                         </svg>
                     </button>
                 </div>
-                <select id="par-page" v-model="rowsPerPage" class="text-sm border rounded appearance-none dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <select id="par-page" v-model="rowsPerPage" class="text-sm border rounded appearance-none dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" @change="page = 1">
                     <option value="20" selected>20</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
