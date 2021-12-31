@@ -5,13 +5,26 @@
                 User({{ filterItems.length }})
             </h2>
             <div class="flex space-x-2">
-                <button v-if="userIds.length > 0" type="button" class="border rounded p-2 text-sm dark:border-gray-600 dark:bg-gray-700 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete</button>
+                <button v-if="userIds.length > 0" type="button" class="border rounded p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete {{ userIds.length > 0 ? `(${userIds.length})` : '' }}</button>
+                <div class="flex items-center space-x-1">
+                    <button type="button" class="flex items-center text-sm p-2 text-gray-500 dark:bg-gray-700 dark:text-gray-100 bg-gray-300 rounded-md hover:bg-purple-400 hover:text-white" @click="prevPage">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                        </svg>
+                        Previous
+                    </button>
+                    <button type="button" class="flex items-center text-sm p-2 text-gray-500 dark:bg-gray-700 dark:text-gray-100 bg-gray-300 rounded-md hover:bg-purple-400 hover:text-white" @click="nextPage">
+                        Next
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </button>
+                </div>
                 <select id="par-page" v-model="rowsPerPage" class="text-sm border rounded appearance-none dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                     <option value="20" selected>20</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="500">500</option>
-                    <option :value="rowsPerPage" disabled>Searched Item</option>
                     <option :value="filteredUsers.length">All Users</option>
                 </select>
                 <input v-model="searchItem" class="w-72 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Search">
@@ -48,24 +61,6 @@
                                     </button>
                                     <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white" @click="deleteUser(user)">
                                         <span class="material-icons">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="px-4 py-3">
-                                <div class="flex items-center space-x-1">
-                                    <button type="button" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md hover:bg-purple-400 hover:text-white" @click="prevPage">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-                                        </svg>
-                                        Previous
-                                    </button>
-                                    <button type="button" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md hover:bg-purple-400 hover:text-white" @click="nextPage">
-                                        Next
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
                                     </button>
                                 </div>
                             </td>
@@ -330,29 +325,31 @@
                     this.allSelectedUser = false;
                 }
                 else{
-                    this.filteredUsers.forEach((user) => {
+                    this.filterItems.forEach((user) => {
                         this.userIds.push(user.id.toString());
                     })
                 }
             },
             selectUser() {
-                this.filteredUsers.length === this.userIds.length ? this.allSelectedUser = true : this.allSelectedUser = false
+                this.filterItems.length === this.userIds.length ? this.allSelectedUser = true : this.allSelectedUser = false
             },
             async deleteUser(user){
                 if(confirm('Are you sure?\nYou want to delete selected user')){
                     await this.$fire.database.ref('users/' + user.id).remove();
-                    this.$toast.success(`User are successfully Deleted, User ID: ${user.id}`);
+                    this.$toast.success(`User successfully deleted, User ID: ${user.id}`);
                 }
             },
             deleteSelectedUser(){
                 if(this.userIds.length > 0){
-                    if(confirm('Are you sure?\nYou want to delete selected user')){
-                        this.userIds.forEach((userId) => {
-                            console.log(`%cDeleting... User ID:  ${userId}`, 'background: red; color: white;');
+                    if(confirm(`Are you sure?\nYou want to delete selected ${this.userIds.length} user`)){
+                        this.userIds.forEach((userId, index) => {
+                            console.log(`%cDeleting... ${index + 1}, User ID:  ${userId}`, 'background: red; color: white;');
                             this.$fire.database.ref('users/' + userId).remove();
-                            console.log('%cDeleted', 'background: green; color: white;');
-                            this.$toast.success(`User are successfully Deleted, User ID: ${userId}`);
-                        })
+                            console.log(`%cDeleted ${index + 1}`, 'background: green; color: white;');
+                        });
+                        this.$toast.success(`Total ${this.userIds.length } user successfully deleted`);
+                        this.userIds = [];
+                        this.allSelectedUser = false;
                     }
                 }
                 else{
