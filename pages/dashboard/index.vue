@@ -76,7 +76,7 @@
             <div class="flex items-center p-4 card">
                 <div class="text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
-                        Product ({{ productTime }})
+                        Product
                     </span>
                     <div class="mt-4">
                         <label class="block text-sm">
@@ -115,8 +115,7 @@
                 console.log('demo mode', snapshot.val())
             });
             this.$fire.database.ref('product').on('value', (snapshot) => {
-                this.productTime = snapshot.val();
-                this.product = new Date(snapshot.val()).toLocaleString();
+                this.product = snapshot.val();
                 console.log('product', snapshot.val())
             });
         },
@@ -149,7 +148,7 @@
             },
             handleProductTime(){
                 try{
-                    this.$fire.database.ref('product').set(new Date(this.product).getTime());
+                    this.$fire.database.ref('product').set(this.product);
                     this.$toast.success(`Product time successfully updated`);
                 }
                 catch(error){

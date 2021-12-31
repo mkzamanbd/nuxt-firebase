@@ -2,7 +2,7 @@
     <div class="container px-6 mx-auto grid">
         <div class="py-6 flex justify-between items-center">
             <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                User <span v-if="isLoaded">(Total {{ filteredUsers.length }} of {{ filterItems.length }})</span>
+                User <span v-if="isLoaded">(Total {{ filteredUsers.length }} of {{ filterItems.length }}) - Page {{ page }}</span>
             </h2>
             <div v-if="isLoaded" class="flex space-x-2">
                 <button v-if="userIds.length > 0" type="button" class="border rounded p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete {{ userIds.length > 0 ? `(${userIds.length})` : '' }}</button>
@@ -36,7 +36,7 @@
                 <table v-if="isLoaded" class="w-full whitespace-no-wrap">
                     <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th scope="col" class="sticky px-4 py-3">
+                            <th class="px-4 py-3">
                                 <input v-model="allSelectedUser" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @click="selectAllUser">
                             </th>
                             <th class="px-4 py-3">SL</th>
@@ -67,8 +67,15 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-else class="dark:text-white p-12 text-center">
+                <div v-else class="dark:text-white text-center px-4 py-3">
                     Loading...
+                    <div v-for="item in 10" :key="item" class="animate-pulse grid gap-4 grid-cols-5 mb-3">
+                        <div class="h-8 bg-gray-200 rounded"></div>
+                        <div class="h-8 bg-gray-300 rounded"></div>
+                        <div class="h-8 bg-gray-200 rounded"></div>
+                        <div class="h-8 bg-gray-300 rounded"></div>
+                        <div class="h-8 bg-gray-200 rounded"></div>
+                    </div>
                 </div>
             </div>
         </div>
