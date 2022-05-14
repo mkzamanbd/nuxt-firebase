@@ -10,28 +10,30 @@
             </div>
         </div>
         <!-- content body -->
-        <div class="w-full overflow-y-auto h-100vh rounded-lg shadow-xs border border-gray-200 dark:border-gray-700">
-            <div class="w-full overflow-x-auto">
-                <table v-if="isLoaded" class="w-full whitespace-no-wrap">
-                    <thead>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="px-4 py-3">
+        <div class="w-full overflow-y-auto h-100vh shadow-xs dark:shadow-none border dark:border-0 border-gray-200">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table v-if="isLoaded" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">
                                 <input v-model="allSelectedNotification" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @click="selectAllNotification">
                             </th>
-                            <th class="px-4 py-3">SL</th>
-                            <th class="px-4 py-3">Title(android.title)</th>
-                            <th class="px-4 py-3">Text(android.text)</th>
-                            <th class="px-4 py-3">Action</th>
+                            <th scope="col" class="px-4 py-3">SL</th>
+                            <th scope="col" class="px-4 py-3">Title(android.title)</th>
+                            <th scope="col" class="px-4 py-3">Text(android.text)</th>
+                            <th scope="col" class="px-4 py-3">Created At</th>
+                            <th scope="col" class="px-4 py-3">Action</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        <tr v-for="notification in notifications" :key="notification.id" class="text-gray-700 dark:text-gray-400">
+                    <tbody>
+                        <tr v-for="notification in notifications" :key="notification.id" class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                             <td class="px-4 py-4">
                                 <input v-model="notificationIds" :value="notification.id" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @change="selectNotification">
                             </td>
                             <th class="px-4 py-3">{{ notification.id }}</th>
                             <td class="px-4 py-3">{{ notification.data.android_title }}</td>
                             <td class="px-4 py-3">{{ notification.data.android_text }}</td>
+                            <td class="px-4 py-3">{{ notification.data.created_at }}</td>
 
                             <td class="px-4 py-3">
                                 <div class="space-x-2 flex">
@@ -41,7 +43,7 @@
                                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                         </svg>
                                     </button>
-                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white" @click="deleteUser(notification)">
+                                    <button type="button" class="flex items-center justify-center h-8 w-8 rounded leading-5 ripple bg-red-500 text-white" @click="deleteNotification(notification)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                         </svg>
@@ -115,7 +117,7 @@
             selectNotification() {
                 this.notifications.length === this.notificationIds.length ? this.allSelectedNotification = true : this.allSelectedNotification = false
             },
-            async deleteUser(notification){
+            async deleteNotification(notification){
                 if(confirm('Are you sure?\nYou want to delete selected user')){
                     await this.$fire.database.ref('notifications/' + notification.id).remove();
                     this.$toast.success(`User successfully deleted, User ID: ${notification.id}`);
