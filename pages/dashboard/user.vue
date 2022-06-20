@@ -5,7 +5,7 @@
                 User <span v-if="isLoaded">(Total {{ filteredUsers.length }} of {{ filterItems.length }}) - Page {{ page }}</span>
             </h2>
             <div v-if="isLoaded" class="flex space-x-2">
-                <button v-if="userIds.length > 0" type="button" class="border rounded p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Bulk Delete {{ userIds.length > 0 ? `(${userIds.length})` : '' }}</button>
+                <button v-if="userIds.length > 0" type="button" class="border rounded p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 hover:bg-purple-600 hover:border-purple-600 hover:text-white" @click="deleteSelectedUser">Delete Selected {{ userIds.length > 0 ? `(${userIds.length})` : '' }}</button>
                 <div class="flex items-center space-x-1">
                     <button type="button" class="flex items-center text-sm p-2 text-gray-500 dark:bg-gray-700 dark:text-gray-100 bg-gray-300 rounded-md hover:bg-purple-400 hover:text-white" @click="prevPage">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
