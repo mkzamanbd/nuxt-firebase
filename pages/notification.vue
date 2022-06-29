@@ -19,8 +19,9 @@
                                 <input v-model="allSelectedNotification" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @click="selectAllNotification">
                             </th>
                             <th class="px-4 py-3">SL</th>
-                            <th class="px-4 py-3">Title(android.title)</th>
-                            <th class="px-4 py-3">Text(android.text)</th>
+                            <th class="px-4 py-3">From</th>
+                            <th class="px-4 py-3">Title</th>
+                            <th class="px-4 py-3">Text</th>
                             <th class="px-4 py-3">Created At</th>
                             <th class="px-4 py-3"></th>
                         </tr>
@@ -31,9 +32,10 @@
                                 <input v-model="notificationIds" :value="notification.id" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @change="selectNotification">
                             </td>
                             <th class="px-4 py-3">{{ (index + 1) }}</th>
-                            <td class="px-4 py-3">{{ notification.data.android_title }}</td>
-                            <td class="px-4 py-3">{{ notification.data.android_text }}</td>
-                            <td class="px-4 py-3">{{ notification.data.created_at }}</td>
+                            <td class="px-4 py-3">{{ notification.app_name }}</td>
+                            <td class="px-4 py-3">{{ notification.android_title }}</td>
+                            <td class="px-4 py-3">{{ notification.android_text }}</td>
+                            <td class="px-4 py-3">{{ notification.created_at }}</td>
 
                             <td class="px-4 py-3">
                                 <div class="space-x-2 flex">
@@ -82,7 +84,7 @@
             sortedNotifications(){
                 // eslint-disable-next-line vue/no-side-effects-in-computed-properties
                 return this.notifications.sort((a, b) => {
-                    return new Date(b.data.created_at) - new Date(a.data.created_at);
+                    return new Date(b.created_at) - new Date(a.created_at);
                 })
             },
         },
@@ -91,13 +93,10 @@
             // get data on firebase database
             this.$fire.database.ref('notifications').on('value', (snapshot) => {
                 this.notifications = []
-                snapshot.forEach((childSnapshot) => {
-                    const childKey = childSnapshot.key;
-                    const childData = childSnapshot.val();
-                    
+                snapshot.forEach((child) => {                    
                     this.notifications.push({
-                        id: childKey,
-                        data: childData
+                        id: child.key,
+                        ...child.val(),
                     });
                 });
                 this.isLoaded = true;

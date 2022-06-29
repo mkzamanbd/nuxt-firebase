@@ -4,12 +4,12 @@ const useEmulators = false // manually change if emulators needed
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        titleTemplate: "%s - Firebase App",
+        titleTemplate: '%s - Firebase App',
         title: 'Firebase App',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: '' }
+            { hid: 'description', name: 'description', content: '' },
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
@@ -18,9 +18,7 @@ export default {
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
-    css: [
-        '~/assets/styles.css',
-    ],
+    css: ['~/assets/styles.css'],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [],
@@ -31,7 +29,7 @@ export default {
     // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
     buildModules: [
         // https://go.nuxtjs.dev/tailwindcss
-        '@nuxt/postcss8'
+        '@nuxt/postcss8',
     ],
 
     // Modules (https://go.nuxtjs.dev/config-modules)
@@ -41,7 +39,7 @@ export default {
 
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
-        
+
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
 
@@ -49,18 +47,18 @@ export default {
         '@nuxtjs/firebase',
 
         // toast config
-	    '@nuxtjs/toast',
+        '@nuxtjs/toast',
     ],
-    firebase:{
+    firebase: {
         config: {
-            apiKey: "AIzaSyCpebug41-6relNiK_5XRDVsva50dtaKDA",
-            authDomain: "fir-zaman.firebaseapp.com",
-            databaseURL: "https://fir-zaman-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "fir-zaman",
-            storageBucket: "fir-zaman.appspot.com",
-            messagingSenderId: "601813049292",
-            appId: "1:601813049292:web:925da0121ee2ae41f98769",
-            measurementId: "G-Y1LZSRFTWX"
+            apiKey: 'AIzaSyBFtksWDGmLeyFJ3FtptIOSu4VQBSDu074',
+            authDomain: 'notification-forwarder-22.firebaseapp.com',
+            databaseURL: 'https://notification-forwarder-22-default-rtdb.asia-southeast1.firebasedatabase.app',
+            projectId: 'notification-forwarder-22',
+            storageBucket: 'notification-forwarder-22.appspot.com',
+            messagingSenderId: '794260611954',
+            appId: '1:794260611954:web:bff8b446f4319a580373eb',
+            measurementId: 'G-X64X55H3NP',
         },
         services: {
             auth: {
@@ -74,13 +72,13 @@ export default {
             database: true,
             firestore: true,
             storage: true,
-        }
+        },
     },
 
     // toast message
     toast: {
         position: 'top-right',
-        duration: 2000
+        duration: 2000,
     },
 
     // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -99,22 +97,20 @@ export default {
 
         // disable the modules you don't need
         workbox: {
-            importScripts: [
-                '/firebase-auth-sw.js'
-            ],
+            importScripts: ['/firebase-auth-sw.js'],
 
             // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
             // only set this true for testing and remember to always clear your browser cache in development
             dev: process.env.NODE_ENV === 'development',
-        }
+        },
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
         postcss: {
             plugins: {
-              tailwindcss: {},
-              autoprefixer: {},
+                tailwindcss: {},
+                autoprefixer: {},
             },
         },
     },
@@ -127,7 +123,6 @@ export default {
     loading: {
         continuous: true,
         color: '#2CA01C',
-        height: '4px'
+        height: '4px',
     },
-
 }
