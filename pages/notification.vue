@@ -20,8 +20,9 @@
                             </th>
                             <th class="px-4 py-3">SL</th>
                             <th class="px-4 py-3">From</th>
+                            <th class="px-4 py-3">TxnID</th>
                             <th class="px-4 py-3">Title</th>
-                            <th class="px-4 py-3">Text</th>
+                            <th class="px-4 py-3" style="width: 40%">Text</th>
                             <th class="px-4 py-3">Created At</th>
                             <th class="px-4 py-3"></th>
                         </tr>
@@ -33,6 +34,7 @@
                             </td>
                             <th class="px-4 py-3">{{ (index + 1) }}</th>
                             <td class="px-4 py-3">{{ notification.app_name }}</td>
+                            <td class="px-4 py-3">{{ notification.transaction_id }}</td>
                             <td class="px-4 py-3">{{ notification.android_title }}</td>
                             <td class="px-4 py-3">{{ notification.android_text }}</td>
                             <td class="px-4 py-3">{{ notification.created_at }}</td>
