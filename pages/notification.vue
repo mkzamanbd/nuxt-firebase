@@ -34,7 +34,12 @@
                             </td>
                             <th class="px-4 py-3">{{ (index + 1) }}</th>
                             <td class="px-4 py-3">{{ notification.app_name }}</td>
-                            <td class="px-4 py-3">{{ notification.transaction_id }}</td>
+                            <td class="px-4 py-3" @click="editTrxId(notification)">
+                                <div v-if="editableRow.id == notification.id">
+                                    <input v-model="editableRow.transaction_id" type="text" class="text-sm leading-6 rounded-md ring-1 ring-slate-900/10 dark:ring-0 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700"  @keydown.enter="updateTrxId" />
+                                </div>
+                                <span v-else>{{ notification.transaction_id }}</span>
+                            </td>
                             <td class="px-4 py-3">{{ notification.android_title }}</td>
                             <td class="px-4 py-3">{{ notification.android_text }}</td>
                             <td class="px-4 py-3">{{ notification.created_at }}</td>
@@ -79,6 +84,7 @@
                 page: 1,
                 rowsPerPage: 20,
                 isDropdownOpen: false,
+                editableRow: {}
             }
         },
 
@@ -124,6 +130,20 @@
                 if(confirm('Are you sure?\nYou want to delete selected user')){
                     await this.$fire.database.ref('notifications/' + notification.id).remove();
                     this.$toast.success(`User successfully deleted, User ID: ${notification.id}`);
+                }
+            },
+
+            editTrxId(notification){
+                this.editableRow = notification;
+                console.log(notification);
+            },
+            async updateTrxId(){
+                if(confirm(`Are you sure?\nYou want to update this trx id`)){
+                    await this.$fire.database.ref(`notifications/${this.editableRow.id}`).update({
+                        transaction_id: this.editableRow.transaction_id
+                    });
+                    this.$toast.success(`Trx ID successfully updated, ID: ${this.editableRow.transaction_id}`);
+                    this.editableRow = {};
                 }
             },
 
