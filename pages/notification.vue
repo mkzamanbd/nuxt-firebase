@@ -1,5 +1,5 @@
 <template>
-    <div class="container px-6 mx-auto grid">
+    <div class="container px-6 mx-auto grid sm:overflow-auto">
         <div class="py-6 flex justify-between items-center">
             <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Notification
@@ -34,31 +34,31 @@
                 
         <div class="w-full">
             <div
-                class="overflow-hidden rounded-lg shadow-xs border border-gray-200 dark:border-gray-700"
+                class="rounded-lg shadow-xs border border-gray-200 dark:border-gray-700"
             >
-                <div class="w-full overflow-x-auto">
+                <div class="w-full overflow-y-auto h-100vh">
                     <table class="w-full overflow-auto">
-                        <thead class="flex text-white w-full">
+                        <thead>
                             <tr
-                                class="flex w-full text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                             >
-                                <th width="5%" class="px-4 py-3 flex items-center">
+                                <th width="4%" class="px-4 py-3 flex items-center">
                                     <input v-model="allSelectedNotification" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @click="selectAllNotification">
                                     <span class="ml-4">SL</span>
                                 </th>
-                                <th width="10%" class="px-4 py-3">Client</th>
-                                <th width="15%" class="px-4 py-3">Transaction ID</th>
-                                <th width="50%" class="px-4 py-3">Message</th>
-                                <th width="20%" class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Client</th>
+                                <th class="px-4 py-3">Transaction ID</th>
+                                <th class="px-4 py-3">Message</th>
+                                <th class="px-4 py-3">Date</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 flex flex-col items-center justify-between overflow-y-scroll w-full h-100vh">
-                            <tr v-for="(notification) in filterItems" :key="notification.id" class="text-gray-700 dark:text-gray-400 flex w-full">
-                                <td width="5%" class="px-4 py-3 flex items-center">
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                            <tr v-for="(notification) in filterItems" :key="notification.id" class="text-gray-700 dark:text-gray-400">
+                                <td width="4%" class="px-4 py-3 flex items-center">
                                     <input v-model="notificationIds" :value="notification.id" type="checkbox" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white dark:bg-gray-800 checked:text-purple-600 focus:ring-0 checked:border-purple-600 focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain cursor-pointer" @change="selectNotification">
                                     <span class="ml-4">{{ notification.count }}</span>
                                 </td>
-                                <td width="10%" class="px-4 py-3">
+                                <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
                                         <div>
                                             <p class="font-semibold">{{ notification.android_title }}</p>
@@ -68,18 +68,18 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td width="15%" class="px-4 py-3 text-xs" @click="editTrxId(notification)">
+                                <td class="px-4 py-3 text-xs" @click="editTrxId(notification)">
                                     <div v-if="editableRow.id == notification.id">
                                         <input v-model="editableRow.transaction_id" type="text" class="text-sm leading-6 rounded-md ring-1 ring-slate-900/10 dark:ring-0 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700"  @keydown.enter="updateTrxId" />
                                     </div>
                                     <span v-else class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">{{ notification.transaction_id }}</span>
                                 </td>
-                                <td width="50%" class="px-4 py-3 text-xs">
+                                <td class="px-4 py-3 text-xs">
                                     <span>
                                         {{ notification.android_text }}
                                     </span>
                                 </td>
-                                <td width="20%" class="px-4 py-3 text-sm">{{ notification.created_at }}</td>
+                                <td class="px-4 py-3 text-sm">{{ notification.created_at }}</td>
                             </tr>
                         </tbody>
                     </table>
