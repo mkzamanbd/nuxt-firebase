@@ -6,9 +6,23 @@
 
 @layer components{
 
-    /* dark theme */
-    .dark--theme{
+     /* dark theme */
+    .dark {
+        color-scheme: dark;
+    }
+    .dark--theme {
         @apply dark:text-gray-200;
+    }
+    /* card components */
+
+    .card {
+        @apply bg-white border border-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-sm;
+    }
+    .card-header {
+        @apply p-4 text-gray-600 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700;
+    }
+    .card-body {
+        @apply p-4;
     }
 
     /* text color */
@@ -43,19 +57,6 @@
     }
     .bg-warning{
         @apply bg-orange-500;
-    }
-
-
-    /* card components */
-
-    .card {
-        @apply bg-white border border-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-sm;
-    }
-    .card-header {
-        @apply p-4 text-gray-600 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700;
-    }
-    .card-body {
-        @apply p-4;
     }
 
 }

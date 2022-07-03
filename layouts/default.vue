@@ -1,10 +1,378 @@
 <template>
-    <div class="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 relative" :class="{'overflow-y-hidden': isSideMenuOpen}">
-        <!-- Sidebar -->
-        <sidebar-default/>
+    <div id="__next" class="bg-gray-50 dark:bg-gray-900 dark:text-gray-300">
+        <!-- Loading screen -->
+        <div
+            v-if="loading"
+            style="z-index: 9999;"
+            class="fixed inset-0 flex items-center justify-center text-white backdrop-blur bg-black/50"
+        >
+            Loading.....
+        </div>
+        <header
+            class="sticky top-0 z-40 w-full backdrop-filter backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white bg-white/60 dark:bg-gray-800/60"
+        >
+            <div class="mx-auto">
+                <div
+                    class="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0"
+                >
+                    <div class="relative flex items-center">
+                        <nuxt-link to="/dashboard">
+                            <svg viewBox="0 0 248 31" class="text-gray-900 dark:text-white w-auto h-5">
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.528 4.65-8.93 3.804-1.942-.482-3.33-1.882-4.865-3.431C34.736 2.92 31.841 0 25.517 0zM12.758 15.218C5.954 15.218 1.701 18.6 0 25.364c2.552-3.382 5.529-4.65 8.93-3.805 1.942.482 3.33 1.882 4.865 3.432 2.502 2.524 5.397 5.445 11.722 5.445 6.804 0 11.057-3.381 12.758-10.145-2.552 3.382-5.529 4.65-8.931 3.805-1.941-.483-3.329-1.883-4.864-3.432-2.502-2.524-5.398-5.446-11.722-5.446z"
+                                    fill="#38bdf8"
+                                    class="fill-purple-500"
+                                ></path>
+                                <path
+                                    class="hidden lg:block"
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M76.546 12.825h-4.453v8.567c0 2.285 1.508 2.249 4.453 2.106v3.463c-5.962.714-8.332-.928-8.332-5.569v-8.567H64.91V9.112h3.304V4.318l3.879-1.143v5.937h4.453v3.713zM93.52 9.112h3.878v17.849h-3.878v-2.57c-1.365 1.891-3.484 3.034-6.285 3.034-4.884 0-8.942-4.105-8.942-9.389 0-5.318 4.058-9.388 8.942-9.388 2.801 0 4.92 1.142 6.285 2.999V9.112zm-5.674 14.636c3.232 0 5.674-2.392 5.674-5.712s-2.442-5.711-5.674-5.711-5.674 2.392-5.674 5.711c0 3.32 2.442 5.712 5.674 5.712zm16.016-17.313c-1.364 0-2.477-1.142-2.477-2.463a2.475 2.475 0 012.477-2.463 2.475 2.475 0 012.478 2.463c0 1.32-1.113 2.463-2.478 2.463zm-1.939 20.526V9.112h3.879v17.849h-3.879zm8.368 0V.9h3.878v26.06h-3.878zm29.053-17.849h4.094l-5.638 17.849h-3.807l-3.735-12.03-3.771 12.03h-3.806l-5.639-17.849h4.094l3.484 12.315 3.771-12.315h3.699l3.734 12.315 3.52-12.315zm8.906-2.677c-1.365 0-2.478-1.142-2.478-2.463a2.475 2.475 0 012.478-2.463 2.475 2.475 0 012.478 2.463c0 1.32-1.113 2.463-2.478 2.463zm-1.939 20.526V9.112h3.878v17.849h-3.878zm17.812-18.313c4.022 0 6.895 2.713 6.895 7.354V26.96h-3.878V16.394c0-2.713-1.58-4.14-4.022-4.14-2.55 0-4.561 1.499-4.561 5.14v9.567h-3.879V9.112h3.879v2.285c1.185-1.856 3.124-2.749 5.566-2.749zm25.282-6.675h3.879V26.96h-3.879v-2.57c-1.364 1.892-3.483 3.034-6.284 3.034-4.884 0-8.942-4.105-8.942-9.389 0-5.318 4.058-9.388 8.942-9.388 2.801 0 4.92 1.142 6.284 2.999V1.973zm-5.674 21.775c3.232 0 5.674-2.392 5.674-5.712s-2.442-5.711-5.674-5.711-5.674 2.392-5.674 5.711c0 3.32 2.442 5.712 5.674 5.712zm22.553 3.677c-5.423 0-9.481-4.105-9.481-9.389 0-5.318 4.058-9.388 9.481-9.388 3.519 0 6.572 1.82 8.008 4.605l-3.34 1.928c-.79-1.678-2.549-2.749-4.704-2.749-3.16 0-5.566 2.392-5.566 5.604 0 3.213 2.406 5.605 5.566 5.605 2.155 0 3.914-1.107 4.776-2.749l3.34 1.892c-1.508 2.82-4.561 4.64-8.08 4.64zm14.472-13.387c0 3.249 9.661 1.285 9.661 7.89 0 3.57-3.125 5.497-7.003 5.497-3.591 0-6.177-1.607-7.326-4.177l3.34-1.927c.574 1.606 2.011 2.57 3.986 2.57 1.724 0 3.052-.571 3.052-2 0-3.176-9.66-1.391-9.66-7.781 0-3.356 2.909-5.462 6.572-5.462 2.945 0 5.387 1.357 6.644 3.713l-3.268 1.82c-.647-1.392-1.904-2.035-3.376-2.035-1.401 0-2.622.607-2.622 1.892zm16.556 0c0 3.249 9.66 1.285 9.66 7.89 0 3.57-3.124 5.497-7.003 5.497-3.591 0-6.176-1.607-7.326-4.177l3.34-1.927c.575 1.606 2.011 2.57 3.986 2.57 1.724 0 3.053-.571 3.053-2 0-3.176-9.66-1.391-9.66-7.781 0-3.356 2.908-5.462 6.572-5.462 2.944 0 5.386 1.357 6.643 3.713l-3.268 1.82c-.646-1.392-1.903-2.035-3.375-2.035-1.401 0-2.622.607-2.622 1.892z"
+                                    fill="currentColor"
+                                ></path>
+                            </svg>
+                        </nuxt-link>
 
-        <!-- Backdrop -->
-        <!-- Backdrop -->
+                        <div class="relative flex items-center ml-auto">
+                            <button
+                                type="button"
+                                class="mr-2 text-slate-500 w-8 h-8 -my-1 flex items-center justify-center hover:text-slate-600 lg:hidden dark:text-slate-400 dark:hover:text-slate-300"
+                                @click="isSearchBoxOpen = true"
+                                @keydown.escape="isSearchBoxOpen = false"
+                            >
+                                <span class="material-icons">search</span>
+                            </button>
+                            <div
+                                class="flex items-center border-l border-slate-200 lg:border-0 dark:border-slate-700 space-x-4"
+                            >
+                                <button
+                                    id="headlessui-listbox-button-4"
+                                    type="button"
+                                    class="ml-2 h-8 w-8 flex align-middle items-center justify-center"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    aria-labelledby="headlessui-listbox-label-3 headlessui-listbox-button-undefined"
+                                    @click="toggleTheme"
+                                >
+                                    <span class="material-icons dark:hidden text-primary">light_mode</span>
+                                    <span class="material-icons hidden dark:inline text-primary"
+                                    >dark_mode</span
+                                    >
+                                </button>
+                                <!-- Notifications menu -->
+                                <div class="relative">
+                                    <button
+                                        class="h-8 w-8 relative align-middle flex items-center justify-center rounded-md focus:outline-none focus:shadow-outline-purple"
+                                        aria-label="Notifications"
+                                        aria-haspopup="true"
+                                        @click="toggleNotificationsMenu"
+                                        @keydown.escape="isNotificationsMenuOpen = false"
+                                    >
+                                        <span class="material-icons text-primary">notifications</span>
+                                        <!-- Notification badge -->
+                                        <span
+                                            aria-hidden="true"
+                                            class="absolute top-0 right-0 inline-block w-2 h-2 animate-ping transform translate-x-1 -translate-y-1 bg-red-400 border-2 border-white rounded-full dark:border-gray-800"
+                                        ></span>
+                                    </button>
+                                    <template v-if="isNotificationsMenuOpen">
+                                        <ul
+                                            x-transition:leave="transition ease-in duration-150"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            class="absolute right-0 mt-6 w-56 p-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                                            @click="isNotificationsMenuOpen = false"
+                                            @keydown.escape="isNotificationsMenuOpen = false"
+                                        >
+                                            <li class="flex">
+                                                <a
+                                                    class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                    href="#"
+                                                >
+                                                    <span>Messages</span>
+                                                    <span
+                                                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600"
+                                                    >
+                                                        13
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="flex">
+                                                <a
+                                                    class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                    href="#"
+                                                >
+                                                    <span>Sales</span>
+                                                    <span
+                                                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600"
+                                                    >
+                                                        2
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="flex">
+                                                <a
+                                                    class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                    href="#"
+                                                >
+                                                    <span>Alerts</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </template>
+                                </div>
+                                <!-- Profile menu -->
+                                <div class="relative">
+                                    <button
+                                        class="h-8 w-8 align-middle flex items-center justify-center rounded-full focus:shadow-outline-purple focus:outline-none"
+                                        aria-label="Account"
+                                        aria-haspopup="true"
+                                        @click="toggleProfileMenu"
+                                        @keydown.escape="isProfileMenuOpen = false"
+                                    >
+                                        <img
+                                            class="object-cover w-8 h-8 rounded-full"
+                                            src="https://ui-avatars.com/api/?name=KZ&color=7F9CF5&background=EBF4FF"
+                                            alt=""
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                    <template v-if="isProfileMenuOpen">
+                                        <ul
+                                            x-transition:leave="transition ease-in duration-150"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            class="absolute right-0 w-56 p-2 mt-6 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                                            aria-label="submenu"
+                                            @click="isProfileMenuOpen = false"
+                                            @keydown.escape="isProfileMenuOpen = false"
+                                        >
+                                            <li class="flex">
+                                                <a
+                                                    class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                    href="#"
+                                                >
+                                                    <span class="material-icons mr-2">person</span>
+                                                    <span>Profile</span>
+                                                </a>
+                                            </li>
+                                            <li class="flex">
+                                                <a
+                                                    class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                    href="#"
+                                                >
+                                                    <span class="material-icons mr-2">settings</span>
+                                                    <span>Settings</span>
+                                                </a>
+                                            </li>
+                                            <li class="flex">
+                                                <a
+                                                    class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                    href="#"
+                                                    @click.prevent="logout"
+                                                >
+                                                    <span class="material-icons mr-2">logout</span>
+                                                    <span>Log out</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex items-center p-4 border-b border-slate-900/10 lg:hidden dark:border-slate-50/[0.06]"
+                >
+                    <button
+                        type="button"
+                        class="flex items-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                        @click="isSideMenuOpen = true"
+                    >
+                        <span class="material-icons">menu</span>
+                    </button>
+                    <ol class="ml-4 flex text-sm leading-6 whitespace-nowrap min-w-0">
+                        <li class="flex items-center">
+                            Getting Started
+                            <svg
+                                width="3"
+                                height="6"
+                                aria-hidden="true"
+                                class="mx-3 overflow-visible text-slate-400"
+                            >
+                                <path
+                                    d="M0 0L3 3L0 6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                ></path>
+                            </svg>
+                        </li>
+                        <li class="font-semibold text-slate-900 truncate dark:text-slate-200">
+                            Installation: Tailwind CLI
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </header>
+
+        <div class="overflow-hidden">
+            <div class="mx-auto px-4 sm:px-6 md:px-8">
+                <aside
+                    class="fixed lg:block z-40 inset-0 top-0 lg:top-[3.8125rem] left-0 right-auto w-[19.5rem] pb-10 overflow-y-auto duration-200 ease-in-out bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800"
+                    :class="{'hidden' : !isSideMenuOpen}"
+                    @click="isSideMenuOpen = false"
+                    @keydown.escape="isSideMenuOpen = false"
+                >
+                    <nav id="nav" class="lg:text-sm lg:leading-6 relative text-gray-500 dark:text-gray-400">
+                        <div class="sticky top-0 -ml-0.5 pointer-events-none z-40">
+                            <div class="h-10 bg-gray-50 dark:bg-gray-900"></div>
+                            <div class="bg-gray-50 dark:bg-slate-900 relative pointer-events-auto px-6">
+                                <nuxt-link class="block lg:hidden pb-4" to="/dashboard">
+                                    <svg viewBox="0 0 248 31" class="text-gray-900 dark:text-white w-auto h-5">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.528 4.65-8.93 3.804-1.942-.482-3.33-1.882-4.865-3.431C34.736 2.92 31.841 0 25.517 0zM12.758 15.218C5.954 15.218 1.701 18.6 0 25.364c2.552-3.382 5.529-4.65 8.93-3.805 1.942.482 3.33 1.882 4.865 3.432 2.502 2.524 5.397 5.445 11.722 5.445 6.804 0 11.057-3.381 12.758-10.145-2.552 3.382-5.529 4.65-8.931 3.805-1.941-.483-3.329-1.883-4.864-3.432-2.502-2.524-5.398-5.446-11.722-5.446z"
+                                            fill="#38bdf8"
+                                            class="fill-purple-500"
+                                        ></path>
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M76.546 12.825h-4.453v8.567c0 2.285 1.508 2.249 4.453 2.106v3.463c-5.962.714-8.332-.928-8.332-5.569v-8.567H64.91V9.112h3.304V4.318l3.879-1.143v5.937h4.453v3.713zM93.52 9.112h3.878v17.849h-3.878v-2.57c-1.365 1.891-3.484 3.034-6.285 3.034-4.884 0-8.942-4.105-8.942-9.389 0-5.318 4.058-9.388 8.942-9.388 2.801 0 4.92 1.142 6.285 2.999V9.112zm-5.674 14.636c3.232 0 5.674-2.392 5.674-5.712s-2.442-5.711-5.674-5.711-5.674 2.392-5.674 5.711c0 3.32 2.442 5.712 5.674 5.712zm16.016-17.313c-1.364 0-2.477-1.142-2.477-2.463a2.475 2.475 0 012.477-2.463 2.475 2.475 0 012.478 2.463c0 1.32-1.113 2.463-2.478 2.463zm-1.939 20.526V9.112h3.879v17.849h-3.879zm8.368 0V.9h3.878v26.06h-3.878zm29.053-17.849h4.094l-5.638 17.849h-3.807l-3.735-12.03-3.771 12.03h-3.806l-5.639-17.849h4.094l3.484 12.315 3.771-12.315h3.699l3.734 12.315 3.52-12.315zm8.906-2.677c-1.365 0-2.478-1.142-2.478-2.463a2.475 2.475 0 012.478-2.463 2.475 2.475 0 012.478 2.463c0 1.32-1.113 2.463-2.478 2.463zm-1.939 20.526V9.112h3.878v17.849h-3.878zm17.812-18.313c4.022 0 6.895 2.713 6.895 7.354V26.96h-3.878V16.394c0-2.713-1.58-4.14-4.022-4.14-2.55 0-4.561 1.499-4.561 5.14v9.567h-3.879V9.112h3.879v2.285c1.185-1.856 3.124-2.749 5.566-2.749zm25.282-6.675h3.879V26.96h-3.879v-2.57c-1.364 1.892-3.483 3.034-6.284 3.034-4.884 0-8.942-4.105-8.942-9.389 0-5.318 4.058-9.388 8.942-9.388 2.801 0 4.92 1.142 6.284 2.999V1.973zm-5.674 21.775c3.232 0 5.674-2.392 5.674-5.712s-2.442-5.711-5.674-5.711-5.674 2.392-5.674 5.711c0 3.32 2.442 5.712 5.674 5.712zm22.553 3.677c-5.423 0-9.481-4.105-9.481-9.389 0-5.318 4.058-9.388 9.481-9.388 3.519 0 6.572 1.82 8.008 4.605l-3.34 1.928c-.79-1.678-2.549-2.749-4.704-2.749-3.16 0-5.566 2.392-5.566 5.604 0 3.213 2.406 5.605 5.566 5.605 2.155 0 3.914-1.107 4.776-2.749l3.34 1.892c-1.508 2.82-4.561 4.64-8.08 4.64zm14.472-13.387c0 3.249 9.661 1.285 9.661 7.89 0 3.57-3.125 5.497-7.003 5.497-3.591 0-6.177-1.607-7.326-4.177l3.34-1.927c.574 1.606 2.011 2.57 3.986 2.57 1.724 0 3.052-.571 3.052-2 0-3.176-9.66-1.391-9.66-7.781 0-3.356 2.909-5.462 6.572-5.462 2.945 0 5.387 1.357 6.644 3.713l-3.268 1.82c-.647-1.392-1.904-2.035-3.376-2.035-1.401 0-2.622.607-2.622 1.892zm16.556 0c0 3.249 9.66 1.285 9.66 7.89 0 3.57-3.124 5.497-7.003 5.497-3.591 0-6.176-1.607-7.326-4.177l3.34-1.927c.575 1.606 2.011 2.57 3.986 2.57 1.724 0 3.053-.571 3.053-2 0-3.176-9.66-1.391-9.66-7.781 0-3.356 2.908-5.462 6.572-5.462 2.944 0 5.386 1.357 6.643 3.713l-3.268 1.82c-.646-1.392-1.903-2.035-3.375-2.035-1.401 0-2.622.607-2.622 1.892z"
+                                            fill="currentColor"
+                                        ></path>
+                                    </svg>
+                                </nuxt-link>
+                                <button
+                                    type="button"
+                                    class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 dark:ring-0 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700"
+                                    @click="isSearchBoxOpen = true"
+                                    @keydown.escape="isSearchBoxOpen = false"
+                                >
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                        aria-hidden="true"
+                                        class="mr-3 flex-none"
+                                    >
+                                        <path
+                                            d="m19 19-3.5-3.5"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                        <circle
+                                            cx="11"
+                                            cy="11"
+                                            r="6"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></circle>
+                                    </svg>
+                                    Quick search...
+                                    <span class="ml-auto pl-3 flex-none text-xs font-semibold">Ctrl K</span>
+                                </button>
+                            </div>
+                            <div class="h-8 bg-gradient-to-b form-white dark:from-slate-900"></div>
+                        </div>
+                        <ul id="sidebar-link" class="sidebar-link">
+                            <li class="relative px-6">
+                                <span v-if="$route.path == '/dashboard'" class="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                                <nuxt-link
+                                    to="/dashboard"
+                                    class="py-3 flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                >
+                                    <span class="material-icons">dashboard</span>
+                                    <span class="ml-2">Dashboard</span>
+                                </nuxt-link>
+                            </li>
+                            <li class="relative px-6">
+                                <span v-if="$route.path == '/dashboard/user'" class="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                                <nuxt-link
+                                    to="/dashboard/user"
+                                    class="py-3 flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                >
+                                    <span class="material-icons">payment</span>
+                                    <span class="ml-2">Manage Users</span>
+                                </nuxt-link>
+                            </li>
+                            <li class="relative px-6">
+                                <span v-if="$route.path == '/notification'" class="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                                <nuxt-link
+                                    to="/notification"
+                                    class="py-3 flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                >
+                                    <span class="material-icons">smart_button</span>
+                                    <span class="ml-2">Messages</span>
+                                </nuxt-link>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <div class="lg:pl-[19.5rem]">
+                    <main class="mx-auto relative z-20 pt-10 xl:max-w-none">
+                        <Nuxt />
+                    </main>
+
+                    <footer class="text-sm leading-6 mt-16">
+                        <div
+                            class="pt-10 pb-28 border-t border-slate-200 sm:flex justify-between text-slate-500 dark:border-slate-200/5"
+                        >
+                            <div class="mb-6 sm:mb-0 sm:flex">
+                                <p>
+                                    Copyright 2022 Tailwind Labs Inc.
+                                </p>
+                                <p
+                                    class="sm:ml-4 sm:pl-4 sm:border-l sm:border-slate-200 dark:sm:border-slate-200/5"
+                                >
+                                    <a class="hover:text-slate-900 dark:hover:text-slate-400" href="/brand"
+                                    >Trademark Policy</a
+                                    >
+                                </p>
+                            </div>
+                            <div class="flex space-x-10 text-slate-400 dark:text-slate-500">
+                                <a
+                                    href="https://github.com/tailwindlabs/tailwindcss"
+                                    class="hover:text-slate-500 dark:hover:text-slate-400"
+                                >
+                                    <span class="sr-only">GitHub</span>
+                                    <svg width="25" height="24" fill="currentColor">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M12.846 0c-6.63 0-12 5.506-12 12.303 0 5.445 3.435 10.043 8.205 11.674.6.107.825-.262.825-.585 0-.292-.015-1.261-.015-2.291-3.015.569-3.795-.754-4.035-1.446-.135-.354-.72-1.446-1.23-1.738-.42-.23-1.02-.8-.015-.815.945-.015 1.62.892 1.845 1.261 1.08 1.86 2.805 1.338 3.495 1.015.105-.8.42-1.338.765-1.645-2.67-.308-5.46-1.37-5.46-6.075 0-1.338.465-2.446 1.23-3.307-.12-.308-.54-1.569.12-3.26 0 0 1.005-.323 3.3 1.26.96-.276 1.98-.415 3-.415s2.04.139 3 .416c2.295-1.6 3.3-1.261 3.3-1.261.66 1.691.24 2.952.12 3.26.765.861 1.23 1.953 1.23 3.307 0 4.721-2.805 5.767-5.475 6.075.435.384.81 1.122.81 2.276 0 1.645-.015 2.968-.015 3.383 0 .323.225.707.825.585a12.047 12.047 0 0 0 5.919-4.489 12.537 12.537 0 0 0 2.256-7.184c0-6.798-5.37-12.304-12-12.304Z"
+                                        ></path>
+                                    </svg>
+                                </a>
+                                <a href="/discord" class="hover:text-slate-500 dark:hover:text-slate-400">
+                                    <span class="sr-only">Discord</span>
+                                    <svg width="23" height="24" fill="currentColor">
+                                        <path
+                                            d="M9.555 9.23c-.74 0-1.324.624-1.324 1.385S8.827 12 9.555 12c.739 0 1.323-.624 1.323-1.385.013-.761-.584-1.385-1.323-1.385Zm4.737 0c-.74 0-1.324.624-1.324 1.385S13.564 12 14.292 12c.74 0 1.324-.624 1.324-1.385s-.584-1.385-1.324-1.385Z"
+                                        ></path>
+                                        <path
+                                            d="M20.404 0H3.442c-.342 0-.68.065-.995.19a2.614 2.614 0 0 0-.843.536 2.46 2.46 0 0 0-.562.801c-.13.3-.197.62-.196.944v16.225c0 .324.066.645.196.944.13.3.321.572.562.801.241.23.527.412.843.537.315.124.653.189.995.19h14.354l-.67-2.22 1.62 1.428 1.532 1.344L23 24V2.472c0-.324-.066-.644-.196-.944a2.46 2.46 0 0 0-.562-.8A2.614 2.614 0 0 0 21.4.19a2.726 2.726 0 0 0-.995-.19V0Zm-4.886 15.672s-.456-.516-.836-.972c1.659-.444 2.292-1.428 2.292-1.428a7.38 7.38 0 0 1-1.456.707 8.67 8.67 0 0 1-1.836.517 9.347 9.347 0 0 1-3.279-.012 11.074 11.074 0 0 1-1.86-.516 7.621 7.621 0 0 1-.924-.409c-.039-.023-.076-.035-.113-.06-.027-.011-.04-.023-.052-.035-.228-.12-.354-.204-.354-.204s.608.96 2.215 1.416c-.38.456-.848.996-.848.996-2.797-.084-3.86-1.824-3.86-1.824 0-3.864 1.822-6.996 1.822-6.996 1.823-1.296 3.557-1.26 3.557-1.26l.127.145c-2.278.623-3.33 1.57-3.33 1.57s.279-.143.747-.347c1.355-.564 2.43-.72 2.873-.756.077-.012.14-.024.216-.024a10.804 10.804 0 0 1 6.368 1.129s-1.001-.9-3.153-1.526l.178-.19s1.735-.037 3.557 1.259c0 0 1.823 3.133 1.823 6.996 0 0-1.076 1.74-3.874 1.824Z"
+                                        ></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar Backdrop -->
         <div
             v-show="isSideMenuOpen"
             x-transition:enter="transition ease-in-out duration-150"
@@ -13,21 +381,9 @@
             x-transition:leave="transition ease-in-out duration-150"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-10 flex w-full h-full top-0 left-0 items-end backdrop-blur-sm bg-white/30 dark:bg-black/20 sm:items-center sm:justify-center md:hidden"
+            class="fixed inset-0 z-30 w-full h-full top-0 left-0 backdrop-blur-sm bg-white/30 dark:bg-black/20 md:hidden"
         ></div>
-        <!-- Backdrop end -->
-        <!-- Backdrop end -->
-        
-        <div class="flex flex-col flex-1 h-full overflow-hidden overflow-y-auto relative">
-            <!-- header start -->
-            <header-default/>
-            <!-- header end -->
-        
-            <main class="flex-1 max-h-full relative">
-                <Nuxt/>
-            </main>
-        </div>
-
+        <!-- Backdrop Sidebar end -->
         <!-- search modal -->
         <div
             v-show="isSearchBoxOpen"
@@ -39,7 +395,10 @@
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
         >
-            <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/2 mx-2 sm:mx-auto my-20 opacity-100 shadow-sm">
+            <div
+                class="relative sm:w-3/4 md:w-1/2 lg:w-1/2 mx-2 sm:mx-auto my-20 opacity-100 shadow-sm"
+                @click="isSearchBoxOpen = false"
+            >
                 <div
                     class="relative bg-white shadow-lg rounded-lg text-gray-900 dark:text-gray-100 dark:bg-gray-800 z-20"
                     x-transition:enter="transition transform duration-300"
@@ -52,17 +411,21 @@
                     <header class="border-b border-gray-300 dark:border-gray-700">
                         <div class="px-4 py-2 flex justify-around items-center">
                             <!-- Modal title -->
-                            <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none text-gray-500">
-                                <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
-                            </svg>
+                            <span class="material-icons">search</span>
                             <input
                                 type="text"
+                                autofocus
                                 class="py-1.5 w-full flex items-center text-sm leading-6 text-gray-400 rounded-md pl-2 pr-3 border-0 outline-0 focus:ring-0 focus:outline-none focus:border-0 focus-within:outline-0 dark:bg-gray-800"
                                 placeholder="Quick search..."
                             />
                             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
-                            <button type="button" class="border border-gray-300 dark:border-gray-700 rounded p-0.5 text-xs" @click="isSearchBoxOpen = false">ESC</button>
+                            <button
+                                type="button"
+                                class="border border-gray-300 dark:border-gray-700 rounded p-0.5 text-xs"
+                                @click="isSearchBoxOpen = false"
+                            >
+                                ESC
+                            </button>
                         </div>
                     </header>
                     <main class="px-4 py-2 max-h-96 overflow-hidden overflow-y-auto">
@@ -72,7 +435,12 @@
                     </main>
                     <footer class="flex justify-end border-t border-gray-300 dark:border-gray-700">
                         <div class="px-4 py-2">
-                            <a href="https://www.algolia.com/docsearch" class="flex items-center" target="_blank" rel="noopener noreferrer">
+                            <a
+                                href="https://www.algolia.com/docsearch"
+                                class="flex items-center"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <span class="text-xs mr-4">Search by</span>
                                 <svg width="77" height="19" class="text-blue-500">
                                     <path
@@ -87,6 +455,46 @@
                 </div>
             </div>
         </div>
+        <!-- Setting panel button -->
+        <button
+            class="flex items-center justify-center fixed z-50 right-0 p-1 text-sm font-medium text-white bg-primary top-1/2 rounded-l-md"
+            @click="isSettingsPanelOpen = true"
+        >
+            <span class="material-icons animate-spin">settings</span>
+        </button>
+
+        <!-- Settings panel -->
+        <div
+            v-show="isSettingsPanelOpen"
+            x-transition:enter="transition transform duration-300"
+            x-transition:enter-start="translate-x-full opacity-30  ease-in"
+            x-transition:enter-end="translate-x-0 opacity-100 ease-out"
+            x-transition:leave="transition transform duration-300"
+            x-transition:leave-start="translate-x-0 opacity-100 ease-out"
+            x-transition:leave-end="translate-x-full opacity-0 ease-in"
+            class="z-50 fixed inset-y-0 right-0 flex flex-col backdrop-blur bg-white/30 dark:bg-white/10 bg-white shadow-lg bg-opacity-20 w-80"
+            @click="isSettingsPanelOpen = false"
+        >
+            <div
+                class="flex items-center justify-between flex-shrink-0 pl-4 pr-2 py-4 border-b border-b-gray-300 dark:border-b-gray-800"
+            >
+                <h6 class="text-lg dark:text-white">Settings</h6>
+                <button class="rounded-md focus:outline-none focus:ring" @click="isSettingsPanelOpen = false">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="flex-1 max-h-full p-4 overflow-hidden hover:overflow-y-auto">
+                <span class="dark:text-white">Settings Content</span>
+                <!-- Settings Panel Content ... -->
+            </div>
+        </div>
+
+        <a
+            href="#"
+            class="h-8 w-8 bg-primary fixed flex items-center justify-center right-4 z-40 bottom-4 text-white dark:text-gray-300 rounded-full"
+        >
+            <span class="material-icons">arrow_upward</span>
+        </a>
     </div>
 </template>
 
@@ -96,12 +504,17 @@
         data(){
             return {
                 isSettingsPanelOpen: false,
+                loading: true,
+                isDarkMode: false,
+                isPagesMenuOpen: false,
+                isSideMenuOpen: false,
+                isProfileMenuOpen: false,
+                isNotificationsMenuOpen: false,
+                isModalOpen: false,
+                trapCleanup: null,
             }
         },
         computed:{
-            isSideMenuOpen(){
-                return this.$store.state.isSideMenuOpen;
-            },
             isSearchBoxOpen:{
                 get(){
                     return this.$store.state.isSearchBoxOpen;
@@ -110,9 +523,73 @@
                     this.$store.commit('TOGGLE_SEARCH_BOX', value);
                 }
             },
-            isDarkMode(){
-                return this.$store.state.isDarkMode;
+        },
+        mounted(){
+            this.loading = false;
+            this.isDarkMode = this.getThemeFromLocalStorage()
+            if (this.isDarkMode) {
+                document.documentElement.classList.add('dark')
             }
+        },
+        methods:{
+            async logout(){
+                try {
+                    await this.$fire.auth.signOut();
+                    window.location.href = '/';
+                } catch (e) {
+                    alert(e)
+                }
+            },
+            getThemeFromLocalStorage() {
+                // if user already changed the theme, use it
+                if (window.localStorage.getItem('isDarkMode')) {
+                    return JSON.parse(window.localStorage.getItem('isDarkMode'))
+                }
+
+                // else return their preferences
+                return !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            },
+            setThemeToLocalStorage(value) {
+                window.localStorage.setItem('isDarkMode', value)
+            },
+            toggleTheme() {
+                this.isDarkMode = !this.isDarkMode
+                document.documentElement.classList.toggle('dark')
+                this.setThemeToLocalStorage(this.isDarkMode)
+            },
+            toggleSideMenu() {
+                this.isSideMenuOpen = !this.isSideMenuOpen
+            },
+            closeSideMenu() {
+                this.isSideMenuOpen = false
+            },
+            toggleProfileMenu() {
+                this.isNotificationsMenuOpen = false
+                this.isProfileMenuOpen = !this.isProfileMenuOpen
+            },
+            closeProfileMenu() {
+                this.isProfileMenuOpen = false
+            },
+            toggleNotificationsMenu() {
+                this.isProfileMenuOpen = false
+                this.isNotificationsMenuOpen = !this.isNotificationsMenuOpen
+            },
+            closeNotificationsMenu() {
+                this.isNotificationsMenuOpen = false
+            },
+            togglePagesMenu() {
+                this.isPagesMenuOpen = !this.isPagesMenuOpen
+            },
+            closePagesMenu() {
+                this.isPagesMenuOpen = false
+            },
+            openModal() {
+                this.isModalOpen = true
+            },
+            closeModal() {
+                this.isModalOpen = false
+                this.trapCleanup = null
+            },
         }
     }
 </script>
